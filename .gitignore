@@ -1,4 +1,10 @@
 /vendor/*
-/config/app.php
+/config/app_development.php
 /tmp/*
 /logs/*
+nbproject
+.idea
+/node_modules
+/tests
+composer.lock
+/.phpintel
