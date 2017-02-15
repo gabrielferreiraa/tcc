@@ -12,7 +12,8 @@
         'AQUI BOOTSTRAP'
     ]));
     $this->append('css', $this->Html->css([
-        'fonts/fonts'
+        'fonts/fonts',
+        'front/css/login'
     ]));
 
     echo $this->fetch('css');
@@ -22,8 +23,25 @@
 <body>
 
 <div class="container">
-    <?= $this->element('menu') ?>
-    <?= $this->fetch('content') ?>
+    <section>
+        <div class="logo">
+            <img src="https://www.childrenslearninginstitute.org/assets/aoes/aoe-logo.png" width="220" />
+        </div>
+        <div class="inputs">
+            <div class="email">
+                <input type="text" id="email" autocomplete="off" required/>
+                <label for="email">Email</label>
+            </div>
+            <div class="password">
+                <input type="password" id="password" autocomplete="off" required/>
+                <label for="password">Password</label>
+            </div>
+        </div>
+        <div class="buttons">
+            <button>login</button>
+            <a href="javascript:void(0)">esqueci minha senha</a>
+        </div>
+    </section>
 </div>
 
 <?php
