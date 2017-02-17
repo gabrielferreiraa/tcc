@@ -1,0 +1,17 @@
+@import 'default';
+
+.btn-padrao{
+  background-color: transparent;
+  border-radius: 2px;
+  padding: 10px;
+  border: 1px solid $red-dark;
+  color: $red-dark;
+  text-decoration: none;
+  font-size: 12px;
+  transition: all 150ms ease;
+  &:hover{
+    background-color: $red-dark;
+    color: #fff;
+    text-decoration: none;
+  }
+}

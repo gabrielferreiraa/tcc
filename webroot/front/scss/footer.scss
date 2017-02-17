@@ -1,0 +1,19 @@
+@import 'default';
+
+.footer-social-media{
+  height: 75px;
+  background-color: $grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  .icons{
+    display: inline-block;
+    .icons-item{
+      list-style-type: none;
+      a{
+        color: $grey-light;
+      }
+    }
+  }
+}

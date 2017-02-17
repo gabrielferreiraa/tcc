@@ -220,7 +220,7 @@ return [
     'Datasources' => [
         'default' => [
             'className' => 'Cake\Database\Connection',
-            'driver' => 'Cake\Database\Driver\Postgres',
+            'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
             'host' => 'localhost',
             /**
@@ -229,8 +229,8 @@ return [
              * the following line and set the port accordingly
              */
             //'port' => 'non_standard_port_number',
-            'username' => 'postgres',
-            'password' => '1234',
+            'username' => 'root',
+            'password' => '',
             'database' => 'tcc',
             'encoding' => 'utf8',
             'timezone' => 'UTC',

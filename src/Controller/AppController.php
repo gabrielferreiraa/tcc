@@ -48,7 +48,7 @@ class AppController extends Controller
                     ],
                     'fields' => ['username' => 'email'],
                     'finder' => 'auth',
-                    'userModel' => 'Participants'
+                    'userModel' => 'Users'
                 ],
             ],
             'storage' => 'Session'

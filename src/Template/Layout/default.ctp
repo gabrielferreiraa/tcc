@@ -9,10 +9,13 @@
 
     <?php
     $this->prepend('css', $this->Html->css([
-        'AQUI BOOTSTRAP'
+        'dist/css/bootstrap.min',
+        'dist/css/messenger',
+        'dist/css/messenger-theme-flat'
     ]));
     $this->append('css', $this->Html->css([
-        'fonts/fonts'
+        'fonts/fonts',
+        'front/css/style-default',
     ]));
 
     echo $this->fetch('css');
@@ -22,7 +25,6 @@
 <body>
 
 <div class="container">
-    <?= $this->element('menu') ?>
     <?= $this->fetch('content') ?>
 </div>
 
@@ -32,11 +34,14 @@ echo 'var webroot = "' . $this->request->webroot . '";';
 $this->Html->scriptEnd();
 
 echo $this->prepend('script', $this->Html->script([
-    'JQUERY E BOOTSTRAP'
+    'dist/js/jquery-3.1.1.min',
+    'dist/js/bootstrap.min',
+    'dist/js/messenger.min',
+    'dist/js/messenger-theme-flat'
 ]));
 
 echo $this->append('script', $this->Html->script([
-
+    'front/js/formLogin'
 ]));
 
 echo $this->fetch('script');
