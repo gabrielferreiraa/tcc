@@ -1,19 +1,53 @@
 @import 'default';
 
+%rotate{
+  transform: rotate(360deg);
+}
+
 .footer-social-media{
-  height: 75px;
+  height: 60px;
   background-color: $grey;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
   .icons{
-    display: inline-block;
+    display: flex;
     .icons-item{
       list-style-type: none;
+      margin: 10px;
       a{
         color: $grey-light;
+        .fa-twitter, .fa-facebook, .fa-linkedin{
+          transition: all 300ms ease;
+          font-size: 2em;
+        }
+        .fa-twitter{
+          &:hover{
+            color: $twitter-color;
+            @extend %rotate;
+          }
+        }
+        .fa-facebook{
+          &:hover{
+            color: $facebook-color;
+            @extend %rotate;
+          }
+        }
+        .fa-linkedin{
+          &:hover{
+            color: $linkedin-color;
+            @extend %rotate;
+          }
+        }
       }
+    }
+  }
+}
+
+@media screen and (max-width:768px){
+  .footer-social-media{
+    .icons{
+      padding: 0 !important;
     }
   }
 }

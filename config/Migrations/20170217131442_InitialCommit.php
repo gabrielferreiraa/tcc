@@ -5,20 +5,6 @@ class InitialCommit extends AbstractMigration
 {
     public function up () {
         $sql="
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHproject_users_fixedproject_users_fixedproject_skillsproject_skillsskillsECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `tcc` DEFAULT CHARACTER SET utf8 ;
-USE `tcc` ;
-
 -- -----------------------------------------------------
 -- Table `states`
 -- -----------------------------------------------------

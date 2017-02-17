@@ -1,6 +1,6 @@
 $(document).ready(function(){
     Messenger.options = {
-        extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+        extraClasses: 'messenger-fixed messenger-on-top messenger-on-right',
         theme: 'flat'
     };
 });
