@@ -47,6 +47,7 @@ Since this skeleton is a starting point for your application and various files w
 
 ## Configuration
 
+Change PHP Version on Cloud 9 - https://gist.github.com/lirantal/d3ff7c2b11d83b451f40c17758f43f9b
 Read and edit `config/app.php` and setup the `'Datasources'` and any other
 configuration relevant for your application.
 
