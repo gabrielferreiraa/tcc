@@ -51,6 +51,8 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->connect('/', ['controller' => 'Home', 'action' => 'index', 'home']);
     $routes->connect('/login', ['controller' => 'Home', 'action' => 'login']);
+    $routes->connect('/contratante', ['controller' => 'Users', 'action' => 'registerContractor']);
+    $routes->connect('/freelancer', ['controller' => 'Users', 'action' => 'registerFreelancer']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.

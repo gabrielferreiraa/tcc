@@ -11,7 +11,8 @@
     $this->prepend('css', $this->Html->css([
         'dist/css/bootstrap.min',
         'dist/css/messenger',
-        'dist/css/messenger-theme-flat'
+        'dist/css/messenger-theme-flat',
+        'dist/css/font-awesome.min'
     ]));
     $this->append('css', $this->Html->css([
         'fonts/fonts',
@@ -37,11 +38,12 @@ echo $this->prepend('script', $this->Html->script([
     'dist/js/jquery-3.1.1.min',
     'dist/js/bootstrap.min',
     'dist/js/messenger.min',
-    'dist/js/messenger-theme-flat'
+    'dist/js/messenger-theme-flat',
+    'front/js/default'
 ]));
 
 echo $this->append('script', $this->Html->script([
-    'front/js/formLogin'
+//    'front/js/formLogin'
 ]));
 
 echo $this->fetch('script');
