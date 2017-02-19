@@ -144,4 +144,32 @@ class UsersTable extends Table
 
         return $rules;
     }
+
+    public function getTypeUser($type, $ab = false){
+        if($ab){
+            return $type == 'freelancer' ? 'f' : 'c';
+        } else {
+            return $type == 'freelancer' ? $type : 'contratante';
+        }
+    }
+
+    public function isValidEmail ($email, $type){
+        $user = $this->find()
+            ->hydrate(false)
+            ->select([
+                'email'
+            ])
+            ->where([
+                'type' => $type,
+                'email' => $email
+            ])
+            ->limit(1)
+            ->first();
+
+        if(count($user)){
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

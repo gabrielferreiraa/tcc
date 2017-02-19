@@ -1,0 +1,87 @@
+@import 'default';
+
+body{
+  background: url('../img/background.jpg') no-repeat;
+  background-size: cover;
+}
+
+.section-form{
+  min-height: 500px;
+  background-color: #fff;
+  max-width: 600px;
+  border-radius: 2px;
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+  box-shadow: 1px 2px 5px rgba(0,0,0,0.3);
+  padding-top: 20px;
+  transition: all 250ms ease;
+  .welcome-text{
+    font-family: $font;
+    color: $grey;
+    margin-bottom: 30px;
+  }
+  .big-input-user{
+    border: 2px solid $red-dark;
+    text-align: center;
+    color: $grey;
+    height: 75px;
+    outline: none;
+    border-radius: 2px;
+    background-color: transparent;
+    width: 100%;
+    font-family: $font;
+    font-size: 1.6em;
+    margin: 15px auto;
+    &:disabled{
+      background-color: rgba(228, 228, 228, 0.43);
+    }
+  }
+  .create-account-div{
+    opacity: 0;
+    transition: opacity 150ms ease;
+    .create-account{
+      color: $red-dark;
+      font-family: $font-bold;
+      transition: color 150ms ease;
+      text-decoration: none;
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      width: 250px;
+      transform: translateX(-125px);
+      &:after{
+        content: '';
+        width: 100%;
+        height: 1px;
+        position: absolute;
+        background: $grey;
+        left: 0;
+        bottom: -2px;
+        transform-origin: 0%;
+        transition: transform 150ms ease;
+        transform: scale(0);
+      }
+      &:hover{
+        color: $grey;
+        text-decoration: none;
+        &:after{
+          transform: scale(1);
+        }
+      }
+    }
+  }
+  .rule-inputs{
+    font-family: $font-italic;
+  }
+}
+
+.required-input-ok{
+  transition: all 200ms ease;
+  border: 2px solid rgb(14, 160, 127)!important;
+}
+
+.finished-form{
+  transform: translateY(-100%);
+  opacity: 0;
+}

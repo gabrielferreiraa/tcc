@@ -47,4 +47,8 @@ class HomeController extends AppController
         $this->set(compact('result'));
         $this->set('_serialize', ['result']);
     }
+
+    public function signOut() {
+        return $this->redirect($this->Auth->logout());
+    }
 }

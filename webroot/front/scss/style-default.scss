@@ -1,5 +1,7 @@
 @import 'default';
 
+$big-input-width: 550px;
+
 .btn-padrao{
   background-color: transparent;
   border-radius: 2px;
@@ -8,10 +10,59 @@
   color: $red-dark;
   text-decoration: none;
   font-size: 12px;
+  font-family: $font;
   transition: all 150ms ease;
   &:hover{
     background-color: $red-dark;
     color: #fff;
     text-decoration: none;
+  }
+}
+
+.control-page-div{
+  margin-top: 10px;
+  color: $grey;
+  font-family: $font;
+  position: relative;
+  .control-page{
+    color: $grey;
+    text-decoration: none;
+    font-family: $font-bold;
+    transition: all 200ms ease;
+    &:hover{
+      margin-left: 65px;
+      &:before{
+        content: '\f190  voltar a ';
+        font-family: $font-bold, $icon;
+        position: absolute;
+        left: 0;
+      }
+    }
+  }
+}
+
+.big-input-div{
+  span{
+    background: transparent;
+    min-width: 53px;
+    border: none;
+    position: absolute;
+    .fa{
+      line-height: 1.2;
+      font-size: 1.8em;
+      color: $red-dark;
+    }
+  }
+  .big-input{
+    background-color: transparent;
+    border: 2px solid $red-dark;
+    border-radius: 5px;
+    height: 60px;
+    width: $big-input-width;
+    padding: 10px 50px 10px 60px;
+    font-size: 1.5em;
+    outline: none;
+    font-family: $font-bold;
+    color: $grey;
   }
 }

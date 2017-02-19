@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Entity;
 
+use App\Auth\Sha512PasswordHasher;
 use Cake\ORM\Entity;
 
 /**
@@ -49,12 +50,8 @@ class User extends Entity
         'id' => false
     ];
 
-    /**
-     * Fields that are excluded from JSON versions of the entity.
-     *
-     * @var array
-     */
-    protected $_hidden = [
-        'password'
-    ];
+    protected function _setPassword($password) {
+        $hash = new Sha512PasswordHasher();
+        return $hash->hash($password);
+    }
 }

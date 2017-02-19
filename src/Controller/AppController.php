@@ -47,7 +47,6 @@ class AppController extends Controller
                         'className' => 'Sha512',
                     ],
                     'fields' => ['username' => 'email'],
-                    'finder' => 'auth',
                     'userModel' => 'Users'
                 ],
             ],

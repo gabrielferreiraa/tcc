@@ -2,7 +2,6 @@ $(document).ready(function (e) {
     var logar = function () {
         const url = webroot + 'home/sign-in';
         const data = $('#formLogin').serializeArray();
-        console.log(url);
 
         $.post(url, data, function (json) {
             if (json.result.status === 'success') {
@@ -11,6 +10,9 @@ $(document).ready(function (e) {
                     type: 'success',
                     showCloseButton: true
                 });
+                setTimeout(function(){
+                    window.location = webroot + 'projetos';
+                }, 1000);
             } else {
                 Messenger().post({
                     message: json.result.title,

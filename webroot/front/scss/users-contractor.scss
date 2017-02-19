@@ -1,6 +1,42 @@
 @import 'default';
+@import 'style-default';
 
 body{
   background: url('../img/contractor.jpg') no-repeat;
   background-size: cover;
+}
+
+.big-input-div{
+  margin-top: 15%;
+}
+
+.next-step-div{
+  position: relative;
+  width: $big-input-width;
+  .next-step{
+    position: absolute;
+    right: 0;
+    color: $red-dark;
+    font-family: $font;
+    transition: transform 350ms ease;
+    .fa{
+      margin: 5px;
+      font-size: 1.2em;
+      transition: transform 350ms ease;
+    }
+    &:hover{
+      text-decoration: none;
+      color: $grey;
+      transform: translateX(-3px);
+      .fa{
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
+
+.register-contractor{
+  font-family: $font;
+  color: $grey;
+  margin-top: 10%;
 }
