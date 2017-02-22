@@ -40,11 +40,11 @@ echo $this->prepend('script', $this->Html->script([
     'dist/js/bootstrap.min',
     'dist/js/messenger.min',
     'dist/js/messenger-theme-flat',
-    'front/js/default'
+    'front/js-min/default'
 ]));
 
 echo $this->append('script', $this->Html->script([
-    'front/js/formLogin'
+    'front/js-min/formLogin'
 ]));
 
 echo $this->fetch('script');

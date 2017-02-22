@@ -2,7 +2,6 @@ const gulp = require('gulp');
 const gutil = require('gulp-util');
 const uglify = require('gulp-uglify');
 const watch = require('gulp-watch');
-const imagemin = require('gulp-imagemin');
 const changed = require('gulp-changed');
 const sass = require('gulp-sass');
 const cleanCss = require('gulp-clean-css');
@@ -17,13 +16,13 @@ gulp.task('doc', function () {
 
 gulp.task('min:js', function () {
     return gulp
-        .src(['src/js/**/*.js'])
+        .src(['./webroot/front/js/**/*.js'])
         .pipe(uglify())
-        .pipe(gulp.dest('build/js'));
+        .pipe(gulp.dest('./webroot/front/js-min'));
 });
 
-gulp.task('watch:min:js', function () {
-    gulp.watch('src/js/**/*.js', function (event) {
+gulp.task('watch:js', function () {
+    gulp.watch('./webroot/front/js/**/*.js', function (event) {
         gutil.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
         gulp.run('min:js');
     });

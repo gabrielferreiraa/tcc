@@ -26,6 +26,6 @@ echo $this->append('css', $this->Html->css([
     'front/css/users-contractor'
 ]));
 echo $this->append('script', $this->Html->script([
-    'front/js/formUsers'
+    'front/js-min/formUsers'
 ]));
 ?>

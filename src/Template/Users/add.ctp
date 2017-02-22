@@ -38,6 +38,6 @@ echo $this->append('css', $this->Html->css([
     'front/css/user-add'
 ]));
 echo $this->append('script', $this->Html->script([
-    'front/js/formUsers'
+    'front/js-min/formUsers'
 ]));
 ?>

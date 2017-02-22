@@ -1,0 +1,1 @@
+$(document).ready(function(){$(".btn-more-skills").click(function(){$("#skills").modal("show")}),$("#input-search-skills").keyup(function(){var e=$(this).val().toUpperCase(),l=$(".wrapper").find(".check-type-modal");l.map(function(l,n){n.querySelector(".input-checkbox").value.toUpperCase().indexOf(e)>-1?n.style.display="":n.style.display="none"})})});

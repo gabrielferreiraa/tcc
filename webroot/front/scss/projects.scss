@@ -7,6 +7,7 @@ body {
 .content-wrapper {
   margin-left: 300px;
   background-color: #fff;
+  min-height: 300px;
   .content {
     padding: 15px;
     .search-project {
@@ -45,6 +46,15 @@ body {
         .fa {
           transform: scale(1);
         }
+      }
+    }
+    .result-search{
+      font-family: $font;
+      float: right;
+      margin-top: 10px;
+      color: $grey;
+      span{
+        font-family: $font-bold;
       }
     }
   }
