@@ -1,0 +1,96 @@
+@import 'default';
+
+%menu-default-style {
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  transition: all 150ms ease;
+  font-size: .9em;
+  &:before {
+    font-family: $icon;
+    display: block;
+    font-size: 1.2em;
+    transition: all 150ms ease;
+  }
+  &:hover {
+    color: $yellow-light;
+    &:before{
+      transform: translateY(-2px);
+    }
+  }
+  &:hover,
+  &:visited,
+  &:focus {
+    background-color: transparent;
+  }
+}
+
+@mixin generate-menu($iconMenu) {
+  @extend %menu-default-style;
+  &:before {
+    content: '#{$iconMenu}';
+  }
+}
+
+.header-site {
+  height: 65px;
+  background-color: $red-dark;
+  position: relative;
+  .container {
+    .menu-top {
+      .navbar-nav {
+        float: right;
+        li{
+          height: 65px;
+          display: flex;
+          align-items: center;
+        }
+        .li-item {
+          margin-top: -1px;
+          font-family: $font-light;
+          transition: all 250ms ease;
+          &:hover {
+            background-color: #441E2C;
+          }
+          .projects {
+            @include generate-menu('\f121');
+          }
+          .find-job {
+            @include generate-menu('\f1e5');
+          }
+          .create-project{
+            @include generate-menu('\f097');
+          }
+          .find-projects{
+            @include generate-menu('\f0c9');
+          }
+          .messages {
+            @include generate-menu('\f0e6');
+          }
+          .my-profile {
+            @include generate-menu('\f007');
+          }
+          .sign-out{
+            @include generate-menu('\f08b');
+          }
+        }
+        .li-picture {
+          margin-left: 15px;
+          span{
+            color: #fff;
+            font-family: $font-light;
+            .first-name{
+              text-transform: uppercase;
+            }
+          }
+          .profile-picture {
+            height: 50px;
+            width: 50px;
+            margin-right: 10px;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
+}

@@ -15,12 +15,12 @@ class HomeController extends AppController
 
     public function index()
     {
-
+        $this->viewBuilder()->layout('out');
     }
 
     public function login()
     {
-        $this->viewBuilder()->layout(false);
+        $this->viewBuilder()->layout('out');
     }
 
     public function signIn(){

@@ -1,0 +1,251 @@
+@import 'default';
+
+/* Placeholders */
+%style-default {
+  height: 18px;
+  width: 18px;
+  border: 1px solid $red-dark;
+  border-radius: 2px;
+  transition: all 250ms linear;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  will-change: transform, opacity;
+}
+
+%after-default {
+  will-change: transform, opacity;
+  font-family: $icon;
+  opacity: 0;
+  color: white;
+  transition: transform 250ms ease;
+  transform: rotate(180deg);
+}
+
+%check-default-style{
+  background: $red-dark;
+  border-radius: 2px;
+  border: 1px solid $red-dark;
+  &:after {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+}
+
+/* Mixins */
+
+@mixin check-default($a) {
+  display: none;
+  &:checked {
+    + .wrap-#{$a} {
+      @extend %check-default-style;
+    }
+  }
+}
+
+.left-bar {
+  background-color: $grey-double-light;
+  width: 300px;
+  min-height: 100%;
+  position: absolute;
+
+  /* DEV AREA  */
+
+  .dev-area {
+    width: 100%;
+    text-align: center;
+    input[type="radio"] {
+      display: none;
+      &:checked {
+        + .box {
+          background-color: $grey;
+          span {
+            color: #fff;
+            transform: translateY(45px);
+            font-family: $font-bold;
+            &:before {
+              transform: translateY(0px);
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+    .box {
+      width: calc(150px - 2.5px);
+      height: 150px;
+      background-color: $grey-light;
+      color: #fff;
+      transition: all 250ms ease;
+      will-change: transition;
+      display: inline-block;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      &:active {
+        transform: translateY(5px);
+      }
+      &:hover{
+        background-color: #5F5F5F;
+      }
+      span {
+        position: absolute;
+        transform: translate(0, 30px);
+        left: 0;
+        right: 0;
+        transition: all 300ms ease;
+        font-size: 1.5em;
+        user-select: none;
+        color: #fff;
+        font-family: $font-light;
+        font-weight: normal;
+        &:before {
+          font-size: 1.2em;
+          font-family: $icon;
+          display: block;
+          transform: translateY(-80px);
+          opacity: 0;
+          transition: all 300ms ease-in-out;
+          color: #fff;
+        }
+      }
+    }
+    .front-end {
+      span {
+        &:before {
+          font-weight: normal;
+          content: '\f121';
+        }
+      }
+    }
+    .back-end {
+      span {
+        &:before {
+          font-weight: normal;
+          content: '\f0f4';
+        }
+      }
+    }
+  }
+
+  /* SKILLS */
+
+  .skills{
+    border-top: 1px solid #c6c6c6;
+    width: 90%;
+    margin: 10px auto;
+    .wrapper{
+      justify-content: space-between;
+      .check-type{
+        width: calc(120px - 20px);
+      }
+    }
+    .btn-more-skills{
+      margin: 10px auto;
+      display: block;
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+  }
+
+  /* REGIONS */
+  .region{
+    border-top: 1px solid #c6c6c6;
+    width: 90%;
+    margin: 10px auto;
+    .wrapper{
+      margin-top: 20px;
+      margin-bottom: 20px;
+      .select{
+        width: 100%;
+      }
+      select{
+        width: 100%;
+        height: 40px;
+        background-color: transparent;
+        border: 1px solid $red-dark;
+        border-radius: 2px;
+        font-family:$font;
+        outline: none;
+        padding-left: 10px;
+      }
+    }
+  }
+
+  /* BUDGETS */
+  .budget{
+    border-top: 1px solid #c6c6c6;
+    width: 90%;
+    margin: 10px auto;
+    .wrapper{
+      .check-type{
+        width: 100%;
+      }
+    }
+  }
+
+
+  /* GLOBALS */
+
+  .wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    .check-type{
+      font-family: $font;
+      font-weight: normal;
+      display: flex;
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: 10px;
+      color: $red-dark;
+      .input-checkbox {
+        @include check-default('check');
+      }
+      .input-radio {
+        @include check-default('radio');
+      }
+    }
+  }
+  .wrap-check {
+    @extend %style-default;
+    &:hover {
+      border: 1px solid #ccc;
+    }
+    &:after {
+      content: '\f00c';
+      @extend %after-default;
+    }
+  }
+
+  .wrap-radio {
+    @extend %style-default;
+    border-radius: 50%;
+    &:hover {
+      border: 1px solid #ccc;
+    }
+    &:after {
+      content: '\f00c';
+      @extend %after-default;
+    }
+  }
+
+  .title-item{
+    font-family: $font;
+    color: $grey;
+  }
+
+  .wrapper{
+    label{
+      font-family: $font;
+      font-weight: normal;
+      color:$grey;
+    }
+  }
+
+  .btn-filter{
+    margin: 10px auto;
+    display: block;
+  }
+}

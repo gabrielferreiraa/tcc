@@ -52,7 +52,7 @@ class AppController extends Controller
             ],
             'storage' => 'Session'
         ]);
-        $this->Auth->sessionKey = 'Auth.Participant';
+        $this->Auth->sessionKey = 'Auth.User';
     }
 
     /**

@@ -1,0 +1,60 @@
+@import 'default';
+
+body {
+  min-height: 950px;
+}
+
+.content-wrapper {
+  margin-left: 300px;
+  background-color: #fff;
+  .content {
+    padding: 15px;
+    .search-project {
+      height: 60px;
+      background-color: $grey-double-light;
+      outline: none;
+      border: none;
+      padding-left: 15px;
+      width: 100%;
+      font-family: $font;
+      font-size: 1.3em;
+      color: $red-dark;
+      box-sizing: border-box;
+      &:focus {
+        border: 1px solid $grey-light;
+      }
+    }
+    .btn-search {
+      height: 60px;
+      width: 60px;
+      border-radius: 0;
+      outline: none;
+      margin-left: 0;
+      .fa {
+        font-size: 1.5em;
+        color: #fff;
+        transition: all 300ms ease;
+      }
+      &:hover {
+        .fa {
+          transform: scale(1.1);
+          color: $red-dark;
+        }
+      }
+      &:active {
+        .fa {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+}
+
+.input-search-skills{
+  height: 40px;
+  width: 100%;
+  font-family: $font;
+  outline: none;
+  padding-left: 15px;
+  color: $grey;
+}

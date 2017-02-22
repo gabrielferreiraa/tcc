@@ -54,6 +54,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/contratante', ['controller' => 'Users', 'action' => 'registerContractor']);
     $routes->connect('/freelancer', ['controller' => 'Users', 'action' => 'registerFreelancer']);
     $routes->connect('/projetos', ['controller' => 'Projects', 'action' => 'index']);
+    $routes->connect('/sair', ['controller' => 'Home', 'action' => 'signOut']);
 
 
     /**

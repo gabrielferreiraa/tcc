@@ -7,11 +7,15 @@ $big-input-width: 550px;
   border-radius: 2px;
   padding: 10px;
   border: 1px solid $red-dark;
+  outline: none;
   color: $red-dark;
   text-decoration: none;
   font-size: 12px;
   font-family: $font;
   transition: all 150ms ease;
+  &:active{
+    outline: none;
+  }
   &:hover{
     background-color: $red-dark;
     color: #fff;
@@ -64,5 +68,32 @@ $big-input-width: 550px;
     outline: none;
     font-family: $font-bold;
     color: $grey;
+  }
+}
+
+/* MODAL */
+.modal-dialog {
+  min-height: 100%;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: transform 150ms ease !important;
+  .modal-content {
+    border-radius: 0;
+    width: 500px;
+    .modal-header {
+      background-color: $red-dark;
+      color: #fff;
+      font-family: $font-light;
+      text-align: center;
+    }
+  }
+}
+
+@media screen and(max-width: 768px){
+  .modal-dialog{
+    .modal-content{
+      width: 100%;
+    }
   }
 }

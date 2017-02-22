@@ -17,16 +17,19 @@ class UsersController extends AppController
 
     public function registerContractor()
     {
+        $this->viewBuilder()->layout('out');
         $this->render('contractor');
     }
 
     public function registerFreelancer()
     {
+        $this->viewBuilder()->layout('out');
         $this->render('freelancer');
     }
 
     public function add($base64)
     {
+        $this->viewBuilder()->layout('out');
         list($type, $email) = explode('#', base64_decode($base64));
         $typeText = $this->Users->getTypeUser($type);
 
@@ -43,6 +46,7 @@ class UsersController extends AppController
                 $user = $this->Users->newEntity();
                 $user = $this->Users->patchEntity($user, $data);
                 $user->type = $this->Users->getTypeUser($data['type'], true);
+                $user->created_at = date('Y-m-d H:i:s');
                 if($this->Users->save($user)){
                     $userName = explode(' ', $user->name);
                     $result = ['status' => 'success', 'text' => 'Seja bem vindo(a) ' . $userName[0]];

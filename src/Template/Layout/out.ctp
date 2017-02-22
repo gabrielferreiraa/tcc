@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><?= $this->request->session()->read('Campaign.name') ?></title>
+    <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <?php
@@ -16,7 +17,7 @@
     $this->append('css', $this->Html->css([
         'fonts/fonts',
         'front/css/style-default',
-        'front/css/background-style-default'
+        'front/css/login'
     ]));
 
     echo $this->fetch('css');
@@ -24,9 +25,8 @@
 
 </head>
 <body>
-<?= $this->element('header'); ?>
+<?= $this->Flash->render() ?>
 <div class="container">
-    <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
 </div>
 
@@ -44,7 +44,7 @@ echo $this->prepend('script', $this->Html->script([
 ]));
 
 echo $this->append('script', $this->Html->script([
-//    'front/js/formLogin'
+    'front/js/formLogin'
 ]));
 
 echo $this->fetch('script');

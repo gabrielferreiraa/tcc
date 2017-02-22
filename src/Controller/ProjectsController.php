@@ -10,42 +10,22 @@ use App\Controller\AppController;
  */
 class ProjectsController extends AppController
 {
-
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
     public function index()
     {
         $projects = $this->paginate($this->Projects);
 
-        $this->set(compact('projects'));
-        $this->set('_serialize', ['projects']);
+        $regions = [
+            'centro-oeste' => 'Centro-Oeste',
+            'nordeste' => 'Nordeste',
+            'norte' => 'Norte',
+            'sul' => 'Sul',
+            'sudeste' => 'Sudeste'
+        ];
+
+        $this->set(compact('projects', 'regions'));
+        $this->set('_serialize', ['projects', 'regions']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Project id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $project = $this->Projects->get($id, [
-            'contain' => []
-        ]);
-
-        $this->set('project', $project);
-        $this->set('_serialize', ['project']);
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
         $project = $this->Projects->newEntity();
