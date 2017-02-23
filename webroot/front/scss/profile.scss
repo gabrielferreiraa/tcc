@@ -1,0 +1,38 @@
+@import 'default';
+
+.profile-informations{
+  background-color: #fff;
+  width: 250px;
+  min-height: 100%;
+  position: absolute;
+  .div-scrollTop{
+    position: relative;
+    text-align: center;
+    .img-user{
+      width: 100%;
+      min-height: 250px;
+      object-fit: cover;
+    }
+    .name-user{
+      font-family: $font;
+      color: $red-dark;
+      margin: 10px;
+    }
+    .description{
+      font-family: $font-italic;
+      color: $grey;
+      margin: 15px;
+    }
+    .btn-edit{
+      a{
+        margin-top: 15px;
+      }
+    }
+  }
+}
+
+.content-wrapper{
+  margin-left: 250px;
+  background-color: #fff;
+  min-height: 250px;
+}

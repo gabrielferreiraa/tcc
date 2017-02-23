@@ -62,4 +62,11 @@ class UsersController extends AppController
         $this->set('_serialize', ['result']);
     }
 
+    public function view(){
+        $this->render('profile');
+    }
+
+    public function edit(){
+
+    }
 }

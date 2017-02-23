@@ -12,7 +12,8 @@
     font-size: 1.2em;
     transition: all 150ms ease;
   }
-  &:hover {
+  &:hover,
+  &.li-item-active{
     color: $yellow-light;
     &:before{
       transform: translateY(-2px);
@@ -49,7 +50,8 @@
           margin-top: -1px;
           font-family: $font-light;
           transition: all 250ms ease;
-          &:hover {
+          &:hover,
+          &.li-item-active{
             background-color: #441E2C;
           }
           .projects {

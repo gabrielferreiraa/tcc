@@ -5,6 +5,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 class AppController extends Controller
 {
@@ -16,17 +17,16 @@ class AppController extends Controller
         $this->loadComponent('Flash');
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Token');
-        $this->loadComponent('PremioIdeal');
 
         parent::initialize();
         Configure::write('App.jsBaseUrl', '/');
         Configure::write('App.cssBaseUrl', '/');
 
-
-        $this->loadComponent('File');
         $this->loadComponent('Util');
         $this->loadComponent('Flash');
         $this->loadComponent('RequestHandler');
+
+        $this->Users = TableRegistry::get('Users');
 
         $this->loadComponent('Auth', [
             'loginAction' => [
@@ -53,6 +53,12 @@ class AppController extends Controller
             'storage' => 'Session'
         ]);
         $this->Auth->sessionKey = 'Auth.User';
+
+        $userPicture = empty($this->request->session()->read('Auth.User.picture')) ? $this->request->webroot . 'front/img/user-default.png' : $this->request->session()->read('Auth.User.picture');
+        $userName = $this->request->session()->read('Auth.User.name');
+        $userType = $this->Users->getTypeUser($this->request->session()->read('Auth.User.type'));
+        $this->set(compact('userPicture', 'userName', 'userType'));
+        $this->set('_serialize', ['userPicture', 'userName', 'userType']);
     }
 
     /**
