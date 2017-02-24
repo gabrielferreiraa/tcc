@@ -31,6 +31,7 @@ class UsersController extends AppController
     {
         $this->viewBuilder()->layout('out');
         list($type, $email) = explode('#', base64_decode($base64));
+        $type = $this->Users->getTypeUser($type, true);
         $typeText = $this->Users->getTypeUser($type);
 
         $this->set(compact('email', 'type', 'typeText'));
@@ -45,8 +46,9 @@ class UsersController extends AppController
             if($this->Users->isValidEmail($data['email'], $this->Users->getTypeUser($data['type'], true))){
                 $user = $this->Users->newEntity();
                 $user = $this->Users->patchEntity($user, $data);
-                $user->type = $this->Users->getTypeUser($data['type'], true);
+                $user->type = $data['type'];
                 $user->created_at = date('Y-m-d');
+         
                 if($this->Users->save($user)){
                     $userName = explode(' ', $user->name);
                     $result = ['status' => 'success', 'text' => 'Seja bem vindo(a) ' . $userName[0]];
@@ -69,7 +71,7 @@ class UsersController extends AppController
                 'email' => $this->request->session()->read('Auth.User.email')
             ])
             ->first();
-
+            
         $null = 0;
         $complete = 0;
         foreach($user as $field){
@@ -83,6 +85,8 @@ class UsersController extends AppController
         $projectsUser = [];
         $skillsUser = [];
         $percentageProfile = ($complete/$null)*100;
+        
+        $this->set('user', $user);
         $this->set('skills', $skillsUser);
         $this->set('projectsUser', $projectsUser);
         $this->set('percentageProfile', round($percentageProfile));

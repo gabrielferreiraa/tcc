@@ -1,4 +1,5 @@
 <aside>
+    <a href="#" class="btn-toggle hidden-lg hidden-sm hidden-md"><i class="fa fa-angle-right"></i></a>
     <section class="profile-informations">
         <div class="div-scrollTop">
             <img src="<?= $userPicture ?>" alt="<?= $userName ?>" title="<?= $userName ?>" class="img-responsive img-user"/>
@@ -11,7 +12,7 @@
             </div>
             <div class="informations-user">
                 <ul class="list-i">
-                    <li><i class="fa fa-clock-o"></i><?= ucfirst($userType) ?> desde <?= $this->request->session()->read('Auth.User.created_at')->i18nFormat('dd/MM/yyyy'); ?></li>
+                    <li><i class="fa fa-clock-o"></i><?= ucfirst($userType) ?> desde <?= $user['created_at']->i18nFormat('dd/MM/yyyy'); ?></li>
                 </ul>
             </div>
         </div>

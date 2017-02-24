@@ -1,7 +1,7 @@
 <?php
 $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
 ?>
-<?= $this->element('Profile/drawer'); ?>
+<?= $this->element('Profile/drawer', ['user' => $user]); ?>
 <div class="content-wrapper">
     <section class="content">
         <?php if ($percentageProfile < 50): ?>
@@ -23,5 +23,8 @@ $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
 <?php
 echo $this->append('css', $this->Html->css([
     'front/css/profile'
+]));
+echo $this->append('script', $this->Html->script([
+    'front/js-min/profile'
 ]));
 ?>

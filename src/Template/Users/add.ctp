@@ -10,7 +10,7 @@
     <section class="section-form">
         <h1 class="welcome-text">Estamos quase lá...</h1>
         <?= $this->Form->create(null, ['id' => 'formUsers', 'autocomplete' => 'off']) ?>
-        <input type="hidden" value="<?= $typeText ?>" name="type"/>
+        <input type="hidden" value="<?= $type ?>" name="type"/>
         <div class="col-md-12">
             <input type="text" value="<?= $email ?>" class="big-input-user" name="email" id="email" readonly/>
         </div>

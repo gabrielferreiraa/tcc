@@ -1,0 +1,1 @@
+$(document).ready(function(){function o(){$(this).toggleClass("open-drawer"),$(".profile-informations").toggleClass("open-drawer")}$(document).on("click",".btn-toggle",o)});

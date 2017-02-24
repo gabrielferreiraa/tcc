@@ -124,7 +124,6 @@ class UsersTable extends Table
             ->allowEmpty('type');
 
         $validator
-            ->date('created_at')
             ->allowEmpty('created_at');
 
         return $validator;
