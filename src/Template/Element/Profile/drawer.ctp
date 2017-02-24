@@ -9,6 +9,11 @@
             <div class="btn-edit">
                 <a href="<?= $this->Url->build('/editar-perfil', true); ?>" class="btn btn-padrao">EDITAR PERFIL</a>
             </div>
+            <div class="informations-user">
+                <ul class="list-i">
+                    <li><i class="fa fa-clock-o"></i><?= ucfirst($userType) ?> desde <?= $this->request->session()->read('Auth.User.created_at')->i18nFormat('dd/MM/yyyy'); ?></li>
+                </ul>
+            </div>
         </div>
     </section>
     <section>

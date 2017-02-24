@@ -148,9 +148,9 @@ class UsersTable extends Table
     public function getTypeUser($type, $ab = false){
         if($ab){
             return $type == 'freelancer' ? 'f' : 'c';
-        } else {
-            return $type == 'freelancer' ? $type : 'contratante';
         }
+
+        return $type == 'f' ? 'freelancer' : 'contratante';
     }
 
     public function isValidEmail ($email, $type){

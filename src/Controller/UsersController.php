@@ -46,7 +46,7 @@ class UsersController extends AppController
                 $user = $this->Users->newEntity();
                 $user = $this->Users->patchEntity($user, $data);
                 $user->type = $this->Users->getTypeUser($data['type'], true);
-                $user->created_at = date('Y-m-d H:i:s');
+                $user->created_at = date('Y-m-d');
                 if($this->Users->save($user)){
                     $userName = explode(' ', $user->name);
                     $result = ['status' => 'success', 'text' => 'Seja bem vindo(a) ' . $userName[0]];
