@@ -63,6 +63,29 @@ class UsersController extends AppController
     }
 
     public function view(){
+        $user = $this->Users->find()
+            ->hydrate(false)
+            ->where([
+                'email' => $this->request->session()->read('Auth.User.email')
+            ])
+            ->first();
+
+        $null = 0;
+        $complete = 0;
+        foreach($user as $field){
+            if(is_null($field)){
+                $null++;
+            } else {
+                $complete++;
+            }
+        }
+
+        $projectsUser = [];
+        $skillsUser = [];
+        $percentageProfile = ($complete/$null)*100;
+        $this->set('skills', $skillsUser);
+        $this->set('projectsUser', $projectsUser);
+        $this->set('percentageProfile', round($percentageProfile));
         $this->render('profile');
     }
 

@@ -1,5 +1,19 @@
 @import 'default';
 
+%style-default-section{
+  border-top: 1px solid $grey;
+  width: 95%;
+  margin: 10px auto;
+  display: block;
+  margin-top: 30px;
+}
+
+.title-section{
+  font-family: $font;
+  color: $grey;
+  font-size: 1.3em;
+}
+
 .profile-informations{
   background-color: #fff;
   width: 250px;
@@ -35,4 +49,39 @@
   margin-left: 250px;
   background-color: #fff;
   min-height: 250px;
+  .content{
+    .complete-profile{
+      padding: 20px;
+      width: 100%;
+      min-height: 350px;
+      display: block;
+      text-align: center;
+      .message{
+        position: relative;
+        font-family: $font-light;
+        font-size: 3em;
+      }
+      .progress{
+        width: 350px;
+        margin: 10px auto;
+        display: block;
+        height: 40px;
+        .progress-bar{
+          line-height: 2.1;
+          font-family: $font;
+          font-size: 1.3em;
+          background-color: $grey;
+        }
+      }
+      .btn-completar{
+        margin: 40px;
+      }
+    }
+    .projects{
+      @extend %style-default-section;
+    }
+    .address{
+      @extend %style-default-section;
+    }
+  }
 }
