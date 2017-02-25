@@ -1,0 +1,86 @@
+@import 'default';
+
+$widthDefault: 70px;
+
+%style-aside-collapse{
+  font-family: $icon;
+  display: block;
+  color: $red-dark;
+  font-size: 1.5em;
+}
+
+@mixin generateRightItem ($icon){
+  text-decoration: none;
+  color: $red-dark;
+  &:before{
+    content: '#{$icon}';
+    @extend %style-aside-collapse;
+  }
+}
+
+.panel-group{
+  .panel{
+    border-radius: 0;
+    .panel-heading{
+      height: $widthDefault;
+      display: flex;
+      align-items: center;
+      font-family: $font;
+      background-color: $grey-double-light;
+      color: $red-dark;
+      cursor: pointer;
+      padding: 0;
+      h4{
+        font-size: 1.3em;
+      }
+      .status{
+        width: $widthDefault;
+        background-color: $red-dark;
+        height: 100%;
+        margin-right: 15px;
+      }
+    }
+    .panel-collapse{
+      .content{
+        display: flex;
+        justify-content: space-between;
+        .bar-right{
+          div{
+            width: $widthDefault + 15px;
+            height:auto;
+            background-color: $grey-double-light;
+            .collapse{ padding:0; }
+            .itens{
+              list-style-type: none;
+              padding: 0;
+              li{
+                height: $widthDefault;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                flex-wrap: wrap;
+                font-family: $font;
+                transition: all 150ms ease;
+                cursor: pointer;
+                &:hover{
+                  .item-set{
+                    color: $grey-double-light;
+                    &:before{
+                      color: $grey-double-light;
+                    }
+                  }
+                  background-color: $grey-light;
+                }
+              }
+              .prazos{ @include generateRightItem('\f073'); }
+              .projeto{ @include generateRightItem('\f121'); }
+              .avaliacao{ @include generateRightItem('\f005'); }
+              .time-line{ @include generateRightItem('\f0ae'); }
+            }
+          }
+        }
+      }
+    }
+  }
+}

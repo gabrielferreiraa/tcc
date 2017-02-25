@@ -12,7 +12,7 @@ $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
             <nav class="collapse navbar-collapse menu-top" id="menu">
                 <ul class="nav navbar-nav">
                     <li class="li-item">
-                        <a href="#" class="projects">MEUS PROJETOS</a>
+                        <a href="<?= $this->Url->build('/meus-projetos', true); ?>" class="projects">MEUS PROJETOS</a>
                     </li>
 
                     <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
@@ -26,7 +26,7 @@ $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
                         <?php endif; ?>
                     </li>
                     <li class="li-item <?= (($controller == 'Messages') && ($action == 'index')) ? 'li-item-active' : '' ?>">
-                        <a href="#" class="messages">MENSAGENS</a>
+                        <a href="<?= $this->Url->build('/mensagens', true); ?>" class="messages">MENSAGENS</a>
                     </li>
                     <li class="li-item <?= (($controller == 'Users') && (($action == 'view') || ($action == 'edit'))) ? 'li-item-active' : '' ?>">
                         <a href="<?= $this->Url->build('/perfil', true); ?>" class="my-profile">MEU PERFIL</a>

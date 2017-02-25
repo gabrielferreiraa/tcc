@@ -57,6 +57,8 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/sair', ['controller' => 'Home', 'action' => 'signOut']);
     $routes->connect('/perfil', ['controller' => 'Users', 'action' => 'view']);
     $routes->connect('/editar-perfil', ['controller' => 'Users', 'action' => 'edit']);
+    $routes->connect('/meus-projetos', ['controller' => 'Projects', 'action' => 'view']);
+    $routes->connect('/mensagens', ['controller' => 'Messages', 'action' => 'index']);
 
 
     /**

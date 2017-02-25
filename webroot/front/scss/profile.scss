@@ -65,9 +65,10 @@
 }
 
 .content-wrapper{
-  transform: translateX(-250px);
+  //transform: translateX(-250px);
   background-color: #fff;
   min-height: 250px;
+  margin-left: 250px;
   .content{
     .complete-profile{
       padding: 20px;
@@ -146,6 +147,7 @@
   .container{ padding: 0; }
   .content-wrapper{
     transform: translateX(0);
+    margin-left: 0;
     transition: transform 150ms ease;
     .content{
       .complete-profile{
