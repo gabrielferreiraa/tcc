@@ -37,7 +37,7 @@
   height: 65px;
   background-color: $red-dark;
   position: relative;
-  .container {
+  > .container {
     .menu-top {
       .navbar-nav {
         float: right;

@@ -19,8 +19,12 @@ $widthDefault: 70px;
 }
 
 .panel-group{
+  background-color: white;
+  padding: 15px;
+  min-height: 700px;
   .panel{
     border-radius: 0;
+    border-color: #FFF;
     .panel-heading{
       height: $widthDefault;
       display: flex;
@@ -30,6 +34,21 @@ $widthDefault: 70px;
       color: $red-dark;
       cursor: pointer;
       padding: 0;
+      position: relative;
+      &:after{
+        content: '\f106';
+        font-family: $icon;
+        color: $red-dark;
+        position: absolute;
+        right: 35px;
+        font-size: 1.5em;
+        transition: transform 200ms ease;
+      }
+      &.collapsed{
+        &:after{
+          transform: rotate(180deg);
+        }
+      }
       h4{
         font-size: 1.3em;
       }
@@ -63,7 +82,7 @@ $widthDefault: 70px;
                 font-family: $font;
                 transition: all 150ms ease;
                 cursor: pointer;
-                &:hover{
+                &:hover, &.active{
                   .item-set{
                     color: $grey-double-light;
                     &:before{
@@ -78,6 +97,62 @@ $widthDefault: 70px;
               .avaliacao{ @include generateRightItem('\f005'); }
               .time-line{ @include generateRightItem('\f0ae'); }
             }
+          }
+        }
+      }
+      .tab-content{
+        position: relative;
+        .projeto{
+          .top-informations{
+            height: 70px;
+            margin-top: -10px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid $grey;
+            span{
+              font-family: $font;
+            }
+            .btn-circle{
+              background-color: $red-dark;
+              border-radius: 50%;
+              color: #FFF;
+              height: 40px;
+              outline: none;
+              transition: all 150ms ease;
+              margin: 10px;
+              display: flex;
+              .fa{
+                font-size: 1.3em;
+              }
+              &:hover{
+                border: 1px solid $red-dark;
+                color: $red-dark;
+                background-color: #fff;
+              }
+            }
+          }
+        }
+        .skills{
+          margin-top: 20px;
+          .skills-list{
+            list-style-type: none;
+            display: flex;
+            margin-left: -10px;
+            padding: 0;
+            li{
+              margin: 10px;
+              height: 40px;
+              width: auto;
+              padding: 10px;
+              background-color: $red-dark;
+              color: #FFF;
+              border-radius: 2px;
+            }
+          }
+        }
+        .description{
+          p{
+            margin-top: 15px;
           }
         }
       }

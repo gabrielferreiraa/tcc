@@ -94,6 +94,12 @@ class UsersController extends AppController
     }
 
     public function edit(){
+        $user = $this->Users->find()
+            ->where([
+                'email' => $this->request->session()->read('Auth.User.email')
+            ])
+            ->first();
 
+        $this->set(compact('user'));
     }
 }

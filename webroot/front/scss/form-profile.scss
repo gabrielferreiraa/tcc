@@ -1,0 +1,40 @@
+@import 'default';
+
+$width-image: 200px;
+$margin-image: 20px;
+
+.img-user{
+  width: $width-image;
+  height: $width-image;
+  object-fit: cover;
+  margin: $margin-image auto;
+  display: block;
+  border-radius: 2px;
+  border: 1px solid $grey;
+}
+
+.content-profile{
+  margin-top: -(($width-image / 2) + $margin-image);
+  padding-top: $width-image / 2;
+  background-color: #FFF;
+  min-height: 400px;
+  .name-input{
+    border: none;
+    margin: 0 auto;
+    height: 50px;
+    text-align: center;
+    font-family: $font;
+    outline: none;
+    font-size: 1.5em;
+    color: $red-dark;
+    display: block;
+  }
+  .btns, .border-top{
+    width: 95%;
+    margin: 20px auto;
+    display: block;
+  }
+  .border-top{
+    border-top: 1px solid $grey;
+  }
+}

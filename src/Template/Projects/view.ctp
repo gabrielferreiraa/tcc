@@ -12,11 +12,28 @@
             <section class="content">
                 <div class="panel-body">
                     <div class="tab-content">
-                        <div id="prazos" class="tab-pane fade in active">
+                        <div id="prazos" class="tab-pane fade">
                             <h3>PRAZOS</h3>
                         </div>
-                        <div id="projetos" class="tab-pane fade">
-                            <h3>PROJETOS</h3>
+                        <div id="projeto" class="tab-pane fade in active projeto">
+                            <div class="top-informations">
+                                <span>Orçamento: R$ 5.000,00</span>
+                                <button class="btn btn-circle open-partner"><i class="fa fa-user"></i></button>
+                                <button class="btn btn-circle open-anexo"><i class="fa fa-paperclip"></i></button>
+                            </div>
+                            <div class="skills">
+                                <span class="normal">Habilidades Necessárias:</span>
+                                <ul class="skills-list light">
+                                    <li>NodeJS</li>
+                                    <li>HTML</li>
+                                </ul>
+                            </div>
+                            <div class="description">
+                                <span class="normal">Descrição:</span>
+                                <p class="normal">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a condimentum ligula. Donec sapien mi, ullamcorper nec facilisis sit amet, tristique quis velit. Fusce quis lectus imperdiet odio scelerisque tempus. Phasellus a lectus erat. Vivamus erat erat, elementum at ipsum quis, consequat pretium enim. In quis consectetur metus. Aliquam ultrices massa sed leo dignissim semper. Vivamus laoreet elit pretium erat finibus, viverra dictum ligula tristique. Nunc aliquam vehicula neque ut mollis.
+                                </p>
+                            </div>
                         </div>
                         <div id="avaliacao" class="tab-pane fade">
                             <h3>AVALIAÇÃO</h3>
@@ -33,8 +50,8 @@
                                 <li>
                                     <a data-toggle="pill" href="#prazos" class="item-set prazos">Prazos</a>
                                 </li>
-                                <li>
-                                    <a data-toggle="pill" href="#projetos"  class="item-set projeto">Projeto</a>
+                                <li class="active">
+                                    <a data-toggle="pill" href="#projeto"  class="item-set projeto">Projeto</a>
                                 </li>
                                 <li>
                                     <a data-toggle="pill" href="#avaliacao" class="item-set avaliacao">Avaliação</a>
