@@ -49,6 +49,7 @@ class ProjectsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $project = $this->Projects->patchEntity($project, $this->request->data);
+//            debug($project);exit;
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
 

@@ -71,7 +71,7 @@ class UsersController extends AppController
                 'email' => $this->request->session()->read('Auth.User.email')
             ])
             ->first();
-            
+
         $null = 0;
         $complete = 0;
         foreach($user as $field){
@@ -100,6 +100,21 @@ class UsersController extends AppController
             ])
             ->first();
 
+        $user = $this->Users->get($user->id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $project = $this->Users->patchEntity($user, $this->request->data);
+
+            if ($this->Users->save($project)) {
+                $name = explode(' ', $this->request->session()->read('Auth.User.name'));
+                $this->Flash->success(__($name[0] . ', seu cadastro foi atualizado com sucesso'));
+
+                return $this->redirect(['action' => 'view']);
+            }
+            $this->Flash->error(__('The project could not be saved. Please, try again.'));
+        }
         $this->set(compact('user'));
+        $this->set('_serialize', ['user']);
     }
 }

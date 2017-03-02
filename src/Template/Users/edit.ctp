@@ -21,7 +21,7 @@
                 <label>Senha</label>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                    <input type="password" id="password" name="password" class="form-input">
+                    <input type="password" id="password" name="password" class="form-input" value="<?= $user->password ?>">
                 </div>
             </div>
         </div>
@@ -56,20 +56,20 @@
             <?= $this->Form->input('number', ['label' => 'Número', 'class' => 'form-input']) ?>
         </div>
         <div class="col-md-4 no-padding">
-            <?= $this->Form->input('bairro', ['label' => 'Bairro', 'class' => 'form-input']) ?>
+            <?= $this->Form->input('neighborhood', ['label' => 'Bairro', 'class' => 'form-input']) ?>
         </div>
     </div>
     <div class="row border-top">
         <h4 class="normal">SOCIAL</h4>
         <div class="col-md-3 no-padding">
-            <?= $this->Form->input('phone', ['label' => 'Celular', 'class' => 'form-input']) ?>
+            <?= $this->Form->input('cel_phone', ['label' => 'Celular', 'class' => 'form-input']) ?>
         </div>
         <div class="col-md-3">
             <div class="input">
                 <label>Facebook</label>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon"><i class="fa fa-facebook"></i></span>
-                    <input type="text" id="facebook" name="facebook" class="form-input" placeholder="Usuário do Facebook">
+                    <input type="text" id="facebook" name="facebook" class="form-input" placeholder="Usuário do Facebook" value="<?= $user->facebook ?>">
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@
                 <label>LinkedIn</label>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon"><i class="fa fa-linkedin"></i></span>
-                    <input type="text" id="linkedin" name="linkedin" class="form-input" placeholder="Usuário do LinkedIn">
+                    <input type="text" id="linkedin" name="linkedin" class="form-input" placeholder="Usuário do LinkedIn" value="<?= $user->linkedin ?>">
                 </div>
             </div>
         </div>
@@ -87,7 +87,7 @@
                 <label>GitHub</label>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon"><i class="fa fa-github"></i></span>
-                    <input type="text" id="github" name="github" class="form-input" placeholder="Usuário do Github">
+                    <input type="text" id="github" name="github" class="form-input" placeholder="Usuário do Github" value="<?= $user->github ?>">
                 </div>
             </div>
         </div>

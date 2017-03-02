@@ -47,12 +47,11 @@
       .list-i{
         list-style-type: none;
         margin-top: 20px;
-        padding: 0;
+        padding-left: 15px;
         font-family: $font;
         li{
           display: flex;
           align-items: center;
-          justify-content: center;
           margin-bottom: 10px;
           .fa{
             width: 30px;
