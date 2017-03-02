@@ -96,3 +96,45 @@
     }
   }
 }
+
+@media screen and (max-width: 768px){
+  %menu-default-style{
+    &:before{
+      display: inline-block;
+      margin: 10px;
+    }
+  }
+  .navbar-toggle{
+    color: #fff;
+    font-size: 2em;
+    position: fixed;
+    right: -3px;
+    line-height: normal;
+    cursor: pointer;
+    transition: transform 200ms ease;
+    &[aria-expanded="true"]{
+      transform: rotate(90deg);
+      .fa{
+        &:before{
+          content: '\f00d';
+        }
+      }
+    }
+  }
+  .menu-top, .navbar-nav{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  .menu-top{
+    position: fixed;
+    top: 65px;
+    z-index: 999;
+    .navbar-nav{
+      background-color: $grey;
+      .li-item{
+
+      }
+    }
+  }
+}

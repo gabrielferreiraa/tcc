@@ -37,4 +37,22 @@ $margin-image: 20px;
   .border-top{
     border-top: 1px solid $grey;
   }
+  .section-form{
+    margin-bottom: 60px;
+  }
+  .btn-buscar-cep{
+    margin: 41px auto 0 auto;
+    display: block;
+  }
+  .input-group-lg{
+    span{
+      background: $grey;
+      border: none;
+      border-radius: 2px;
+      .fa{
+        line-height: 1.2;
+        color: #FFF;
+      }
+    }
+  }
 }
