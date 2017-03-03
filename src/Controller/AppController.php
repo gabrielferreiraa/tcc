@@ -17,14 +17,10 @@ class AppController extends Controller
         $this->loadComponent('Flash');
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Token');
-
-        parent::initialize();
+        $this->loadComponent('Util');
+        
         Configure::write('App.jsBaseUrl', '/');
         Configure::write('App.cssBaseUrl', '/');
-
-        $this->loadComponent('Util');
-        $this->loadComponent('Flash');
-        $this->loadComponent('RequestHandler');
 
         $this->Users = TableRegistry::get('Users');
 
