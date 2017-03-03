@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 class UsersController extends AppController
 {
@@ -67,6 +68,13 @@ class UsersController extends AppController
     public function view(){
         $user = $this->Users->find()
             ->hydrate(false)
+            ->select($this->Users)
+            ->select([
+                'city' => 'c.name',
+                'state' => 's.state_cod'
+            ])
+            ->leftJoin(['c' => 'cities'], ['c.id = Users.city_id'])
+            ->leftJoin(['s' => 'states'], ['c.state_id = s.id'])
             ->where([
                 'email' => $this->request->session()->read('Auth.User.email')
             ])
@@ -101,9 +109,11 @@ class UsersController extends AppController
             ->first();
 
         $user = $this->Users->get($user->id, [
-            'contain' => []
+            'contain' => ['Cities']
         ]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
+
             $project = $this->Users->patchEntity($user, $this->request->data);
 
             if ($this->Users->save($project)) {
@@ -114,7 +124,12 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The project could not be saved. Please, try again.'));
         }
-        $this->set(compact('user'));
-        $this->set('_serialize', ['user']);
+
+        $States = TableRegistry::get('States');
+
+        $states = $States->find('list');
+
+        $this->set(compact('user', 'states'));
+        $this->set('_serialize', ['user', 'states']);
     }
 }

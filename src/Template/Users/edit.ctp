@@ -44,7 +44,7 @@
             <button type="button" class="btn-padrao btn-buscar-cep"><i class="fa fa-search"></i> BUSCAR</button>
         </div>
         <div class="col-md-4">
-            <?= $this->Form->input('state_id', ['label' => 'Estado', 'class' => 'form-input', 'empty' => 'Selecione o estado']) ?>
+            <?= $this->Form->input('state_id', ['label' => 'Estado', 'class' => 'form-input', 'empty' => 'Selecione o estado', 'options' => $states]) ?>
         </div>
         <div class="col-md-4 no-padding">
             <?= $this->Form->input('city_id', ['label' => 'Cidade', 'class' => 'form-input', 'empty' => 'Selecione o Estado ou CEP']) ?>
@@ -82,7 +82,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 no-padding">
             <div class="input">
                 <label>GitHub</label>
                 <div class="input-group input-group-lg">
@@ -98,7 +98,12 @@
             <?= $this->Form->input('skill._ids', ['label' => 'Me considero ninja em', 'class' => 'form-input', 'empty' => 'Selecione suas habilidades']) ?>
         </div>
         <div class="col-md-6">
-            <?= $this->Form->input('description', ['label' => 'Fale um pouco sobre você', 'type' => 'textarea', 'class' => 'form-input']) ?>
+            <?= $this->Form->input('description', ['label' => 'Fale um pouco sobre você', 'type' => 'textarea', 'class' => 'form-input description']) ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4" style="margin-left: 25px">
+            <?= $this->Form->input('developer_type', ['label' => 'Você é um desenvolvedor', 'placeholder' => 'ex: Desenvolvedor Sênior', 'class' => 'form-input']) ?>
         </div>
     </div>
     <div class="row btns">
@@ -110,9 +115,11 @@
 
 <?php
 echo $this->append('css', $this->Html->css([
+    'dist/css/select2.min',
     'front/css/form-profile'
 ]));
 echo $this->append('script', $this->Html->script([
+    'dist/js/select2.min',
     'front/js-min/formProfile'
 ]));
 ?>

@@ -16,6 +16,9 @@
             </div>
             <div class="informations-user">
                 <ul class="list-i">
+                    <?php if(!empty($user['city'])){ ?>
+                        <li><i class="fa fa-map-marker"></i> <?= $user['city'] . ' / ' . $user['state'] ?></li>
+                    <?php } ?>
                     <li><i class="fa fa-clock-o"></i><?= ucfirst($userType) ?> desde <?= $user['created_at']->i18nFormat('dd/MM/yyyy'); ?></li>
                     <?php if(!empty($user['facebook'])){ ?>
                         <li><i class="fa fa-facebook-square"></i> <?= $user['facebook'] ?></li>
