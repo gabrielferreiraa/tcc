@@ -1,5 +1,7 @@
 @import 'default';
 
+$heightDefault: 65px;
+
 %menu-default-style {
   color: #fff;
   text-decoration: none;
@@ -34,7 +36,7 @@
 }
 
 .header-site {
-  height: 65px;
+  height: $heightDefault;
   background-color: $red-dark;
   position: relative;
   > .container {
@@ -42,7 +44,7 @@
       .navbar-nav {
         float: right;
         li{
-          height: 65px;
+          height: $heightDefault;
           display: flex;
           align-items: center;
         }
@@ -128,7 +130,7 @@
   }
   .menu-top{
     position: fixed;
-    top: 65px;
+    top: $heightDefault;
     z-index: 999;
     .navbar-nav{
       background-color: $grey;

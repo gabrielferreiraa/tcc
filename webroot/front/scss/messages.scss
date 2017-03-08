@@ -1,23 +1,31 @@
 @import 'default';
+@import 'header';
 
-$green: #1a8679;
-$lightgreen: #179788;
-$red: #d64848;
-$calc: calc(100% - 250px);
+$height: 100%;
+$width-aside: 250px;
+$calc: calc(100% - #{$width-aside});
+$margin-top: 10px;
+$height-message: 50px;
+
+.wrapper-all{
+    position: fixed;
+    height: 100%;
+}
 
 .wrapper {
-  height: 600px;
+  height: $height;
   background-color: #e1e1e1;
   display: block;
-  margin: 10px auto;
-  position: relative;
+  margin: $margin-top auto;
   .content {
     position: relative;
+    height: calc(100% - #{$heightDefault + $height-message + $margin-top});
     aside {
-      height: 600px;
+      height: $height;
       float: left;
-      width: 250px;
+      width: $width-aside;
       background-color: #d3cbcb;
+      position: fixed;
       .contacts {
         list-style-type: none;
         padding: 0;
@@ -55,7 +63,7 @@ $calc: calc(100% - 250px);
                 content: 'OFF';
                 position: absolute;
                 font-family: $font;
-                color: $red;
+                color: $red-dark;
                 right: -3px;
                 bottom: -15px;
                 font-size: .8em;
@@ -75,7 +83,7 @@ $calc: calc(100% - 250px);
             right: 10px;
             top: 23px;
             font-size: 0.8em;
-            color: $red;
+            color: $red-dark;
             transition: all 200ms ease-in-out;
           }
           img {
@@ -105,12 +113,9 @@ $calc: calc(100% - 250px);
       }
     }
     .messages-text {
-      opacity: 0;
-      transform: translateX(100%);
-      transition: all 200ms ease;
+      display: none;
       &:target{
-        opacity: 1;
-        transform: translateX(0);
+        display: block;
       }
       h1 {
         transform: translate(35px, 10px);
@@ -128,9 +133,8 @@ $calc: calc(100% - 250px);
         }
       }
       width: $calc;
-      height: 550px;
-      position: absolute;
-      right: 0;
+      height: 100%;
+      transform: translateX($width-aside);
       overflow-x: hidden;
       overflow-y: auto;
       .row {
@@ -195,15 +199,11 @@ $calc: calc(100% - 250px);
 }
 
 .message {
-  height: 50px;
-  background-color: orange;
-  position: absolute;
-  padding: 0;
-  bottom: 0;
-  right: 0;
+  height: $height-message;
+  position: relative;
   width: $calc;
-  overflow: hidden;
-  input {
+  transform: translateX($width-aside);
+  .new-message {
     width: 100%;
     height: 48px;
     outline: none;
@@ -212,24 +212,20 @@ $calc: calc(100% - 250px);
     font-family: $font;
     color: #333232;
   }
-  button {
+  .send-message {
     position: absolute;
     right: 0;
     top: 0;
-    background-color: transparent;
+    background-color: $red-dark;
+    color: $grey-double-light;
     border: none;
     outline: none;
     cursor: pointer;
-    background-color: $green; 
-    color: white;
     height: 100%;
     width: 70px;
     font-family: $font;
     transition: 400ms;
     z-index: 999;
-    &:hover{
-      background-color: $lightgreen;
-    }
   }
 }
 
