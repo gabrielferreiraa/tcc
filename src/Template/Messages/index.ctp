@@ -2,18 +2,22 @@
   <section class="content">
     <aside>
       <ul class="contacts">
-        <li>
-          <img src="http://ow.ly/ZeTt30697mF" />
-          <span>Mark Zuckerberg</span>
-          <span>last message 02:48 AM</span>
-          <i class="fa fa-circle online"></i>
-        </li>
-        <li>
-          <img src="http://ow.ly/PIUT30697ij" />
-          <span>Jack Dorsey</span>
-          <span>last message 06:48 PM</span>
-          <i class="fa fa-circle offline"></i>
-        </li>
+        <a href="#mark">
+          <li>
+              <img src="http://ow.ly/ZeTt30697mF" />
+              <span>Mark Zuckerberg</span>
+              <span>last message 02:48 AM</span>
+              <i class="fa fa-circle online"></i>
+          </li>
+        </a>
+        <a href="#jack">
+          <li>
+              <img src="http://ow.ly/PIUT30697ij" />
+              <span>Jack Dorsey</span>
+              <span>last message 06:48 PM</span>
+              <i class="fa fa-circle offline"></i>
+          </li>
+        </a>
         <li>
           <img src="http://ow.ly/SDht30698M4" />
           <span>Evan Spiegel</span>
@@ -28,7 +32,7 @@
         </li>
       </ul>
     </aside>
-    <section class="messages-text">
+    <section id ="mark" class="messages-text">
       <h1>Mark Zuckerberg</h1>
       <div class="row">
         <div class="bubble-left">
@@ -45,6 +49,9 @@
           Pellentesque habitant
         </div>
       </div>
+    </section>
+    <section id ="jack" class="messages-text">
+      <h1>Jack Dorsey</h1>
     </section>
   </section>
   <section class="message">
