@@ -7,6 +7,46 @@ $calc: calc(100% - #{$width-aside});
 $margin-top: 10px;
 $height-message: 50px;
 
+%circle-image{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-left: 10px;
+  margin-top: 8px;
+  object-fit: cover;
+}
+
+%ballon{
+  position: relative;
+  max-width: 330px;
+  min-height: 15px;
+  padding: 10px;
+  background: #d3cbcb;
+  border-radius: 8px;
+  margin: 40px 0 10px 35px;
+  word-wrap: break-word;
+  &:after{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 8px 10px 8px 0;
+    border-color: transparent #d3cbcb;
+    display: block;
+    width: 0;
+    z-index: 1;
+    top: 10px;
+  }
+}
+
+@mixin ballon ($side) {
+  @extend %ballon;
+  float: $side;
+  &:after {
+    border-width: 8px 0 8px 10px;
+    #{$side}: -10px;
+  }
+}
+
 .wrapper-all{
     position: fixed;
     height: 100%;
@@ -27,6 +67,8 @@ $height-message: 50px;
       background-color: #d3cbcb;
       position: fixed;
       .contacts {
+        height: 100%;
+        overflow: auto;
         list-style-type: none;
         padding: 0;
         margin: 0;
@@ -63,7 +105,7 @@ $height-message: 50px;
                 content: 'OFF';
                 position: absolute;
                 font-family: $font;
-                color: $red-dark;
+                color: #de696e;
                 right: -3px;
                 bottom: -15px;
                 font-size: .8em;
@@ -83,16 +125,11 @@ $height-message: 50px;
             right: 10px;
             top: 23px;
             font-size: 0.8em;
-            color: $red-dark;
+            color: #de696e;
             transition: all 200ms ease-in-out;
           }
           img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            margin-left: 10px;
-            margin-top: 8px;
-            object-fit: cover;
+            @extend %circle-image;
           }
           span:nth-child(2) {
             position: absolute;
@@ -144,54 +181,10 @@ $height-message: 50px;
         color: #333232;
         font-size: 0.8em;
         .bubble-left {
-          position: relative;
-          max-width: 330px;
-          min-height: 15px;
-          padding: 10px;
-          background: #d3cbcb;
-          -webkit-border-radius: 8px;
-          -moz-border-radius: 8px;
-          border-radius: 8px;
-          margin: 30px 0px 10px 35px;
-          float: left;
-          word-wrap: break-word;
-          &:after {
-            content: '';
-            position: absolute;
-            border-style: solid;
-            border-width: 8px 10px 8px 0px;
-            border-color: transparent #d3cbcb;
-            display: block;
-            width: 0;
-            z-index: 1;
-            left: -10px;
-            top: 10px;
-          }
+          @include ballon('left');
         }
         .bubble-right {
-          position: relative;
-          max-width: 330px;
-          word-wrap: break-word;
-          min-height: 15px;
-          padding: 10px;
-          background: #d3cbcb;
-          -webkit-border-radius: 8px;
-          -moz-border-radius: 8px;
-          border-radius: 8px;
-          margin: 30px 30px 10px 35px;
-          float: right;
-          &:after {
-            content: '';
-            position: absolute;
-            border-style: solid;
-            border-width: 8px 0 8px 10px;
-            border-color: transparent #d3cbcb;
-            display: block;
-            width: 0;
-            z-index: 1;
-            right: -10px;
-            top: 10px;
-          }
+          @include ballon('right');
         }
       }
     }
@@ -205,7 +198,7 @@ $height-message: 50px;
   transform: translateX($width-aside);
   .new-message {
     width: 100%;
-    height: 48px;
+    height: $height-message;
     outline: none;
     border: none;
     padding-left: 10px;
@@ -230,14 +223,63 @@ $height-message: 50px;
 }
 
 /* Scroll */
-.messages-text::-webkit-scrollbar {
+.messages-text::-webkit-scrollbar,
+.contacts::-webkit-scrollbar{
   width: .5em;
 }
 
-.messages-text::-webkit-scrollbar-track {
+.messages-text::-webkit-scrollbar-track,
+.contacts::-webkit-scrollbar-track{
   background-color: rgba(206, 206, 206, 0.5);
 }
 
-.messages-text::-webkit-scrollbar-thumb {
+.messages-text::-webkit-scrollbar-thumb,
+.contacts::-webkit-scrollbar-thumb{
   background-color: #989494;
+}
+
+@media screen and (max-width: 768px){
+  %ballon{
+    margin: 40px 0 10px 35px !important;
+    max-width: 60%;
+  }
+
+  .content{
+    height: calc(100% - 115px) !important;
+  }
+  .wrapper-all{
+    padding: 0;
+    margin: 0;
+    margin-left: -15px;
+  }
+  .wrapper{
+    margin: 0;
+  }
+  aside{
+    transform: translateX(-265px);
+  }
+  .messages-text{
+    width: 100% !important;
+    transform: translateX(0) !important;
+    .user-informations{
+      text-align: center;
+      //.img-user-message{
+      //  @extend %circle-image;
+      //}
+      h1{
+        width: 100%;
+        transform: translate(0) !important;
+        margin: 5px auto;
+        position: fixed;
+        font-size: 1.5em;
+        &:after{
+          display: none;
+        }
+      }
+    }
+  }
+  .message{
+    transform: translateX(0) !important;
+    width: 100%;
+  }
 }
