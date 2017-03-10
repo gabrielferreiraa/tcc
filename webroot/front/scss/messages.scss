@@ -23,7 +23,7 @@ $height-message: 50px;
   padding: 10px;
   background: #d3cbcb;
   border-radius: 8px;
-  margin: 40px 0 10px 35px;
+  margin: 10px 0 10px 35px;
   word-wrap: break-word;
   display: flex;
   align-items: center;
@@ -36,10 +36,6 @@ $height-message: 50px;
     width: 0;
     z-index: 1;
     top: 10px;
-  }
-  span{
-    max-width: 250px;
-    width: 100%;
   }
   figure{
     position: relative;
@@ -55,6 +51,14 @@ $height-message: 50px;
     min-height: 40px;
     align-items: center;
     flex-wrap: wrap;
+    p{
+      max-width: 250px;
+      width: 100%;
+      margin: 0;
+    }
+    i{
+      width: 100%;
+    }
   }
 }
 
@@ -205,6 +209,9 @@ $height-message: 50px;
       transform: translateX($width-aside);
       overflow-x: hidden;
       overflow-y: auto;
+      .user-informations{
+        margin-bottom: 30px;
+      }
       .row {
         width: 100%;
         display: table;
@@ -273,6 +280,9 @@ $height-message: 50px;
   %ballon{
     margin: 40px 0 10px 35px !important;
     max-width: 60%;
+    .informations{
+      width: calc(100% - 30px);
+    }
   }
 
   .content{

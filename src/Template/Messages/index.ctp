@@ -34,6 +34,7 @@
             </aside>
             <?php foreach ($messages as $message): ?>
                 <?php
+                    $userType = $onlineUser == $message->users_to->id ? 'users_from' : 'users_to';
                     $imageUserMessage = !empty($message->{$userType}->picture) ? $this->Url->build($message->{$userType}->picture, true) : $this->Url->build('/front/img/user-default.png', true);
                 ?>
                 <section id="<?= $message->id ?>" data-message="<?= $message->id ?>" class="messages-text">
@@ -46,10 +47,10 @@
                             <div class="row">
                                 <div class="bubble-right">
                                     <div class="informations">
-                                        <span>
+                                        <p>
                                             <?= $record->text ?>
-                                        </span>
-                                        <i class="italic">19:32</i>
+                                        </p>
+                                        <i class="italic"><?= $record->created->i18nFormat('H:mm'); ?></i>
                                     </div>
                                     <figure>
                                         <img src="<?= $userPicture ?>" />
@@ -63,10 +64,10 @@
                                         <img src="<?= $imageUserMessage ?>" />
                                     </figure>
                                     <div class="informations">
-                                        <span>
+                                        <p>
                                             <?= $record->text ?>
-                                        </span>
-                                        <i class="italic">19:32</i>
+                                        </p>
+                                        <i class="italic"><?= $record->created->i18nFormat('H:mm'); ?></i>
                                     </div>
                                 </div>
                             </div>
@@ -89,6 +90,7 @@ echo $this->append('css', $this->Html->css([
     'front/css/messages'
 ]));
 echo $this->append('script', $this->Html->script([
+    'dist/js/moment',
     'front/js-min/messages'
 ]));
 ?>

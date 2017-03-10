@@ -1,41 +1,49 @@
-$(document).ready(function(){
-  $(function(){
-    var bsend = document.querySelector('#send');
-    var message = document.querySelector('#message');
+$(document).ready(function () {
+    $(function () {
+        var bsend = document.querySelector('#send');
+        var message = document.querySelector('#message');
 
-    function createNewMessage(messageNew) {
-      var div = document.createElement('div');
-      var row = document.createElement('div');
-      var text = document.createElement('span');
-      var figure = document.createElement('figure');
-      var img = document.createElement('img');
-      var messagesContent = document.querySelector('.messages-text');
-      div.className = 'bubble-right';
-      text.innerHTML = messageNew;
-      row.className = 'row';
-      div.appendChild(text);
-      img.src = userPicture;
-      figure.appendChild(img);
-      div.appendChild(figure);
-      row.appendChild(div);
-      messagesContent.appendChild(row);
-      message.value = '';
-      messagesContent.scrollTop = messagesContent.scrollHeight;
-    }
+        moment.locale('pt-br');
 
-    bsend.addEventListener('click', function(e) {
-      var message = document.querySelector('#message');
-      if (message.value) {
-        createNewMessage(message.value);
-      }
-    });
-
-    message.addEventListener('keydown', function(e) {
-      if (e.which == 13) {
-        if(message.value){
-          createNewMessage(message.value);
+        function createNewMessage(messageNew) {
+            var div = document.createElement('div');
+            var row = document.createElement('div');
+            var informations = document.createElement('div');
+            var text = document.createElement('p');
+            var hour = document.createElement('i');
+            var figure = document.createElement('figure');
+            var img = document.createElement('img');
+            var messagesContent = $('.messages-text:visible');
+            div.className = 'bubble-right';
+            hour.className = 'italic';
+            text.innerHTML = messageNew;
+            row.className = 'row';
+            hour.innerHTML = moment().format('HH:mm');
+            informations.appendChild(text);
+            informations.appendChild(hour);
+            img.src = userPicture;
+            figure.appendChild(img);
+            div.appendChild(informations);
+            div.appendChild(figure);
+            row.appendChild(div);
+            messagesContent.append(row);
+            message.value = '';
+            messagesContent.scrollTop(messagesContent.prop('scrollHeight'));
         }
-      }
+
+        bsend.addEventListener('click', function (e) {
+            var message = document.querySelector('#message');
+            if (message.value) {
+                createNewMessage(message.value);
+            }
+        });
+
+        message.addEventListener('keydown', function (e) {
+            if (e.which == 13) {
+                if (message.value) {
+                    createNewMessage(message.value);
+                }
+            }
+        });
     });
-  });
 });
