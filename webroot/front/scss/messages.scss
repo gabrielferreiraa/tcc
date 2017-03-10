@@ -25,16 +25,36 @@ $height-message: 50px;
   border-radius: 8px;
   margin: 40px 0 10px 35px;
   word-wrap: break-word;
+  display: flex;
+  align-items: center;
   &:after{
     content: '';
     position: absolute;
     border-style: solid;
-    border-width: 8px 10px 8px 0;
     border-color: transparent #d3cbcb;
     display: block;
     width: 0;
     z-index: 1;
     top: 10px;
+  }
+  span{
+    max-width: 250px;
+    width: 100%;
+  }
+  figure{
+    position: relative;
+    height: 100%;
+    img{
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+    }
+  }
+  .informations{
+    display: flex;
+    min-height: 40px;
+    align-items: center;
+    flex-wrap: wrap;
   }
 }
 
@@ -42,8 +62,19 @@ $height-message: 50px;
   @extend %ballon;
   float: $side;
   &:after {
-    border-width: 8px 0 8px 10px;
+    @if $side == left {
+      border-width: 8px 10px 8px 0;
+    } @else {
+      border-width: 8px 0 8px 10px;
+    }
     #{$side}: -10px;
+  }
+  img{
+    @if $side == left {
+      margin-right: 5px;
+    } @else {
+      margin-left: 5px;
+    }
   }
 }
 
@@ -181,10 +212,10 @@ $height-message: 50px;
         color: #333232;
         font-size: 0.8em;
         .bubble-left {
-          @include ballon('left');
+          @include ballon(left);
         }
         .bubble-right {
-          @include ballon('right');
+          @include ballon(right);
         }
       }
     }
@@ -248,6 +279,7 @@ $height-message: 50px;
     height: calc(100% - 115px) !important;
   }
   .wrapper-all{
+    width: 100%;
     padding: 0;
     margin: 0;
     margin-left: -15px;
@@ -263,9 +295,14 @@ $height-message: 50px;
     transform: translateX(0) !important;
     .user-informations{
       text-align: center;
-      //.img-user-message{
-      //  @extend %circle-image;
-      //}
+      .img-user-message{
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        margin: 10px auto;
+      }
       h1{
         width: 100%;
         transform: translate(0) !important;

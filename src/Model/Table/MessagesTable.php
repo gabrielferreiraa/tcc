@@ -33,6 +33,18 @@ class MessagesTable extends Table
         $this->table('messages');
         $this->displayField('id');
         $this->primaryKey('id');
+
+        $this->hasMany('MessageRecords', [
+            'foreignKey' => 'message_id'
+        ]);
+        $this->belongsTo('UsersTo', [
+            'foreignKey' => 'to',
+            'className' => 'Users'
+        ]);
+        $this->belongsTo('UsersFrom', [
+            'foreignKey' => 'from',
+            'className' => 'Users'
+        ]);
     }
 
     /**

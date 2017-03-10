@@ -1,78 +1,79 @@
+<?php $onlineUser = $this->request->session()->read('Auth.User.id'); ?>
 <div class="container wrapper-all">
     <div class="wrapper">
         <section class="content">
             <aside>
                 <ul class="contacts">
-                    <a href="#mark">
-                        <li>
-                            <img src="#"/>
-                            <span>Mark Zuckerberg</span>
-                            <span>last message 02:48 AM</span>
-                            <i class="fa fa-circle online"></i>
-                        </li>
-                    </a>
-                    <a href="#jack">
-                        <li>
-                            <img src="#"/>
-                            <span>Jack Dorsey</span>
-                            <span>last message 06:48 PM</span>
-                            <i class="fa fa-circle offline"></i>
-                        </li>
-                    </a>
+                    <?php foreach ($messages as $indicators): ?>
+                        <?php
+                            $userType = $onlineUser == $indicators->users_to->id ? 'users_from' : 'users_to';
+                            $imageUserMessage = !empty($indicators->{$userType}->picture) ? $this->Url->build($indicators->{$userType}->picture, true) : $this->Url->build('/front/img/user-default.png', true);
+                        ?>
+                        <a href="#<?= $indicators->id ?>">
+                            <li>
+                                <img src="<?= $imageUserMessage ?>"/>
+                                <span>
+                                    <?= $indicators->{$userType}->name ?>
+                                </span>
+                                <?php
+                                    if(date('Y-m-d') == $indicators->date->i18nFormat('YYYY-MM-dd')) {
+                                        ?>
+                                        <span>última mensagem as <?= $indicators->date->i18nFormat('H:mm'); ?></span>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <span>última mensagem dia <?= $indicators->date->i18nFormat('dd/MM'); ?></span>
+                                        <?php
+                                    }
+                                ?>
+                                <i class="fa fa-circle online"></i>
+                            </li>
+                        </a>
+                    <?php endforeach; ?>
                 </ul>
             </aside>
-            <section id="mark" class="messages-text">
-                <div class="user-informations">
-                    <img src="#" class="img-responsive img-user-message hidden-md hidden-lg hidden-sm">
-                    <h1>Mark Zuckerberg</h1>
-                </div>
-                <div class="row">
-                    <div class="bubble-left" id="teste">
-                        :) <3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse finibus velit sit
-                        amet velit ultrices, ultricies venenatis ipsum accumsan. Integer ultricies nisl eget nisi
-                        eleifend malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames
-                        ac turpis egestas. Praesent a est purus. Aenean molestie, mi vel vulputate facilisis, orci massa
-                        pulvinar neque, ut imperdiet libero eros fermentum neque
+            <?php foreach ($messages as $message): ?>
+                <?php
+                    $imageUserMessage = !empty($message->{$userType}->picture) ? $this->Url->build($message->{$userType}->picture, true) : $this->Url->build('/front/img/user-default.png', true);
+                ?>
+                <section id="<?= $message->id ?>" data-message="<?= $message->id ?>" class="messages-text">
+                    <div class="user-informations">
+                        <img src="<?= $imageUserMessage ?>" class="img-responsive img-user-message hidden-md hidden-lg hidden-sm">
+                        <h1><?= $message->{$userType}->name ?></h1>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="bubble-right">
-                        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                        Praesent a est purus. Aenean molestie
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="bubble-left">
-                        Pellentesque habitant
-                    </div>
-                </div>
-            </section>
-            <section id="jack" class="messages-text">
-                <div class="user-informations">
-                    <img src="#" class="img-responsive img-user-message hidden-md hidden-lg hidden-sm">
-                    <h1>Renan Rorato</h1>
-                </div>
-                <div class="row">
-                    <div class="bubble-left" id="teste">
-                        :) <3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse finibus velit sit
-                        amet velit ultrices, ultricies venenatis ipsum accumsan. Integer ultricies nisl eget nisi
-                        eleifend malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames
-                        ac turpis egestas. Praesent a est purus. Aenean molestie, mi vel vulputate facilisis, orci massa
-                        pulvinar neque, ut imperdiet libero eros fermentum neque
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="bubble-right">
-                        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                        Praesent a est purus. Aenean molestie
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="bubble-left">
-                        Pellentesque habitant
-                    </div>
-                </div>
-            </section>
+                    <?php foreach ($message->message_records as $record) { ?>
+                        <?php if ($record->user_id == $onlineUser): ?>
+                            <div class="row">
+                                <div class="bubble-right">
+                                    <div class="informations">
+                                        <span>
+                                            <?= $record->text ?>
+                                        </span>
+                                        <i class="italic">19:32</i>
+                                    </div>
+                                    <figure>
+                                        <img src="<?= $userPicture ?>" />
+                                    </figure>
+                                </div>
+                            </div>
+                            <?php else: ?>
+                            <div class="row">
+                                <div class="bubble-left">
+                                    <figure>
+                                        <img src="<?= $imageUserMessage ?>" />
+                                    </figure>
+                                    <div class="informations">
+                                        <span>
+                                            <?= $record->text ?>
+                                        </span>
+                                        <i class="italic">19:32</i>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    <?php } ?>
+                </section>
+            <?php endforeach; ?>
         </section>
         <section class="message">
             <input type="text" id="message" class="new-message" placeholder="Escreva sua mensagem..."/>
@@ -80,6 +81,9 @@
         </section>
     </div>
 </div>
+<script>
+    var userPicture = '<?= $userPicture ?>';
+</script>
 <?php
 echo $this->append('css', $this->Html->css([
     'front/css/messages'
