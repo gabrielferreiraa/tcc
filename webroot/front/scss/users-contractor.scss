@@ -40,3 +40,19 @@ body{
   color: $grey;
   margin-top: 10%;
 }
+
+@media screen and (max-width: 768px){
+  body{
+    background: inherit;
+  }
+  .register-contractor{
+    margin-top: 60px;
+    text-align: center;
+    font-size: 2em;
+  }
+  .container{
+    .next-step-div{
+      width: 100%;
+    }
+  }
+}

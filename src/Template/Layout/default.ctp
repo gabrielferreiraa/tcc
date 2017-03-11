@@ -25,7 +25,7 @@
 </head>
 <body>
 <?= $this->element('header', ['controller' => $this->request->controller, 'action' => $this->request->action]); ?>
-<div class="container">
+<div class="container total-wrapper">
     <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
 </div>

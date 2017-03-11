@@ -45,3 +45,20 @@ body{
     right: 35px;
   }
 }
+
+@media screen and (max-width: 768px){
+  body{
+    background: inherit;
+  }
+  .register-freelancer{
+    position: relative !important;
+    right: inherit !important;
+    text-align: center;
+    font-size: 2em;
+  }
+  .wrapper{
+    .next-step-div{
+      width: 100%;
+    }
+  }
+}

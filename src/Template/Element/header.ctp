@@ -20,11 +20,11 @@ $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
                             <a href="#" class="find-projects">PROJETOS</a>
                         </li>
                     <?php endif; ?>
-                    <li class="li-item <?= (($controller == 'Projects') && ($action == 'index')) ? 'li-item-active' : '' ?>">
-                        <?php if ($this->request->session()->read('Auth.User.type') == 'f'): ?>
+                    <?php if ($this->request->session()->read('Auth.User.type') == 'f'): ?>
+                        <li class="li-item <?= (($controller == 'Projects') && ($action == 'index')) ? 'li-item-active' : '' ?>">
                             <a href="<?= $this->Url->build('/projetos', true); ?>" class="find-job">PROCURE TRABALHO</a>
-                        <?php endif; ?>
-                    </li>
+                        </li>
+                    <?php endif; ?>
                     <li class="li-item <?= (($controller == 'Messages') && ($action == 'index')) ? 'li-item-active' : '' ?>">
                         <a href="<?= $this->Url->build('/mensagens', true); ?>" class="messages">MENSAGENS</a>
                     </li>

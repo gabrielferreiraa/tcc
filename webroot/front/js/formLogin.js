@@ -1,4 +1,9 @@
 $(document).ready(function (e) {
+    Messenger.options = {
+        extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+        theme: 'flat'
+    };
+            
     var logar = function () {
         const url = webroot + 'home/sign-in';
         const data = $('#formLogin').serializeArray();
