@@ -82,6 +82,10 @@ $height-message: 50px;
   }
 }
 
+.green-check{
+  color: #41a74c;
+}
+
 .wrapper-all{
     position: fixed;
     height: 100%;
@@ -277,8 +281,10 @@ $height-message: 50px;
 }
 
 @media screen and (max-width: 768px){
+  $widthAside: 45px;
+
   %ballon{
-    margin: 40px 0 10px 35px !important;
+    margin: 10px 0 10px 80px !important;
     max-width: 60%;
     .informations{
       width: calc(100% - 30px);
@@ -298,7 +304,27 @@ $height-message: 50px;
     margin: 0;
   }
   aside{
-    transform: translateX(-265px);
+    transform: translateX(0);
+    background-color: transparent !important;
+    width: $widthAside !important;
+    z-index: 999;
+    .contacts{
+      width: $widthAside;
+      li{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: $widthAside !important;
+        .online, .offline{
+          display: none;
+        }
+        img{
+          margin: 0 !important;
+          width: 30px !important;
+          height: 30px !important;
+        }
+      }
+    }
   }
   .messages-text{
     width: 100% !important;
@@ -328,5 +354,8 @@ $height-message: 50px;
   .message{
     transform: translateX(0) !important;
     width: 100%;
+  }
+  .new-message{
+    z-index: 9999;
   }
 }

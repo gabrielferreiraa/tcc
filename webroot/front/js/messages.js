@@ -5,20 +5,38 @@ $(document).ready(function () {
 
         moment.locale('pt-br');
 
+        function save (message) {
+            const url = webroot + 'messages/save-message';
+            const data = {
+                message: message,
+                id: window.location.hash.substring(1)
+            };
+
+            $.post(url, data, function(e){
+                console.log(e);
+            }, 'json');
+        }
+
         function createNewMessage(messageNew) {
+            save(message.value);
+
             var div = document.createElement('div');
             var row = document.createElement('div');
             var informations = document.createElement('div');
             var text = document.createElement('p');
+            var check = document.createElement('span');
             var hour = document.createElement('i');
             var figure = document.createElement('figure');
             var img = document.createElement('img');
             var messagesContent = $('.messages-text:visible');
+            check.className = 'fa fa-check';
+            check.style = 'margin-right: 5px;';
             div.className = 'bubble-right';
             hour.className = 'italic';
             text.innerHTML = messageNew;
             row.className = 'row';
             hour.innerHTML = moment().format('HH:mm');
+            hour.prepend(check);
             informations.appendChild(text);
             informations.appendChild(hour);
             img.src = userPicture;

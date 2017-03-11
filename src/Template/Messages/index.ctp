@@ -12,17 +12,17 @@
                         <a href="#<?= $indicators->id ?>">
                             <li>
                                 <img src="<?= $imageUserMessage ?>"/>
-                                <span>
+                                <span class="hidden-xs">
                                     <?= $indicators->{$userType}->name ?>
                                 </span>
                                 <?php
                                     if(date('Y-m-d') == $indicators->date->i18nFormat('YYYY-MM-dd')) {
                                         ?>
-                                        <span>última mensagem as <?= $indicators->date->i18nFormat('H:mm'); ?></span>
+                                        <span class="hidden-xs">última mensagem as <?= $indicators->date->i18nFormat('H:mm'); ?></span>
                                         <?php
                                     } else {
                                         ?>
-                                        <span>última mensagem dia <?= $indicators->date->i18nFormat('dd/MM'); ?></span>
+                                        <span class="hidden-xs">última mensagem dia <?= $indicators->date->i18nFormat('dd/MM'); ?></span>
                                         <?php
                                     }
                                 ?>
@@ -32,6 +32,7 @@
                     <?php endforeach; ?>
                 </ul>
             </aside>
+            <?php $c=0; ?>
             <?php foreach ($messages as $message): ?>
                 <?php
                     $userType = $onlineUser == $message->users_to->id ? 'users_from' : 'users_to';
@@ -50,7 +51,10 @@
                                         <p>
                                             <?= $record->text ?>
                                         </p>
-                                        <i class="italic"><?= $record->created->i18nFormat('H:mm'); ?></i>
+                                        <i class="italic">
+                                            <span class="green-check fa fa-check"></span>
+                                            <?= $record->created->i18nFormat('HH:mm'); ?>
+                                        </i>
                                     </div>
                                     <figure>
                                         <img src="<?= $userPicture ?>" />
@@ -74,6 +78,7 @@
                         <?php endif; ?>
                     <?php } ?>
                 </section>
+                <?php $c++; ?>
             <?php endforeach; ?>
         </section>
         <section class="message">
