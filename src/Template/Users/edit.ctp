@@ -1,10 +1,14 @@
-<img
-    src="<?= $userPicture ?>"
-    alt="<?= $userName ?>"
-    title="<?= $userName ?>"
-    class="img-responsive img-user"/>
+<figure>
+    <img
+        src="<?= $userPicture ?>"
+        alt="<?= $userName ?>"
+        title="<?= $userName ?>"
+        class="img-responsive img-user"/>
+    <i class="fa fa-camera"></i>
+</figure>
 
 <?= $this->Form->create($user, ['id' => 'formProfiles', 'type' => 'file']) ?>
+<input type="file" style="display: none" name="picture" id="picture" accept="image/x-png,image/gif,image/jpeg">
 <div class="container-fluid content-profile">
     <div class="row">
         <div class="col-md-12">

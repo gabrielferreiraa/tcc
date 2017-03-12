@@ -48,6 +48,20 @@ $(document).ready(function(){
         });
     }
 
+    function openFile() {
+        $('#picture').trigger('click');
+    }
+
+    function changeImgUser (e) {
+        const img = $('#picture');
+        if(img[0].files.length){
+            console.log(img[0].files[0]);
+            // $('.img-user').attr('src', to64(img[0].files[0]))
+        }
+    }
+
     $('#state-id').change(populateCities);
     $('.btn-buscar-cep').click(populateAddress);
+    $('.img-user').click(openFile);
+    $('#picture').change(changeImgUser);
 });

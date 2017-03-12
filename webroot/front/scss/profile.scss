@@ -95,6 +95,48 @@
         margin: 40px;
       }
     }
+    .skills{
+      @extend %style-default-section;
+      .skills-list{
+        list-style-type: none;
+        display: flex;
+        margin-left: -10px;
+        padding: 0;
+        li{
+          margin: 10px;
+          height: 40px;
+          width: auto;
+          padding: 10px;
+          background-color: $red-dark;
+          color: #FFF;
+          border-radius: 2px;
+        }
+      }
+    }
+    .top-informations{
+      position: relative;
+      width: 100%;
+      height: 60px;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      .col-md-4{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 75px;
+        h3{
+          font-size: 1.3em;
+          font-family: $font;
+          color: $grey;
+          margin: 0;
+          span{
+            color: $red-dark;
+            font-size: 1.5em;
+          }
+        }
+      }
+    }
     .projects{
       @extend %style-default-section;
     }

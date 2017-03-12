@@ -3,14 +3,44 @@
 $width-image: 200px;
 $margin-image: 20px;
 
-.img-user{
-  width: $width-image;
-  height: $width-image;
-  object-fit: cover;
-  margin: $margin-image auto;
-  display: block;
-  border-radius: 2px;
-  border: 1px solid $grey;
+figure{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  .img-user{
+    width: $width-image;
+    height: $width-image;
+    object-fit: cover;
+    margin: $margin-image;
+    border-radius: 2px;
+    border: 1px solid $grey;
+    transition: opacity 200ms ease;
+    cursor: pointer;
+    &:hover{
+      filter: blur(3px);
+      + .fa{
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  }
+  .fa{
+    transition: all 200ms ease;
+    opacity: 0;
+    transform: translateX(-100%);
+    position: absolute;
+    font-size: 2em;
+    color: $red-dark;
+    text-align: center;
+    &:after{
+      font-size: .6em;
+      font-family: $font;
+      display: block;
+      content: 'editar avatar';
+    }
+  }
 }
 
 .content-profile{

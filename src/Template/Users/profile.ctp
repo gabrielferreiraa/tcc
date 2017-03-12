@@ -4,12 +4,29 @@ $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
 <?= $this->element('Profile/drawer', ['user' => $user]); ?>
 <div class="content-wrapper">
     <section class="content">
+        <article class="top-informations">
+            <div class="col-md-4">
+                <h3>Reputação:
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                </h3>
+            </div>
+            <div class="col-md-4">
+                <h3>Projetos Finalizados <span>0</span></h3>
+            </div>
+            <?php if (!empty($user['developer_type'])): ?>
+                <div class="col-md-4">
+                    <h3><?= $user['developer_type'] ?></h3>
+                </div>
+            <?php endif; ?>
+        </article>
         <?php if ($percentageProfile < 50): ?>
             <?= $this->element('Profile/complete-profile', ['user' => $userName[0]]); ?>
         <?php endif; ?>
-        <article class="skills">
-            <?= $this->element('Profile/skills', ['skills', $skills]); ?>
-        </article>
+        <?= $this->element('Profile/skills', ['skills', $skills]); ?>
         <article class="projects">
             <?= $this->element('Profile/projects', ['projects', $projectsUser]); ?>
         </article>

@@ -7,7 +7,7 @@ $calc: calc(100% - #{$width-aside});
 $margin-top: 10px;
 $height-message: 50px;
 
-%circle-image{
+%circle-image {
   width: 45px;
   height: 45px;
   border-radius: 50%;
@@ -16,7 +16,7 @@ $height-message: 50px;
   object-fit: cover;
 }
 
-%ballon{
+%ballon {
   position: relative;
   max-width: 330px;
   min-height: 15px;
@@ -27,7 +27,7 @@ $height-message: 50px;
   word-wrap: break-word;
   display: flex;
   align-items: center;
-  &:after{
+  &:after {
     content: '';
     position: absolute;
     border-style: solid;
@@ -37,32 +37,32 @@ $height-message: 50px;
     z-index: 1;
     top: 10px;
   }
-  figure{
+  figure {
     position: relative;
     height: 100%;
-    img{
+    img {
       width: 25px;
       height: 25px;
       border-radius: 50%;
     }
   }
-  .informations{
+  .informations {
     display: flex;
     min-height: 40px;
     align-items: center;
     flex-wrap: wrap;
-    p{
+    p {
       max-width: 250px;
       width: 100%;
       margin: 0;
     }
-    i{
+    i {
       width: 100%;
     }
   }
 }
 
-@mixin ballon ($side) {
+@mixin ballon($side) {
   @extend %ballon;
   float: $side;
   &:after {
@@ -73,7 +73,7 @@ $height-message: 50px;
     }
     #{$side}: -10px;
   }
-  img{
+  img {
     @if $side == left {
       margin-right: 5px;
     } @else {
@@ -82,13 +82,21 @@ $height-message: 50px;
   }
 }
 
-.green-check{
+.green-check {
   color: #41a74c;
+  transform: rotateY(360deg);
+  transition: transform 250ms ease;
 }
 
-.wrapper-all{
-    position: fixed;
-    height: 100%;
+.no-send {
+  color: rgba(255, 0, 0, 0.65);
+  transform: rotateY(360deg);
+  transition: transform 250ms ease;
+}
+
+.wrapper-all {
+  position: fixed;
+  height: 100%;
 }
 
 .wrapper {
@@ -190,7 +198,7 @@ $height-message: 50px;
     }
     .messages-text {
       display: none;
-      &:target{
+      &:target {
         display: block;
       }
       h1 {
@@ -213,7 +221,7 @@ $height-message: 50px;
       transform: translateX($width-aside);
       overflow-x: hidden;
       overflow-y: auto;
-      .user-informations{
+      .user-informations {
         margin-bottom: 30px;
       }
       .row {
@@ -266,59 +274,133 @@ $height-message: 50px;
 
 /* Scroll */
 .messages-text::-webkit-scrollbar,
-.contacts::-webkit-scrollbar{
+.contacts::-webkit-scrollbar {
   width: .5em;
 }
 
 .messages-text::-webkit-scrollbar-track,
-.contacts::-webkit-scrollbar-track{
+.contacts::-webkit-scrollbar-track {
   background-color: rgba(206, 206, 206, 0.5);
 }
 
 .messages-text::-webkit-scrollbar-thumb,
-.contacts::-webkit-scrollbar-thumb{
+.contacts::-webkit-scrollbar-thumb {
   background-color: #989494;
 }
 
-@media screen and (max-width: 768px){
+/* No messages */
+.wrapper-no-message {
+  text-align: center;
+  font-family: $font-light;
+  padding-top: 30px;
+  .fa{
+    font-size: 3em;
+  }
+  .input-search{
+    height: 60px;
+    width: 300px;
+    outline: none;
+    border: none;
+    font-family: $font;
+    background-color: transparent;
+    border-bottom: 1px solid $grey;
+    font-size: 1.6em;
+    text-align: center;
+  }
+}
+
+.participants-list{
+  list-style-type: none;
+  width: 100%;
+  margin-top: 30px;
+  li{
+    margin: 15px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: relative;
+    padding-right: 15px;
+    background-color: rgba(111, 26, 0, 0.08);
+    font-family: $font;
+    font-size: 1.2em;
+    transition: all 200ms ease;
+    &.hovered{
+      background-color: $red-dark;
+      color: #FFF;
+      height: 120px;
+      .address{
+        display: block;
+      }
+      .profile{
+        display: block;
+        color: #FFF;
+        border: 1px solid #FFF;
+        &:hover{
+          background-color: #FFF;
+          color: $red-dark;
+        }
+      }
+      div{
+        margin: 15px;
+      }
+      img{
+        width: 150px;
+      }
+    }
+    .profile, .address{
+      display: none;
+    }
+    img{
+      transition: width 200ms ease;
+      height: 100%;
+      width: 80px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
   $widthAside: 45px;
 
-  %ballon{
+  %ballon {
     margin: 10px 0 10px 80px !important;
     max-width: 60%;
-    .informations{
+    .informations {
       width: calc(100% - 30px);
     }
   }
 
-  .content{
+  .content {
     height: calc(100% - 115px) !important;
   }
-  .wrapper-all{
+  .wrapper-all {
     width: 100%;
     padding: 0;
     margin: 0;
     margin-left: -15px;
   }
-  .wrapper{
+  .wrapper {
     margin: 0;
   }
-  aside{
+  aside {
     transform: translateX(0);
     background-color: transparent !important;
     width: $widthAside !important;
     z-index: 999;
-    .contacts{
+    .contacts {
       width: $widthAside;
-      li{
+      li {
         display: flex;
         align-items: center;
         justify-content: center;
         height: $widthAside !important;
-        .online, .offline{
+        .online, .offline {
           display: none;
         }
-        img{
+        img {
           margin: 0 !important;
           width: 30px !important;
           height: 30px !important;
@@ -326,12 +408,12 @@ $height-message: 50px;
       }
     }
   }
-  .messages-text{
+  .messages-text {
     width: 100% !important;
     transform: translateX(0) !important;
-    .user-informations{
+    .user-informations {
       text-align: center;
-      .img-user-message{
+      .img-user-message {
         width: 45px;
         height: 45px;
         border-radius: 50%;
@@ -339,23 +421,23 @@ $height-message: 50px;
         display: block;
         margin: 10px auto;
       }
-      h1{
+      h1 {
         width: 100%;
         transform: translate(0) !important;
         margin: 5px auto;
         position: fixed;
         font-size: 1.5em;
-        &:after{
+        &:after {
           display: none;
         }
       }
     }
   }
-  .message{
+  .message {
     transform: translateX(0) !important;
     width: 100%;
   }
-  .new-message{
+  .new-message {
     z-index: 9999;
   }
 }
