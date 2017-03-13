@@ -15,6 +15,7 @@ class MessagesController extends AppController
     {
         parent::initialize();
         $this->Users = TableRegistry::get('Users');
+        $this->MessageRecords = TableRegistry::get('MessageRecords');
     }
 
     public function index()
@@ -23,11 +24,12 @@ class MessagesController extends AppController
             ->find()
             ->contain(['MessageRecords', 'UsersTo', 'UsersFrom'])
             ->where([
-                'Messages.to' => $this->request->session()->read('Auth.User.id')
+                'Messages.to_user' => $this->request->session()->read('Auth.User.id')
             ])
             ->orWhere([
-                'Messages.from' => $this->request->session()->read('Auth.User.id')
-            ]);
+                'Messages.from_user' => $this->request->session()->read('Auth.User.id')
+            ])
+            ->order('date DESC');
 
         $query = $this->request->query;
         if(!empty($query)){
@@ -54,19 +56,59 @@ class MessagesController extends AppController
     public function saveMessage () {
         $result = ['status' => 'error'];
         if($this->request->is('post')){
-            $MessageRecords = TableRegistry::get('MessageRecords');
             $data = $this->request->data;
 
-            $newMessage = $MessageRecords->newEntity();
+            $this->Messages->query()
+                ->update()
+                ->set([
+                    'date' => date('Y-m-d H:i:s')
+                ])
+                ->where([
+                    'id' => $data['id']
+                ])
+                ->execute();
+
+            $newMessage = $this->MessageRecords->newEntity();
             $newMessage->message_id = $data['id'];
             $newMessage->text = $data['message'];
-            $newMessage->created = $data['time'];
+            $newMessage->created = date('Y-m-d H:i:s');
             $newMessage->user_id = $this->request->session()->read('Auth.User.id');
 
-            if($MessageRecords->save($newMessage)){
+            if($this->MessageRecords->save($newMessage)){
                 $result = ['status' => 'success'];
             } else {
                 $result = ['status' => 'error'];
+            }
+        }
+
+        $this->set(compact('result'));
+        $this->set('_serialize', ['result']);
+    }
+
+    public function newMesseger () {
+        $result = ['status' => 'error'];
+        if($this->request->is('post')){
+            $data = $this->request->data;
+
+            $message = $this->Messages->newEntity();
+            $message->to_user = $this->request->session()->read('Auth.User.id');
+            $message->from_user = $data['id'];
+            $message->date = date('Y-m-d H:i:s');
+
+            $sended = $this->Messages->save($message);
+
+            if($sended){
+                $messageRecord = $this->MessageRecords->newEntity();
+                $messageRecord->message_id = $sended->id;
+                $messageRecord->text = $data['message'];
+                $messageRecord->created = date('Y-m-d H:i:s');
+                $messageRecord->user_id = $this->request->session()->read('Auth.User.id');
+
+                if($this->MessageRecords->save($messageRecord)){
+                    $result = ['status' => 'success'];
+                } else {
+                    $result = ['status' => 'error'];
+                }
             }
         }
 

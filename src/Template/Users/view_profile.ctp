@@ -1,19 +1,14 @@
-<?php
-$userName = explode(' ', $this->request->session()->read('Auth.User.name'));
-?>
-<?= $this->element('Profile/drawer', ['user' => $user, 'view' => false]); ?>
+<?= $this->element('Profile/drawer', ['user' => $user, 'view' => true]); ?>
 <div class="content-wrapper">
     <section class="content">
         <article class="top-informations">
             <div class="col-md-4">
                 <h3>Reputação:
-                    <div class="stars">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
                 </h3>
             </div>
             <div class="col-md-4">
@@ -25,12 +20,9 @@ $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
                 </div>
             <?php endif; ?>
         </article>
-        <?php if ($percentageProfile < 50): ?>
-            <?= $this->element('Profile/complete-profile', ['user' => $userName[0]]); ?>
-        <?php endif; ?>
-        <?= $this->element('Profile/skills', ['skills' => $skills]); ?>
+        <?= $this->element('Profile/skills', ['skills', $skills]); ?>
         <article class="projects">
-            <?= $this->element('Profile/projects', ['projects' => $projectsUser, 'view' => false]); ?>
+            <?= $this->element('Profile/projects', ['projects', $projectsUser, 'view' => $user['name']]); ?>
         </article>
         <?php if (!empty($this->request->session()->read('Auth.User.public_address'))): ?>
             <article class="address">

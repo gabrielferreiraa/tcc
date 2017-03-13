@@ -9,7 +9,15 @@
 <div class="row">
     <div class="input-group input-group-lg big-input-div">
         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-        <input type="text" id="email" class="big-input" placeholder="digite seu e-mail...">
+        <input
+            type="text"
+            id="email"
+            class="big-input"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            placeholder="digite seu e-mail...">
     </div>
 </div>
 <div class="row next-step-div">

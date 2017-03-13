@@ -102,7 +102,7 @@
             <?= $this->Form->input('skill._ids', ['label' => 'Me considero ninja em', 'class' => 'form-input', 'empty' => 'Selecione suas habilidades']) ?>
         </div>
         <div class="col-md-6">
-            <?= $this->Form->input('description', ['label' => 'Fale um pouco sobre você', 'type' => 'textarea', 'class' => 'form-input description']) ?>
+            <?= $this->Form->input('description', ['label' => 'Fale um pouco sobre você', 'type' => 'textarea', 'class' => 'form-input description', 'autocomplete' => 'off', 'autocorrect' => 'off', 'autocapitalize' => 'off', 'spellcheck' => false]) ?>
         </div>
     </div>
     <div class="row">
@@ -111,7 +111,7 @@
         </div>
     </div>
     <div class="row btns">
-        <button class="btn btn-padrao"><i class="fa fa-check-circle"></i> SALVAR</button>
+        <button class="btn btn-padrao"><i class="fa fa-check-circle-o"></i> SALVAR</button>
         <a href="<?= $this->Url->build('/perfil', true); ?>" class="btn btn-padrao">VOLTAR</a>
     </div>
 </div>

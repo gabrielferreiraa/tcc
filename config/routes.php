@@ -56,10 +56,15 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/projetos', ['controller' => 'Projects', 'action' => 'index']);
     $routes->connect('/sair', ['controller' => 'Home', 'action' => 'signOut']);
     $routes->connect('/perfil', ['controller' => 'Users', 'action' => 'view']);
+    $routes->connect('/visualizar-perfil', ['controller' => 'Users', 'action' => 'viewProfile']);
     $routes->connect('/editar-perfil', ['controller' => 'Users', 'action' => 'edit']);
     $routes->connect('/meus-projetos', ['controller' => 'Projects', 'action' => 'view']);
     $routes->connect('/mensagens', ['controller' => 'Messages', 'action' => 'index']);
-
+    $routes->connect(
+        '/visualizar-perfil/:id',
+        ['controller' => 'Users', 'action' => 'viewProfile'],
+        ['id' => '\d+', 'pass' => ['id']]
+    );
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.

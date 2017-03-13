@@ -9,11 +9,25 @@
             </div>
             <div class="inputs">
                 <div class="email">
-                    <input type="text" id="email" autocomplete="off" name="email" required/>
+                    <input
+                        type="text"
+                        id="email"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        name="email" required/>
                     <label for="email">e-mail</label>
                 </div>
                 <div class="password">
-                    <input type="password" id="password" autocomplete="off" name="password" required/>
+                    <input
+                        type="password"
+                        id="password"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        name="password" required/>
                     <label for="password">senha</label>
                 </div>
             </div>

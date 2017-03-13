@@ -14,6 +14,8 @@ class UsersController extends AppController
         $this->Auth->allow('registerFreelancer');
         $this->Auth->allow('add');
         $this->Auth->allow('saveUser');
+
+        $this->ProjectUsersFixed = TableRegistry::get('ProjectUsersFixed');
     }
 
     public function registerContractor()
@@ -42,15 +44,15 @@ class UsersController extends AppController
     public function saveUser()
     {
         $result = ['status' => 'error', 'text' => 'Não foi possível realizar o cadastro'];
-        if($this->request->is('post')){
+        if ($this->request->is('post')) {
             $data = $this->request->data;
-            if($this->Users->isValidEmail($data['email'], $this->Users->getTypeUser($data['type'], true))){
+            if ($this->Users->isValidEmail($data['email'], $this->Users->getTypeUser($data['type'], true))) {
                 $user = $this->Users->newEntity();
                 $user = $this->Users->patchEntity($user, $data);
                 $user->type = $data['type'];
                 $user->created_at = date('Y-m-d');
-         
-                if($this->Users->save($user)){
+
+                if ($this->Users->save($user)) {
                     $userName = explode(' ', $user->name);
                     $result = ['status' => 'success', 'text' => 'Seja bem vindo(a) ' . $userName[0]];
                     $this->Auth->setUser($user);
@@ -65,14 +67,10 @@ class UsersController extends AppController
         $this->set('_serialize', ['result']);
     }
 
-    public function view(){
+    public function view()
+    {
         $user = $this->Users->find()
-            ->hydrate(false)
-            ->select($this->Users)
-            ->select([
-                'city' => 'c.name',
-                'state' => 's.state_cod'
-            ])
+            ->contain(['Cities.States'])
             ->leftJoin(['c' => 'cities'], ['c.id = Users.city_id'])
             ->leftJoin(['s' => 'states'], ['c.state_id = s.id'])
             ->where([
@@ -80,28 +78,49 @@ class UsersController extends AppController
             ])
             ->first();
 
-        $null = 0;
-        $complete = 0;
-        foreach($user as $field){
-            if(is_null($field)){
-                $null++;
-            } else {
-                $complete++;
+        if(!empty($user)){
+            $user = $user->toArray();
+            $null = 0;
+            $complete = 0;
+            foreach ($user as $field) {
+                if (is_null($field)) {
+                    $null++;
+                } else {
+                    $complete++;
+                }
             }
+
+            $projectsUser = [];
+            $skillsUser = [];
+            $finishedProjects = $this->getFinishedProjects($user['id']);
+
+            $percentageProfile = round(($complete / $null) * 100);
         }
 
-        $projectsUser = [];
-        $skillsUser = [];
-        $percentageProfile = ($complete/$null)*100;
-        
+        $this->set('finishedProjects', $finishedProjects);
+        $this->set('percentageProfile', $percentageProfile);
         $this->set('user', $user);
         $this->set('skills', $skillsUser);
         $this->set('projectsUser', $projectsUser);
-        $this->set('percentageProfile', round($percentageProfile));
         $this->render('profile');
     }
 
-    public function edit(){
+    public function viewProfile ($id) {
+        $user = $this->Users->get($id, ['contain' => 'Cities.States']);
+
+        if($user) {
+            $user = $user->toArray();
+        }
+
+        $projectsUser = [];
+        $skills = [];
+        $finishedProjects = $this->getFinishedProjects($id);
+
+        $this->set(compact('user', 'projectsUser', 'skills', 'finishedProjects'));
+    }
+
+    public function edit()
+    {
         $user = $this->Users->find()
             ->where([
                 'email' => $this->request->session()->read('Auth.User.email')
@@ -131,5 +150,25 @@ class UsersController extends AppController
 
         $this->set(compact('user', 'states'));
         $this->set('_serialize', ['user', 'states']);
+    }
+
+    private function getFinishedProjects ($participant) {
+        $count = $this->ProjectUsersFixed->find()
+            ->select([
+                'count' => 'COUNT(*)'
+            ])
+            ->innerJoin(['p' => 'projects', ['p.id = ProjectUsersFixed.project_id']])
+            ->where([
+                'p.status' => 1,
+                'ProjectUsersFixed.user_id' => $participant
+            ]);
+
+        if($count->count()){
+            $count = $count->toArray();
+        } else {
+            $count = 0;
+        }
+
+        return $count;
     }
 }

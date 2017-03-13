@@ -86,7 +86,15 @@
                 <?php endforeach; ?>
             </section>
             <section class="message">
-                <input type="text" id="message" class="new-message" placeholder="Escreva sua mensagem..."/>
+                <input
+                    type="text"
+                    id="message"
+                    class="new-message"
+                    autocomplete="off"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                    placeholder="Escreva sua mensagem..."/>
                 <button id="send" class="send-message">Enviar</button>
             </section>
         </div>
@@ -98,7 +106,14 @@
             <h3>Você ainda não possui nenhuma conversa</h3>
 
             <form>
-                <input type="search" class="input-search" name="search">
+                <input
+                    type="search"
+                    class="input-search"
+                    autocomplete="off"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck="false
+                    name="search" value="<?= $this->request->query('search'); ?>">
                 <p class="italic">Procure por alguém...</p>
                 <button type="submit" class="btn btn-padrao">VAI FILHÃO</button>
             </form>
@@ -134,8 +149,8 @@
                                         <?= $participant->city->name . ' / ' . $participant->city->state->state_cod ?>
                                     </div>
                                 <?php endif; ?>
-                                <button class="btn btn-padrao profile"><i class="fa fa-user-circle"></i> PERFIL
-                                </button>
+                                <a href="<?= $this->Url->build('/visualizar-perfil/' . $participant->id, true); ?>" class="btn-padrao profile"><i class="fa fa-user-circle"></i> PERFIL
+                                </a>
                             </li>
                         <?php endforeach; ?>
                     </ul>

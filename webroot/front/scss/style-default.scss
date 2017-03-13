@@ -12,6 +12,10 @@ $big-input-width: 550px;
   font-family: $font-italic;
 }
 
+.upper{
+  text-transform: uppercase;
+}
+
 .no-padding{
   padding: 0
 }
@@ -126,8 +130,23 @@ $big-input-width: 550px;
       color: #fff;
       font-family: $font-light;
       text-align: center;
+      .modal-title{
+        font-size: 1em;
+      }
     }
   }
+}
+
+textarea::-webkit-scrollbar {
+  width: .5em;
+}
+
+textarea::-webkit-scrollbar-track {
+  background-color: rgba(206, 206, 206, 0.5);
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: #989494;
 }
 
 @media screen and(max-width: 768px){

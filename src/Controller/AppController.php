@@ -13,6 +13,8 @@ class AppController extends Controller
     {
         parent::initialize();
 
+        date_default_timezone_set('America/Sao_Paulo');
+
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('RequestHandler');

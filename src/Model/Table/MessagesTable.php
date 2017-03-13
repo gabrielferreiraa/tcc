@@ -38,11 +38,11 @@ class MessagesTable extends Table
             'foreignKey' => 'message_id'
         ]);
         $this->belongsTo('UsersTo', [
-            'foreignKey' => 'to',
+            'foreignKey' => 'to_user',
             'className' => 'Users'
         ]);
         $this->belongsTo('UsersFrom', [
-            'foreignKey' => 'from',
+            'foreignKey' => 'from_user',
             'className' => 'Users'
         ]);
     }
@@ -60,12 +60,12 @@ class MessagesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->integer('to')
-            ->allowEmpty('to');
+            ->integer('to_user')
+            ->allowEmpty('to_user');
 
         $validator
-            ->integer('from')
-            ->allowEmpty('from');
+            ->integer('from_user')
+            ->allowEmpty('from_user');
 
         $validator
             ->allowEmpty('message');
