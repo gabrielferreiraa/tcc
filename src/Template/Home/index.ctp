@@ -3,4 +3,4 @@
 <br/>
 <a href="<?= $this->Url->build('/freelancer', true); ?>">Cadastre-se como freelancer</a>
 <br/>
-<a href="<?= $this->Url->build('/login', true); ?>">Login nessa merda</a>
+<a href="<?= $this->Url->build('/login', true); ?>">Login</a>

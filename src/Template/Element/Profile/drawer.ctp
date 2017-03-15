@@ -11,7 +11,7 @@
             <?php else: ?>
                 <img src="<?= $userPicture ?>" alt="<?= $userName ?>" title="<?= $userName ?>"
                      class="img-responsive img-user"/>
-                <h3 class="name-user"><?= $userName ?></h3>
+                <h3 class="name-user"><?= $user['name'] ?></h3>
             <?php endif; ?>
             <?php if (!$view): ?>
                 <p class="description">

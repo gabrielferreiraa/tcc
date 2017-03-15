@@ -306,6 +306,7 @@ $height-message: 50px;
     border-bottom: 1px solid $grey;
     font-size: 1.6em;
     text-align: center;
+    margin-bottom: 10px;
   }
 }
 
@@ -363,6 +364,8 @@ $height-message: 50px;
 }
 
 @media screen and (max-width: 768px) {
+  /* Messages */
+
   $widthAside: 45px;
 
   %ballon {
@@ -439,5 +442,12 @@ $height-message: 50px;
   }
   .new-message {
     z-index: 9999;
+  }
+
+  /* Participants List */
+  .wrapper-no-message{
+    .input-search{
+      width: 100%;
+    }
   }
 }

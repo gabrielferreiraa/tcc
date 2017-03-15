@@ -2,12 +2,9 @@
 $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
 ?>
     <header class="header-site">
-        <div class="col-xs-6 action-xs-menu">
-            <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu">
-                <i class="fa fa-bars"></i>
-            </button>
-        </div>
-
+        <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu">
+            <i class="fa fa-bars"></i>
+        </button>
         <div class="container">
             <nav class="collapse navbar-collapse menu-top" id="menu">
                 <ul class="nav navbar-nav">

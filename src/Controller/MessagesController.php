@@ -11,6 +11,8 @@ use Cake\ORM\TableRegistry;
  */
 class MessagesController extends AppController
 {
+    public $paginate = ['limit' => 10];
+
     public function initialize()
     {
         parent::initialize();
@@ -32,6 +34,7 @@ class MessagesController extends AppController
             ->order('date DESC');
 
         $query = $this->request->query;
+
         if(!empty($query)){
             $participants = $this->Users->find()
                 ->contain(['Cities.States'])
@@ -47,6 +50,8 @@ class MessagesController extends AppController
                     "developer_type like '%" . $query['search'] . "%'"
                 ])
                 ->order('Users.name');
+
+            $participants = $this->paginate($participants);
         }
 
         $this->set(compact('messages', 'participants'));

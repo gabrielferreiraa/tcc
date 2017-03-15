@@ -105,17 +105,18 @@
             <i class="fa fa-comments-o"></i>
             <h3>Você ainda não possui nenhuma conversa</h3>
 
-            <form>
+            <form id="formSearch">
                 <input
                     type="search"
                     class="input-search"
                     autocomplete="off"
                     autocorrect="off"
                     autocapitalize="off"
-                    spellcheck="false
-                    name="search" value="<?= $this->request->query('search'); ?>">
+                    spellcheck="false"
+                    name="search"
+                    value="<?= $this->request->query('search'); ?>">
                 <p class="italic">Procure por alguém...</p>
-                <button type="submit" class="btn btn-padrao">VAI FILHÃO</button>
+                <button type="submit" class="btn btn-padrao">BUSCAR</button>
             </form>
         </div>
     </div>
@@ -155,6 +156,9 @@
                         <?php endforeach; ?>
                     </ul>
                 </div>
+            </div>
+            <div class="row paginator">
+                <?= $this->element('paginator'); ?>
             </div>
         <?php endif; ?>
     <?php endif; ?>

@@ -183,3 +183,31 @@ textarea::-webkit-scrollbar-thumb {
     right: inherit;
   }
 }
+
+.paginator{
+  display: flex;
+  justify-content: center;
+  .pagination{
+    font-family: $font;
+    li {
+      a {
+        background-color: transparent;
+        border: none;
+        color: $grey;
+      }
+      &.active{
+        a{
+          color: $red-dark;
+          &:hover {
+            background-color: transparent;
+          }
+        }
+      }
+      &.disabled {
+        a {
+          display: none;
+        }
+      }
+    }
+  }
+}
