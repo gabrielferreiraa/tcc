@@ -33,6 +33,7 @@
             </div>
             <div class="informations-user">
                 <ul class="list-i">
+                    <li><i class="fa fa-envelope-o"></i> <?= $user['email'] ?></li>
                     <?php if (!empty($user['city'])) { ?>
                         <li>
                             <i class="fa fa-map-marker"></i> <?= $user['city']['name'] . ' / ' . $user['city']['state']['name'] ?>

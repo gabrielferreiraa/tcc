@@ -24,4 +24,9 @@ class ChangeColumnName extends AbstractMigration
                   ON UPDATE NO ACTION;";
         $this->execute($sql);
     }
+    
+    public function down () {
+        $sql = "";
+        $this->execute($sql);
+    }
 }

@@ -15,6 +15,8 @@ class UsersController extends AppController
         $this->Auth->allow('add');
         $this->Auth->allow('saveUser');
 
+        $this->UserReputations = TableRegistry::get('UserReputations');
+        $this->States = TableRegistry::get('States');
         $this->ProjectUsersFixed = TableRegistry::get('ProjectUsersFixed');
     }
 
@@ -78,6 +80,8 @@ class UsersController extends AppController
             ])
             ->first();
 
+        $reputation = $this->UserReputations->getReputation($user);
+
         if(!empty($user)){
             $user = $user->toArray();
             $null = 0;
@@ -97,6 +101,7 @@ class UsersController extends AppController
             $percentageProfile = round(($complete / $null) * 100);
         }
 
+        $this->set('reputation', $reputation);
         $this->set('finishedProjects', $finishedProjects);
         $this->set('percentageProfile', $percentageProfile);
         $this->set('user', $user);
@@ -144,9 +149,7 @@ class UsersController extends AppController
             $this->Flash->error(__('The project could not be saved. Please, try again.'));
         }
 
-        $States = TableRegistry::get('States');
-
-        $states = $States->find('list');
+        $states = $this->States->find('list');
 
         $this->set(compact('user', 'states'));
         $this->set('_serialize', ['user', 'states']);
