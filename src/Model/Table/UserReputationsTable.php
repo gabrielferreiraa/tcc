@@ -85,7 +85,7 @@ class UserReputationsTable extends Table
                'reputation' => 'ROUND(AVG(grade))' 
             ])
             ->where([ 
-                'user_id' => $user->id
+                'user_id' => $user
             ])
             ->first();
         
