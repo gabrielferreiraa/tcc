@@ -99,9 +99,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `projects.scss`
+-- Table `projects`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `projects.scss` (
+CREATE TABLE IF NOT EXISTS `projects` (
   `id` INT NOT NULL,
   `user_id` INT NULL,
   `title` VARCHAR(45) NULL,
@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `project_skills` (
   INDEX `project_skills_fk2_idx` (`skill_id` ASC),
   CONSTRAINT `project_skills_fk1`
     FOREIGN KEY (`project_id`)
-    REFERENCES `projects.scss` (`id`)
+    REFERENCES `projects` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `project_skills_fk2`
@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `project_files` (
   INDEX `project_files_fk1_idx` (`project_id` ASC),
   CONSTRAINT `project_files_fk1`
     FOREIGN KEY (`project_id`)
-    REFERENCES `projects.scss` (`id`)
+    REFERENCES `projects` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `project_users_intersted` (
   INDEX `project_users_intersted_idx` (`user_id` ASC),
   CONSTRAINT `project_users_fk1`
     FOREIGN KEY (`project_id`)
-    REFERENCES `projects.scss` (`id`)
+    REFERENCES `projects` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `project_users_intersted`
@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `project_users_fixed` (
   INDEX `project_users_fixed_fk2_idx` (`user_id` ASC),
   CONSTRAINT `project_users_fixed_fk1`
     FOREIGN KEY (`project_id`)
-    REFERENCES `projects.scss` (`id`)
+    REFERENCES `projects` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `project_users_fixed_fk2`
@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `user_reputations` (
   INDEX `user_reputations_fk2_idx` (`user_id` ASC),
   CONSTRAINT `user_reputations_fk1`
     FOREIGN KEY (`project_id`)
-    REFERENCES `projects.scss` (`id`)
+    REFERENCES `projectsf` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `user_reputations_fk2`
@@ -228,29 +228,24 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `messages` (
   `id` INT NOT NULL,
-  `to` INT NULL,
-  `from` INT NULL,
+  `to_user` INT NULL,
+  `from_user` INT NULL,
   `message` TEXT NULL,
   `date` DATETIME NULL,
   PRIMARY KEY (`id`),
-  INDEX `messages_fk1_idx` (`to` ASC),
-  INDEX `messages_fk2_idx` (`from` ASC),
+  INDEX `messages_fk1_idx` (`to_user` ASC),
+  INDEX `messages_fk2_idx` (`from_user` ASC),
   CONSTRAINT `messages_fk1`
-    FOREIGN KEY (`to`)
+    FOREIGN KEY (`to_user`)
     REFERENCES `users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `messages_fk2`
-    FOREIGN KEY (`from`)
+    FOREIGN KEY (`from_user`)
     REFERENCES `users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 ";
         $this->execute($sql);
     }
