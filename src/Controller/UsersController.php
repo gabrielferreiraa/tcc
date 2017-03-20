@@ -80,7 +80,7 @@ class UsersController extends AppController
             ])
             ->first();
 
-        $reputation = $this->UserReputations->getReputation($user);
+        $reputation = $this->UserReputations->getReputation($user->id);
 
         if(!empty($user)){
             $user = $user->toArray();
@@ -113,6 +113,8 @@ class UsersController extends AppController
     public function viewProfile ($id) {
         $user = $this->Users->get($id, ['contain' => 'Cities.States']);
 
+        $reputation = $this->UserReputations->getReputation($user->id);
+
         if($user) {
             $user = $user->toArray();
         }
@@ -121,7 +123,7 @@ class UsersController extends AppController
         $skills = [];
         $finishedProjects = $this->getFinishedProjects($id);
 
-        $this->set(compact('user', 'projectsUser', 'skills', 'finishedProjects'));
+        $this->set(compact('user', 'projectsUser', 'skills', 'finishedProjects', 'reputation'));
     }
 
     public function edit()
@@ -140,13 +142,14 @@ class UsersController extends AppController
 
             $project = $this->Users->patchEntity($user, $this->request->data);
 
+            $name = explode(' ', $this->request->session()->read('Auth.User.name'));
+
             if ($this->Users->save($project)) {
-                $name = explode(' ', $this->request->session()->read('Auth.User.name'));
                 $this->Flash->success(__($name[0] . ', seu cadastro foi atualizado com sucesso'));
 
                 return $this->redirect(['action' => 'view']);
             }
-            $this->Flash->error(__('The project could not be saved. Please, try again.'));
+            $this->Flash->error(__($name[0] . ', não foi possível atualizar seu cadastro'));
         }
 
         $states = $this->States->find('list');

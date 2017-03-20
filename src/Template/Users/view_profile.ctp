@@ -3,13 +3,7 @@
     <section class="content">
         <article class="top-informations">
             <div class="col-md-4">
-                <h3>Reputação:
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                    <i class="fa fa-star-o"></i>
-                    <i class="fa fa-star-o"></i>
-                    <i class="fa fa-star-o"></i>
-                </h3>
+                <?= $this->element('Profile/reputation', ['reputation' => $reputation]); ?>
             </div>
             <div class="col-md-4">
                 <h3>Projetos Finalizados <span><?= $finishedProjects ?></span></h3>
