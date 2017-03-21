@@ -5,7 +5,7 @@
                 <?= $this->element('Projects/dev-area'); ?>
             </section>
             <section class="skills">
-                <?= $this->element('Projects/skills'); ?>
+                <?= $this->element('Projects/skills', ['skills' => $skills]); ?>
             </section>
             <section class="region">
                 <?= $this->element('Projects/regions', ['regions' => $regions]); ?>

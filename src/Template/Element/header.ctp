@@ -13,8 +13,8 @@ $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
                     </li>
 
                     <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
-                        <li class="li-item <?= (($controller == 'Projects') && ($action == 'index')) ? 'li-item-active' : '' ?>">
-                            <a href="#" class="find-projects">PROJETOS</a>
+                        <li class="li-item <?= (($controller == 'Projects') && ($action == 'add')) ? 'li-item-active' : '' ?>">
+                            <a href="<?= $this->Url->build('/criar-projeto', true); ?>" class="find-projects">PROJETOS</a>
                         </li>
                     <?php endif; ?>
                     <?php if ($this->request->session()->read('Auth.User.type') == 'f'): ?>

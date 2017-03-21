@@ -99,7 +99,7 @@
     <div class="row border-top">
         <h4 class="normal">HABILIDADES E BIBLIOGRAFIA</h4>
         <div class="col-md-6 no-padding">
-            <?= $this->Form->input('skill._ids', ['label' => 'Me considero ninja em', 'class' => 'form-input', 'empty' => 'Selecione suas habilidades']) ?>
+            <?= $this->Form->input('skill._ids', ['label' => 'Me considero ninja em', 'class' => 'form-input', 'empty' => 'Selecione suas habilidades', 'options' => $skills]) ?>
         </div>
         <div class="col-md-6">
             <?= $this->Form->input('description', ['label' => 'Fale um pouco sobre você', 'type' => 'textarea', 'class' => 'form-input description', 'autocomplete' => 'off', 'autocorrect' => 'off', 'autocapitalize' => 'off', 'spellcheck' => false]) ?>

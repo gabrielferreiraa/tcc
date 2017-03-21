@@ -2,10 +2,17 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 
 class ProjectsController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+        $this->Skills = TableRegistry::get('Skills');
+    }
+
     public function index()
     {
         $projects = $this->paginate($this->Projects);
@@ -18,8 +25,11 @@ class ProjectsController extends AppController
             'sudeste' => 'Sudeste'
         ];
 
-        $this->set(compact('projects', 'regions'));
-        $this->set('_serialize', ['projects', 'regions']);
+        $skillsLimited = $this->Skills->find('list')->order('RAND()')->limit(8);
+        $skills = $this->Skills->find('list')->where(['id NOT IN' => array_keys($skillsLimited->toArray())]);
+
+        $this->set(compact('projects', 'regions', 'skills', 'skillsLimited'));
+        $this->set('_serialize', ['projects', 'regions', 'skills', 'skillsLimited']);
     }
 
     public function view () {

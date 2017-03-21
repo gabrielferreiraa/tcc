@@ -137,16 +137,60 @@ $big-input-width: 550px;
   }
 }
 
-textarea::-webkit-scrollbar {
+textarea::-webkit-scrollbar,
+.select2-results__options::-webkit-scrollbar {
   width: .5em;
 }
 
-textarea::-webkit-scrollbar-track {
+textarea::-webkit-scrollbar-track,
+.select2-results__options::-webkit-scrollbar-track {
   background-color: rgba(206, 206, 206, 0.5);
 }
 
-textarea::-webkit-scrollbar-thumb {
+textarea::-webkit-scrollbar-thumb,
+.select2-results__options::-webkit-scrollbar-thumb {
   background-color: #989494;
+}
+
+.select2-results__options{
+  font-family: $font !important;
+  color: $grey;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected]{
+  background-color: $grey;
+}
+
+.select2-selection{
+  border-radius: 2px !important;
+  border-color: $grey !important;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  .select2-selection__rendered{
+    display: flex !important;
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: $font;
+    font-size: 1.1em;
+  }
+  .select2-selection__choice{
+    background-color: $red-dark !important;
+    color: #FFF;
+    font-family: $font;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border: none !important;
+    .select2-selection__choice__remove{
+      color: #FFF;
+      transition: transform 200ms ease;
+      &:hover{
+        color: #FFF;
+        transform: rotate(90deg);
+      }
+    }
+  }
 }
 
 @media screen and(max-width: 768px){
