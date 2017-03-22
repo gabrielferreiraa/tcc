@@ -57,6 +57,19 @@ $widthDefault: 70px;
         background-color: $red-dark;
         height: 100%;
         margin-right: 15px;
+        color: #FFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        .fa{
+          display: block;
+          font-size: 1.5em;
+        }
+        span{
+          font-family: $font-light;
+          font-size: .6em;
+        }
       }
     }
     .panel-collapse{

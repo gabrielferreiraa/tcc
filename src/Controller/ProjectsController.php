@@ -15,7 +15,25 @@ class ProjectsController extends AppController
 
     public function index()
     {
-        $projects = $this->paginate($this->Projects);
+        $data = $this->request->query;
+
+        $projects = $this->Projects->find();
+        if(!empty($data['project-name'])){
+            $projects->where([
+                "title LIKE '%" . $data['project-name'] . "%'"
+            ]);
+        }
+
+        if($projects->count()){
+            $projects
+                ->select($this->Projects)
+                ->select([
+                    'users_intersted' => 'COUNT(pui.id)'
+                ])
+                ->leftJoin(['pui' => 'project_users_intersted'], ['pui.project_id = Projects.id']);
+        }
+
+        $projects = $this->paginate($projects);
 
         $regions = [
             'centro-oeste' => 'Centro-Oeste',
@@ -33,7 +51,22 @@ class ProjectsController extends AppController
     }
 
     public function view () {
-        
+        if($this->request->session()->read('Auth.User.type') == 'c'){
+            $projects = $this->Projects->find()
+                ->where([
+                    'user_id' => $this->request->session()->read('Auth.User.id')
+                ]);
+        } else {
+            $projects = $this->Projects->find()
+                ->select($this->Projects)
+                ->innerJoin(['puf' => 'project_users_fixed'], ['puf.project_id = Projects.id'])
+                ->where([
+                    'puf.user_id' => $this->request->session()->read('Auth.User.id')
+                ]);
+        }
+
+        $this->set(compact('projects'));
+        $this->set('_serialize', ['projects']);
     }
 
     public function add()

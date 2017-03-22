@@ -32,6 +32,9 @@
                 </span>
             </span>
         </section>
+        <section class="content">
+            <?= $this->element('Projects/show', ['projects' => $projects]); ?>
+        </section>
     </div>
 <?php
 echo $this->append('css', $this->Html->css([

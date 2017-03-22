@@ -169,10 +169,12 @@ class UsersController extends AppController
             ->where([
                 'p.status' => 1,
                 'ProjectUsersFixed.user_id' => $participant
-            ]);
+            ])
+            ->first();
 
-        if($count->count()){
+        if(count($count)){
             $count = $count->toArray();
+            $count = $count['count'];
         } else {
             $count = 0;
         }
