@@ -59,6 +59,11 @@ class UsersTable extends Table
         $this->hasMany('UserSkills', [
             'foreignKey' => 'user_id'
         ]);
+        $this->belongsToMany('Skills', [
+            'foreignKey' => 'user_id',
+            'targetForeignKey' => 'skill_id',
+            'joinTable' => 'user_skills'
+        ]);
     }
 
     /**

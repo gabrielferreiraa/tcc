@@ -9,42 +9,16 @@
                 <input type="text" id="input-search-skills" placeholder="Procure por habilidades..." class="input-search-skills">
 
                 <div class="wrapper">
-                    <label class="check-type check-type-modal">
-                        <input type="checkbox" name="skills[]" class="input-checkbox" value="css"/>
-                        <div class="wrap-check"></div>CSS
-                    </label>
-                    <label class="check-type check-type-modal">
-                        <input type="checkbox" name="skills[]" class="input-checkbox" value="html"/>
-                        <div class="wrap-check"></div>HTML
-                    </label>
-                    <label class="check-type check-type-modal">
-                        <input type="checkbox" name="skills[]" class="input-checkbox" value="nodejs"/>
-                        <div class="wrap-check"></div>NodeJS
-                    </label>
-                    <label class="check-type check-type-modal">
-                        <input type="checkbox" name="skills[]" class="input-checkbox" value="bulma"/>
-                        <div class="wrap-check"></div>Bulma
-                    </label>
-                    <label class="check-type check-type-modal">
-                        <input type="checkbox" name="skills[]" class="input-checkbox" value="scss"/>
-                        <div class="wrap-check"></div>SCSS
-                    </label>
-                    <label class="check-type check-type-modal">
-                        <input type="checkbox" name="skills[]" class="input-checkbox" value="php"/>
-                        <div class="wrap-check"></div>PHP
-                    </label>
-                    <label class="check-type check-type-modal">
-                        <input type="checkbox" name="skills[]" class="input-checkbox" value="javascript"/>
-                        <div class="wrap-check"></div>Javascript
-                    </label>
-                    <label class="check-type check-type-modal">
-                        <input type="checkbox" name="skills[]" class="input-checkbox" value="programação funcional"/>
-                        <div class="wrap-check"></div>Programação Funcional
-                    </label>
+                    <?php foreach($skills as $key => $skill): ?>
+                        <label class="check-type check-type-modal">
+                            <input type="checkbox" name="skills[]" class="input-checkbox" value="<?= $skill ?>" <?= in_array($skill, $skillsQuery) ? 'checked' : '' ?>/>
+                            <div class="wrap-check"></div><?= $skill ?>
+                        </label>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-padrao">FILTRAR</button>
+                <button type="submit" class="btn btn-padrao">FILTRAR</button>
             </div>
         </div>
     </div>

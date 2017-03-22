@@ -54,6 +54,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/contratante', ['controller' => 'Users', 'action' => 'registerContractor']);
     $routes->connect('/freelancer', ['controller' => 'Users', 'action' => 'registerFreelancer']);
     $routes->connect('/projetos', ['controller' => 'Projects', 'action' => 'index']);
+    $routes->connect('/criar-projeto', ['controller' => 'Projects', 'action' => 'add']);
     $routes->connect('/sair', ['controller' => 'Home', 'action' => 'signOut']);
     $routes->connect('/perfil', ['controller' => 'Users', 'action' => 'view']);
     $routes->connect('/visualizar-perfil', ['controller' => 'Users', 'action' => 'viewProfile']);

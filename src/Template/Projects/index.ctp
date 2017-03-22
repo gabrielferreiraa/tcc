@@ -1,4 +1,4 @@
-<?= $this->element('drawer', ['regions' => $regions]); ?>
+<?= $this->element('drawer', ['regions' => $regions, 'skills' => $skillsLimited]); ?>
     <div class="content-wrapper">
         <section class="content">
             <form>
