@@ -3,24 +3,24 @@
         <section class="content">
             <form>
                 <div class="input-group">
-                        <input 
-                            type="search" 
-                            class="search-project" 
-                            name="project-name" 
-                            value="<?= $this->request->query('project-name') ?>"
-                            placeholder="Pesquise um projeto..." />
-                        <span class="input-group-btn">
-                            <button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
-                        </span>
+                    <input
+                        type="search"
+                        class="search-project"
+                        name="project-name"
+                        value="<?= $this->request->query('project-name') ?>"
+                        placeholder="Pesquise um projeto..."/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
+                    </span>
                 </div>
             </form>
-            <?php if(!empty($this->request->query('project-name'))): ?>
-                <?php if(count($projects) == 0): ?>
+            <?php if (!empty($this->request->query('project-name'))): ?>
+                <?php if (count($projects) == 0): ?>
                     <?php $text = 'Não encontramos resultados para '; ?>
-                <?php elseif(count($projects) == 1): ?> 
-                    <?php $text = 'Encontramos 1 resultado para ';?>
-                <?php else: ?>    
-                    <?php $text = 'Encontramos '. count($projects) .' resultadoss para ';?>
+                <?php elseif (count($projects) == 1): ?>
+                    <?php $text = 'Encontramos 1 resultado para '; ?>
+                <?php else: ?>
+                    <?php $text = 'Encontramos ' . count($projects) . ' resultadoss para '; ?>
                 <?php endif; ?>
             <?php else: ?>
                 <?php $text = ''; ?>
@@ -32,9 +32,12 @@
                 </span>
             </span>
         </section>
-        <section class="content">
+        <section class="content projects">
             <?= $this->element('Projects/show', ['projects' => $projects]); ?>
         </section>
+        <div class="row paginator">
+            <?= $this->element('paginator'); ?>
+        </div>
     </div>
 <?php
 echo $this->append('css', $this->Html->css([

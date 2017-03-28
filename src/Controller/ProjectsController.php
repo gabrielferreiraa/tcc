@@ -7,30 +7,35 @@ use Cake\ORM\TableRegistry;
 
 class ProjectsController extends AppController
 {
+    public $paginate = ['limit' => 5];
+
     public function initialize()
     {
         parent::initialize();
         $this->Skills = TableRegistry::get('Skills');
+        $this->Users = TableRegistry::get('Users');
     }
 
     public function index()
     {
         $data = $this->request->query;
 
-        $projects = $this->Projects->find();
-        if(!empty($data['project-name'])){
+        $projects = $this->Projects->find()->where(['status' => 1]);
+
+        if (!empty($data['project-name'])) {
             $projects->where([
                 "title LIKE '%" . $data['project-name'] . "%'"
             ]);
         }
 
-        if($projects->count()){
+        if ($projects->count()) {
             $projects
                 ->select($this->Projects)
                 ->select([
                     'users_intersted' => 'COUNT(pui.id)'
                 ])
-                ->leftJoin(['pui' => 'project_users_intersted'], ['pui.project_id = Projects.id']);
+                ->leftJoin(['pui' => 'project_users_intersted'], ['pui.project_id = Projects.id'])
+                ->group('Projects.id');
         }
 
         $projects = $this->paginate($projects);
@@ -44,14 +49,21 @@ class ProjectsController extends AppController
         ];
 
         $skillsLimited = $this->Skills->find('list')->order('RAND()')->limit(8);
-        $skills = $this->Skills->find('list')->where(['id NOT IN' => array_keys($skillsLimited->toArray())]);
+        $skills = $this->Skills->find('list');
+
+        if ($skillsLimited->count()) {
+            $skills->where([
+                'id NOT IN' => array_keys($skillsLimited->toArray())
+            ]);
+        }
 
         $this->set(compact('projects', 'regions', 'skills', 'skillsLimited'));
         $this->set('_serialize', ['projects', 'regions', 'skills', 'skillsLimited']);
     }
 
-    public function view () {
-        if($this->request->session()->read('Auth.User.type') == 'c'){
+    public function view()
+    {
+        if ($this->request->session()->read('Auth.User.type') == 'c') {
             $projects = $this->Projects->find()
                 ->where([
                     'user_id' => $this->request->session()->read('Auth.User.id')
@@ -115,5 +127,14 @@ class ProjectsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function details($id)
+    {
+        $project = $this->Projects->get($id, ['contain' => ['Users', 'ProjectFiles']]);
+
+        $finishedProjects = $this->Users->getFinishedProjects($project->user->id);
+
+        $this->set(compact('project', 'finishedProjects'));
     }
 }

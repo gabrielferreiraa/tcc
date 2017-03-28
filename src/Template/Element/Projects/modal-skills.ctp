@@ -9,12 +9,14 @@
                 <input type="text" id="input-search-skills" placeholder="Procure por habilidades..." class="input-search-skills">
 
                 <div class="wrapper">
+				<?php if(count($skills)): ?>
                     <?php foreach($skills as $key => $skill): ?>
                         <label class="check-type check-type-modal">
                             <input type="checkbox" name="skills[]" class="input-checkbox" value="<?= $skill ?>" <?= in_array($skill, $skillsQuery) ? 'checked' : '' ?>/>
                             <div class="wrap-check"></div><?= $skill ?>
                         </label>
                     <?php endforeach; ?>
+					<?php endif; ?>
                 </div>
             </div>
             <div class="modal-footer">

@@ -1,0 +1,64 @@
+@import 'default';
+
+.container {
+  position: relative;
+}
+
+.content-wrapper {
+  margin-right: 230px;
+  background-color: #fff;
+  min-height: 250px;
+  padding: 20px;
+  .title {
+    margin-top: 40px;
+  }
+  .subtitle {
+    margin: 20px 0 20px 0;
+  }
+  .skills {
+    .skills-list {
+      list-style-type: none;
+      display: flex;
+      margin-left: -10px;
+      padding: 0;
+      li {
+        margin: 10px;
+        height: 40px;
+        width: auto;
+        padding: 10px;
+        background-color: $red-dark;
+        color: #FFF;
+        border-radius: 2px;
+      }
+    }
+  }
+}
+
+.right-bar {
+  background-color: $grey-double-light;
+  width: 250px;
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  .img-user {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid $red-dark;
+    margin-top: 25%;
+  }
+  .mostrar-interesse {
+    margin-top: 70px;
+    margin-bottom: 40px;
+  }
+  .budget div {
+    font-family: $font-bold;
+    margin-top: 5px;
+    font-size: 1.3em;
+  }
+}

@@ -122,7 +122,7 @@ class UsersController extends AppController
 
         $projectsUser = [];
         $skills = [];
-        $finishedProjects = $this->getFinishedProjects($id);
+        $finishedProjects = $this->Users->getFinishedProjects($id);
 
         $this->set(compact('user', 'projectsUser', 'skills', 'finishedProjects', 'reputation'));
     }
@@ -158,27 +158,5 @@ class UsersController extends AppController
 
         $this->set(compact('user', 'states', 'skills'));
         $this->set('_serialize', ['user', 'states', 'skills']);
-    }
-
-    private function getFinishedProjects ($participant) {
-        $count = $this->ProjectUsersFixed->find()
-            ->select([
-                'count' => 'COUNT(*)'
-            ])
-            ->innerJoin(['p' => 'projects', ['p.id = ProjectUsersFixed.project_id']])
-            ->where([
-                'p.status' => 1,
-                'ProjectUsersFixed.user_id' => $participant
-            ])
-            ->first();
-
-        if(count($count)){
-            $count = $count->toArray();
-            $count = $count['count'];
-        } else {
-            $count = 0;
-        }
-
-        return $count;
     }
 }

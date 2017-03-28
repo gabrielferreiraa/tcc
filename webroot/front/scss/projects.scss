@@ -48,35 +48,37 @@ body {
         }
       }
     }
-    .result-search{
+    .result-search {
       font-family: $font;
       float: right;
       margin-top: 10px;
       color: $grey;
-      span{
+      span {
         font-family: $font-bold;
       }
     }
-
-    .title-project{
-      font-family: $font;
-      color: $red-dark;
-      padding-bottom: 20px;
-      border-bottom: 1px solid $grey-double-light;
-    }
-    .description{
-      color: $red-dark;
-    }
-    .footer{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 20px;
+    .project {
+      margin-bottom: 40px;
+      .title-project {
+        font-family: $font;
+        color: $red-dark;
+        padding-bottom: 20px;
+        border-bottom: 1px solid $grey-double-light;
+      }
+      .description {
+        color: $red-dark;
+      }
+      .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
     }
   }
 }
 
-.input-search-skills{
+.input-search-skills {
   height: 40px;
   width: 100%;
   font-family: $font;
