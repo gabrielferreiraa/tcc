@@ -130,11 +130,17 @@ class ProjectsController extends AppController
     }
 
     public function details($id)
-    {
+    {    
         $project = $this->Projects->get($id, ['contain' => ['Users', 'ProjectFiles']]);
-
+       
+        $skills = $this->Projects->find()->contain(['ProjectSkills.Skills'])
+            ->where([
+                'Projects.id' => $id
+            ])
+            ->extract('project_skills.{*}.skill');
+        
         $finishedProjects = $this->Users->getFinishedProjects($project->user->id);
 
-        $this->set(compact('project', 'finishedProjects'));
+        $this->set(compact('project', 'finishedProjects', 'skills'));
     }
 }

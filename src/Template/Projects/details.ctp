@@ -6,8 +6,9 @@
 
     <article class="skills">
         <ul class="skills-list light">
-            <li>NodeJS</li>
-            <li>HTML</li>
+            <?php foreach($skills as $skill): ?>
+                <li><?= $skill->name ?></li>
+            <?php endforeach; ?>
         </ul>
     </article>
 

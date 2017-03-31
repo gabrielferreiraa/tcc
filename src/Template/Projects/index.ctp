@@ -3,15 +3,15 @@
         <section class="content">
             <form>
                 <div class="input-group">
-                    <input
-                        type="search"
-                        class="search-project"
-                        name="project-name"
-                        value="<?= $this->request->query('project-name') ?>"
-                        placeholder="Pesquise um projeto..."/>
-                    <span class="input-group-btn">
-                        <button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
-                    </span>
+                        <input 
+                            type="search" 
+                            class="search-project" 
+                            name="project-name" 
+                            value="<?= $this->request->query('project-name') ?>"
+                            placeholder="Pesquise um projeto..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
+                        </span>
                 </div>
             </form>
             <?php if (!empty($this->request->query('project-name'))): ?>
