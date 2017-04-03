@@ -64,6 +64,13 @@ body {
         color: $red-dark;
         padding-bottom: 20px;
         border-bottom: 1px solid $grey-double-light;
+        &.interested {
+          &:after {
+            content: '\f097';
+            font-family: FontAwesome;
+            margin-left: 10px;
+          }
+        }
       }
       .description {
         color: $red-dark;

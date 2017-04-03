@@ -1,6 +1,6 @@
 <?php foreach ($projects as $project): ?>
     <article class="project">
-        <h4 class="title-project"><?= $project->title ?></h4>
+        <h4 class="title-project <?= $project->alreadyIntersted === '1' ? 'interested' : '' ?>"><?= $project->title ?></h4>
         <p class="normal description">
             <?= $project->description; ?>
         </p>

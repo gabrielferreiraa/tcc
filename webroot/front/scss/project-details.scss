@@ -55,6 +55,12 @@
   .mostrar-interesse {
     margin-top: 70px;
     margin-bottom: 40px;
+    &.interested {
+      border-color: #1BBC9B;
+      color: #FFF;
+      background-color: #1BBC9B;
+      cursor: auto;
+    }
   }
   .budget div {
     font-family: $font-bold;

@@ -14,25 +14,29 @@ class ProjectsController extends AppController
         parent::initialize();
         $this->Skills = TableRegistry::get('Skills');
         $this->Users = TableRegistry::get('Users');
+        $this->ProjectUsersIntersted = TableRegistry::get('ProjectUsersIntersted');
     }
 
     public function index()
     {
         $data = $this->request->query;
 
-        $projects = $this->Projects->find()->where(['status' => 1]);
+        $projects = $this->Projects->find()->contain(['Users'])->where(['status' => 1]);
 
         if (!empty($data['project-name'])) {
             $projects->where([
-                "title LIKE '%" . $data['project-name'] . "%'"
+                "title LIKE '%" . $data['project-name'] . "%'",
             ]);
         }
 
         if ($projects->count()) {
+            $userId = $this->request->session()->read('Auth.User.id');
+            $caseIntersted = '(CASE WHEN pui.user_id = ' . $userId . ' THEN 1 ELSE 0 END)';
             $projects
                 ->select($this->Projects)
                 ->select([
-                    'users_intersted' => 'COUNT(pui.id)'
+                    'users_intersted' => 'COUNT(pui.id)',
+                    'alreadyIntersted' => $caseIntersted
                 ])
                 ->leftJoin(['pui' => 'project_users_intersted'], ['pui.project_id = Projects.id'])
                 ->group('Projects.id');
@@ -77,6 +81,20 @@ class ProjectsController extends AppController
                 ]);
         }
 
+        if ($projects->count()) {
+            $projects = $projects->toArray();
+        } else {
+            $projects = [];
+        }
+
+        if (count($projects)) {
+            foreach ($projects as $key => $project):
+                $projects[$key]->status = [
+                    'id' => $project->status,
+                    'content' => $this->Projects->getStatus($project->status)
+                ];
+            endforeach;
+        }
         $this->set(compact('projects'));
         $this->set('_serialize', ['projects']);
     }
@@ -104,7 +122,7 @@ class ProjectsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $project = $this->Projects->patchEntity($project, $this->request->data);
-//            debug($project);exit;
+
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
 
@@ -130,17 +148,45 @@ class ProjectsController extends AppController
     }
 
     public function details($id)
-    {    
+    {
         $project = $this->Projects->get($id, ['contain' => ['Users', 'ProjectFiles']]);
-       
-        $skills = $this->Projects->find()->contain(['ProjectSkills.Skills'])
+
+        $alreadyIntersted = $this->ProjectUsersIntersted->find()
+            ->where([
+                'user_id' => $this->request->session()->read('Auth.User.id'),
+                'project_id' => $id
+            ])
+            ->first();
+
+        $skills = $this->Projects->find()
+            ->contain(['ProjectSkills.Skills'])
             ->where([
                 'Projects.id' => $id
             ])
             ->extract('project_skills.{*}.skill');
-        
+
         $finishedProjects = $this->Users->getFinishedProjects($project->user->id);
 
-        $this->set(compact('project', 'finishedProjects', 'skills'));
+        $this->set(compact('project', 'finishedProjects', 'skills', 'alreadyIntersted'));
+    }
+
+    public function registerInterested()
+    {
+        $result = ['status' => 'error', 'data' => ''];
+
+        if ($this->request->is('post')) {
+            $data = $this->request->data;
+
+            $newRegister = $this->ProjectUsersIntersted->newEntity();
+            $newRegister->user_id = $this->request->session()->read('Auth.User.id');
+            $newRegister->project_id = $data['id'];
+            if ($this->ProjectUsersIntersted->save($newRegister)) {
+                $result = ['status' => 'success', 'data' => ''];
+            } else {
+                $result = ['status' => 'error', 'data' => ''];
+            }
+        }
+        $this->set(compact('result'));
+        $this->set('_serialize', ['result']);
     }
 }

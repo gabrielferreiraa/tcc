@@ -1,33 +1,31 @@
-<?php if ($projects->count()): ?>
+<?php if (count($projects)): ?>
     <div class="panel-group" id="accordion">
         <?php foreach ($projects as $project): ?>
             <div class="panel panel-default">
                 <div class="panel-heading" data-toggle="collapse" data-parent="#accordion"
-                     href="#collapse<?= $project->id ?>">
+                     href="#collapse<?= $project['id'] ?>">
                     <div class="status">
-                        <?php if ($project->status == 0): ?>
-                            <div class="andamento">
-                                <i class="fa fa-clock-o"></i>
-                                <span>ANDAMENTO</span>
-                            </div>
-                        <?php endif; ?>
+                        <div class="<?= strtolower($project['status']['content']['title']) ?>">
+                            <i class="<?= $project['status']['content']['icon'] ?>"></i>
+                            <span><?= strtoupper($project['status']['content']['title']) ?></span>
+                        </div>
                     </div>
                     <h4 class="panel-title">
-                        <?= $project->title ?>
+                        <?= $project['title'] ?>
                     </h4>
                 </div>
-                <div id="collapse<?= $project->id ?>" class="panel-collapse collapse in">
+                <div id="collapse<?= $project['id'] ?>" class="panel-collapse collapse">
                     <section class="content">
                         <div class="panel-body">
                             <div class="tab-content">
-                                <div id="prazos" class="tab-pane fade">
+                                <div id="prazos-<?= $project['id'] ?>" class="tab-pane fade">
                                     <h4 class="normal">Prazo final para entrega:
-                                        <?= $project->date_end->i18nFormat('dd/MM/yyyy'); ?>
+                                        <?= $project['date_end']->i18nFormat('dd/MM/yyyy'); ?>
                                     </h4>
                                 </div>
-                                <div id="projeto" class="tab-pane fade in active projeto">
+                                <div id="projeto-<?= $project['id'] ?>" class="tab-pane fade in active projeto">
                                     <div class="top-informations">
-                                        <span>Orçamento: R$ <?= number_format($project->budget, 2, '.', ',') ?></span>
+                                        <span>Orçamento: R$ <?= number_format($project['budget'], 2, '.', ',') ?></span>
                                         <button class="btn btn-circle open-partner"><i class="fa fa-user"></i></button>
                                         <button class="btn btn-circle open-anexo"><i class="fa fa-paperclip"></i>
                                         </button>
@@ -42,16 +40,16 @@
                                     <div class="description">
                                         <span class="normal">Descrição:</span>
                                         <p class="normal">
-                                            <?= $project->description ?>
+                                            <?= $project['description'] ?>
                                         </p>
                                     </div>
                                 </div>
-                                <div id="avaliacao" class="tab-pane fade">
-                                    <?php if ($project->status === 0): ?>
+                                <div id="avaliacao-<?= $project['id'] ?>" class="tab-pane fade">
+                                    <?php if ($project['status'] === 0): ?>
                                         <h4 class="italic">Você ainda não finalizou este projeto</h4>
                                     <?php endif; ?>
                                 </div>
-                                <div id="time-line" class="tab-pane fade">
+                                <div id="time-line-<?= $project['id'] ?>" class="tab-pane fade">
                                     <h3>TIME LINE</h3>
                                 </div>
                             </div>
@@ -61,17 +59,20 @@
                                 <nav class="collapse navbar-collapse">
                                     <ul class="itens">
                                         <li>
-                                            <a data-toggle="pill" href="#prazos" class="item-set prazos">Prazos</a>
+                                            <a data-toggle="pill" href="#prazos-<?= $project['id'] ?>"
+                                               class="item-set prazos">Prazos</a>
                                         </li>
                                         <li class="active">
-                                            <a data-toggle="pill" href="#projeto" class="item-set projeto">Projeto</a>
+                                            <a data-toggle="pill" href="#projeto-<?= $project['id'] ?>"
+                                               class="item-set projeto">Projeto</a>
                                         </li>
                                         <li>
-                                            <a data-toggle="pill" href="#avaliacao"
+                                            <a data-toggle="pill" href="#avaliacao-<?= $project['id'] ?>"
                                                class="item-set avaliacao">Avaliação</a>
                                         </li>
                                         <li>
-                                            <a data-toggle="pill" href="#time-line" class="item-set time-line">Time
+                                            <a data-toggle="pill" href="#time-line-<?= $project['id'] ?>"
+                                               class="item-set time-line">Time
                                                 Line</a>
                                         </li>
                                     </ul>

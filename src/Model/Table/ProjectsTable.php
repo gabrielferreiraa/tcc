@@ -107,4 +107,24 @@ class ProjectsTable extends Table
 
         return $rules;
     }
+
+    public function getStatus($status)
+    {
+        $possibleStatus = [
+            0 => [
+                'title' => 'Publicado',
+                'icon' => 'fa fa-sticky-note'
+            ],
+            1 => [
+                'title' => 'Andamento',
+                'icon' => 'fa fa-clock-o'
+            ],
+            2 => [
+                'title' => 'Finalizado',
+                'icon' => 'fa fa-check'
+            ]
+        ];
+
+        return $possibleStatus[$status];
+    }
 }
