@@ -10,7 +10,7 @@
                             <span><?= strtoupper($project['status']['content']['title']) ?></span>
                         </div>
                     </div>
-                    <h4 class="panel-title">
+                    <h4 class="panel-title <?= $project['late'] == '1' ? 'late' : '' ?>">
                         <?= $project['title'] ?>
                     </h4>
                 </div>
@@ -19,8 +19,10 @@
                         <div class="panel-body">
                             <div class="tab-content">
                                 <div id="prazos-<?= $project['id'] ?>" class="tab-pane fade">
-                                    <h4 class="normal">Prazo final para entrega:
-                                        <?= $project['date_end']->i18nFormat('dd/MM/yyyy'); ?>
+                                    <h4 class="normal">
+                                        Prazo final para entrega deste projeto
+                                        <span
+                                            class="date-end"><?= $project['date_end']->i18nFormat('dd/MM/yyyy'); ?></span>
                                     </h4>
                                 </div>
                                 <div id="projeto-<?= $project['id'] ?>" class="tab-pane fade in active projeto">
@@ -32,10 +34,16 @@
                                     </div>
                                     <div class="skills">
                                         <span class="normal">Habilidades Necessárias:</span>
-                                        <ul class="skills-list light">
-                                            <li>NodeJS</li>
-                                            <li>HTML</li>
-                                        </ul>
+                                        <?php if (count($project['project_skills'])): ?>
+                                            <ul class="skills-list light">
+                                                <?php foreach ($project['project_skills'] as $skill): ?>
+                                                    <li><?= $skill->skill->name ?></li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        <?php else: ?>
+                                            <p
+                                                class="italic">Não foram adicionadas habilidades para este projeto</p>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="description">
                                         <span class="normal">Descrição:</span>
@@ -45,7 +53,7 @@
                                     </div>
                                 </div>
                                 <div id="avaliacao-<?= $project['id'] ?>" class="tab-pane fade">
-                                    <?php if ($project['status'] === 0): ?>
+                                    <?php if ($project['status']['id'] !== '2'): ?>
                                         <h4 class="italic">Você ainda não finalizou este projeto</h4>
                                     <?php endif; ?>
                                 </div>
@@ -86,6 +94,10 @@
     </div>
 <?php endif; ?>
 <?php
+echo $this->append('script', $this->Html->script([
+    'dist/js/moment',
+    'front/js-min/myProjects'
+]));
 echo $this->append('css', $this->Html->css([
     'front/css/my-projects'
 ]));

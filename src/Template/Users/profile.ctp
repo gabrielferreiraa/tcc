@@ -20,7 +20,8 @@ $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
         <?php if ($percentageProfile < 50): ?>
             <?= $this->element('Profile/complete-profile', ['user' => $userName[0]]); ?>
         <?php endif; ?>
-        <?= $this->element('Profile/skills', ['skills' => $skills]); ?>
+
+        <?= $this->element('Profile/skills', ['skills' => $user['user_skills']]); ?>
         <article class="projects">
             <?= $this->element('Profile/projects', ['projects' => $projectsUser, 'view' => false]); ?>
         </article>

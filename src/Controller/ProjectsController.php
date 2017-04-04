@@ -21,7 +21,7 @@ class ProjectsController extends AppController
     {
         $data = $this->request->query;
 
-        $projects = $this->Projects->find()->contain(['Users'])->where(['status' => 1]);
+        $projects = $this->Projects->find()->contain(['Users'])->where(['status' => 0]);
 
         if (!empty($data['project-name'])) {
             $projects->where([
@@ -67,14 +67,25 @@ class ProjectsController extends AppController
 
     public function view()
     {
+        $caseFinishedProjects = '(CASE WHEN date_end < NOW() THEN 1 ELSE 0 END)';
+
         if ($this->request->session()->read('Auth.User.type') == 'c') {
             $projects = $this->Projects->find()
+                ->contain(['ProjectSkills.Skills'])
+                ->select($this->Projects)
+                ->select([
+                    'late' => $caseFinishedProjects
+                ])
                 ->where([
                     'user_id' => $this->request->session()->read('Auth.User.id')
                 ]);
         } else {
             $projects = $this->Projects->find()
+                ->contain(['ProjectSkills.Skills'])
                 ->select($this->Projects)
+                ->select([
+                    'late' => $caseFinishedProjects
+                ])
                 ->innerJoin(['puf' => 'project_users_fixed'], ['puf.project_id = Projects.id'])
                 ->where([
                     'puf.user_id' => $this->request->session()->read('Auth.User.id')
@@ -95,6 +106,7 @@ class ProjectsController extends AppController
                 ];
             endforeach;
         }
+
         $this->set(compact('projects'));
         $this->set('_serialize', ['projects']);
     }

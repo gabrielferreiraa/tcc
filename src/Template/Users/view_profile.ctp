@@ -14,7 +14,8 @@
                 </div>
             <?php endif; ?>
         </article>
-        <?= $this->element('Profile/skills', ['skills', $skills]); ?>
+
+        <?= $this->element('Profile/skills', ['skills', $user['user_skills']]); ?>
         <article class="projects">
             <?= $this->element('Profile/projects', ['projects', $projectsUser, 'view' => $user['name']]); ?>
         </article>
