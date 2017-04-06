@@ -88,7 +88,12 @@ class UserReputationsTable extends Table
                 'user_id' => $user
             ])
             ->first();
+        if(empty($reputation)) {
+            $reputation = 0;
+        } else {
+            $reputation = $reputation->reputation;
+        }
         
-        return $reputation->reputation;
+        return $reputation;
     }
 }

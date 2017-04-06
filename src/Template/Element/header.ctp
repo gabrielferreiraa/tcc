@@ -14,12 +14,12 @@ $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
 
                     <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
                         <li class="li-item <?= (($controller == 'Projects') && ($action == 'add')) ? 'li-item-active' : '' ?>">
-                            <a href="<?= $this->Url->build('/criar-projeto', true); ?>"
+                            <a href="<?= $this->Url->build('/projetos', true); ?>"
                                class="find-projects">PROJETOS</a>
                         </li>
                     <?php endif; ?>
                     <?php if ($this->request->session()->read('Auth.User.type') == 'f'): ?>
-                        <li class="li-item <?= (($controller == 'Projects') && ($action == 'index')) ? 'li-item-active' : '' ?>">
+                        <li class="li-item <?= (($controller == 'Projects') && (($action == 'index') || ($action == 'details'))) ? 'li-item-active' : '' ?>">
                             <a href="<?= $this->Url->build('/projetos', true); ?>" class="find-job">PROCURE TRABALHO</a>
                         </li>
                     <?php endif; ?>

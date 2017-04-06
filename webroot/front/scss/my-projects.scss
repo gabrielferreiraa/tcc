@@ -87,6 +87,60 @@ $widthDefault: 70px;
       .content {
         display: flex;
         justify-content: space-between;
+        .users-interested {
+          padding: 0;
+          margin-left: -15px;
+          display: flex;
+          li {
+            width: 150px;
+            min-height: 250px;
+            display: flex;
+            background-color: $grey-double-light;
+            align-items: center;
+            justify-content: center;
+            margin: 3px;
+            padding: 5px;
+            text-align: center;
+            transition: background-color 200ms ease;
+            a {
+              text-decoration: none;
+            }
+            button {
+              font-size: 0.7em;
+            }
+            &:hover {
+              color: #FFF;
+              background-color: #1BBC9B;
+              a {
+                color: #FFF;
+              }
+              .name {
+                color: #FFF;
+              }
+            }
+            .stars {
+              display: flex;
+              justify-content: center;
+              .fa {
+                font-size: .9em;
+                margin: 1px;
+              }
+            }
+            img {
+              object-fit: cover;
+              width: 100%;
+            }
+            .name {
+              color: $red-dark;
+              font-size: 1em;
+              font-family: $font-bold;
+            }
+            .type {
+              font-size: .8em;
+              font-family: $font-light;
+            }
+          }
+        }
         .bar-right {
           div {
             width: $widthDefault + 15px;
@@ -112,6 +166,8 @@ $widthDefault: 70px;
                   .item-set {
                     color: $grey-double-light;
                     &:before {
+                      transition: transform 250ms ease;
+                      transform: rotateX(360deg);
                       color: $grey-double-light;
                     }
                   }
@@ -129,6 +185,9 @@ $widthDefault: 70px;
               }
               .time-line {
                 @include generateRightItem('\f0ae');
+              }
+              .interested {
+                @include generateRightItem('\f2bd');
               }
             }
           }

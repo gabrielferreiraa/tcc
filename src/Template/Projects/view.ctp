@@ -60,6 +60,38 @@
                                 <div id="time-line-<?= $project['id'] ?>" class="tab-pane fade">
                                     <h3>TIME LINE</h3>
                                 </div>
+                                <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
+                                    <div id="interested-<?= $project['id'] ?>" class="tab-pane fade">
+                                        <?php if (count($project['project_users_intersted'])): ?>
+                                            <ul class="users-interested">
+                                                <?php if (!empty($project['project_users_intersted'])): ?>
+                                                    <?php foreach ($project['project_users_intersted'] as $user): ?>
+                                                        <li>
+                                                            <div>
+                                                                <?php
+                                                                $imgUser = empty($user->user->picture) ? '/front/img/user-default.png' : $user->user->picture;
+                                                                ?>
+                                                                <a href="<?= $this->Url->build('/visualizar-perfil/' . $user->user->id); ?>">
+                                                                    <img src="<?= $this->Url->build($imgUser, true); ?>"
+                                                                         class="img-responsive">
+                                                                    <span class="name"><?= $user->user->name ?></span>
+                                                                    <span
+                                                                        class="type"><?= empty($user->user->developer_type) ? 'Desenvolvedor' : $user->user->developer_type ?></span>
+                                                                </a>
+                                                                <?= $this->element('Profile/reputation', ['reputation' => $user->user->reputation, 'display' => false]); ?>
+                                                                <button class="btn-padrao red">QUERO ESTE DEV</button>
+                                                            </div>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <h4 class="italic">Ainda ninguém se interessou por este projeto</h4>
+                                                <?php endif; ?>
+                                            </ul>
+                                        <?php else: ?>
+                                            <h4 class="italic">Ainda ninguém se interessou por este projeto</h4>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <aside class="bar-right">
@@ -83,6 +115,12 @@
                                                class="item-set time-line">Time
                                                 Line</a>
                                         </li>
+                                        <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
+                                            <li>
+                                                <a data-toggle="pill" href="#interested-<?= $project['id'] ?>"
+                                                   class="item-set interested">Interessados</a>
+                                            </li>
+                                        <?php endif; ?>
                                     </ul>
                                 </nav>
                             </div>

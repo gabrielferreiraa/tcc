@@ -190,7 +190,7 @@ class UsersTable extends Table
             ])
             ->innerJoin(['p' => 'projects', ['p.id = ProjectUsersFixed.project_id']])
             ->where([
-                'p.status' => 1,
+                'p.status' => 2,
                 'ProjectUsersFixed.user_id' => $participant
             ])
             ->first();

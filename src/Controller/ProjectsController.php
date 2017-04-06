@@ -15,6 +15,7 @@ class ProjectsController extends AppController
         $this->Skills = TableRegistry::get('Skills');
         $this->Users = TableRegistry::get('Users');
         $this->ProjectUsersIntersted = TableRegistry::get('ProjectUsersIntersted');
+        $this->UserReputations = TableRegistry::get('UserReputations');
     }
 
     public function index()
@@ -71,13 +72,13 @@ class ProjectsController extends AppController
 
         if ($this->request->session()->read('Auth.User.type') == 'c') {
             $projects = $this->Projects->find()
-                ->contain(['ProjectSkills.Skills'])
+                ->contain(['ProjectSkills.Skills', 'ProjectUsersIntersted.Users'])
                 ->select($this->Projects)
                 ->select([
                     'late' => $caseFinishedProjects
                 ])
                 ->where([
-                    'user_id' => $this->request->session()->read('Auth.User.id')
+                    'Projects.user_id' => $this->request->session()->read('Auth.User.id')
                 ]);
         } else {
             $projects = $this->Projects->find()
@@ -104,6 +105,16 @@ class ProjectsController extends AppController
                     'id' => $project->status,
                     'content' => $this->Projects->getStatus($project->status)
                 ];
+            endforeach;
+        }
+
+        if ($this->request->session()->read('Auth.User.type') == 'c') {
+            foreach ($projects as $keyToReputation => $projectToReputation):
+                if (count($projectToReputation['project_users_intersted'])) {
+                    foreach ($projectToReputation['project_users_intersted'] as $keyUser => $user) {
+                        $projects[$keyToReputation]->project_users_intersted[$keyUser]->user->reputation = $this->UserReputations->getReputation($user->user->id);
+                    }
+                }
             endforeach;
         }
 
