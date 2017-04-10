@@ -204,4 +204,32 @@ class UsersTable extends Table
 
         return $count;
     }
+
+    public function fixUserOnProject($user, $project)
+    {
+        $Projects = TableRegistry::get('Projects');
+        $ProjectUsersFixed = TableRegistry::get('ProjectUsersFixed');
+
+        $newRegister = $ProjectUsersFixed->newEntity();
+
+        $newRegister->user_id = $user;
+        $newRegister->project_id = $project;
+
+        if ($ProjectUsersFixed->save($newRegister)) {
+            $alreadyFixed = $Projects->query()->update()
+                ->set([
+                    'already_fixed' => 1
+                ])
+                ->where([
+                    'id' => $project
+                ]);
+            if ($alreadyFixed->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

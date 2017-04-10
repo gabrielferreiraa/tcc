@@ -14,6 +14,7 @@ class ProjectsController extends AppController
         parent::initialize();
         $this->Skills = TableRegistry::get('Skills');
         $this->Users = TableRegistry::get('Users');
+        $this->ProjectUsersFixed = TableRegistry::get('ProjectUsersFixed');
         $this->ProjectUsersIntersted = TableRegistry::get('ProjectUsersIntersted');
         $this->UserReputations = TableRegistry::get('UserReputations');
     }
@@ -109,10 +110,11 @@ class ProjectsController extends AppController
         }
 
         if ($this->request->session()->read('Auth.User.type') == 'c') {
-            foreach ($projects as $keyToReputation => $projectToReputation):
-                if (count($projectToReputation['project_users_intersted'])) {
-                    foreach ($projectToReputation['project_users_intersted'] as $keyUser => $user) {
-                        $projects[$keyToReputation]->project_users_intersted[$keyUser]->user->reputation = $this->UserReputations->getReputation($user->user->id);
+            foreach ($projects as $key => $project):
+                if (count($project['project_users_intersted'])) {
+                    foreach ($project['project_users_intersted'] as $keyUser => $user) {
+                        $projects[$key]->project_users_intersted[$keyUser]->user->reputation = $this->UserReputations->getReputation($user->user->id);
+                        $projects[$key]->project_users_intersted[$keyUser]->user->fixed = $this->verifyFixedUser($user->user->id, $project['id']);
                     }
                 }
             endforeach;
@@ -211,5 +213,44 @@ class ProjectsController extends AppController
         }
         $this->set(compact('result'));
         $this->set('_serialize', ['result']);
+    }
+
+    public function fixUserProject()
+    {
+        $result = ['status' => 'error', 'data' => ''];
+        if ($this->request->is('post')) {
+            $data = $this->request->data;
+
+            $project = $this->Projects->get($data['project']);
+
+            if ($project->already_fixed !== '1') {
+                $statusChanged = $this->Projects->changeStatusProject(1, $data['project']);
+                $userFixed = $this->Users->fixUserOnProject($data['user'], $data['project']);
+
+                if ($statusChanged && $userFixed) {
+                    $result = ['status' => 'success', 'data' => $data['userName'] . ' foi escolhido como desenvolvedor para seu projeto: ' . $project->title];
+                } else {
+                    $result = ['status' => 'error', 'data' => 'Não foi possível escolher este desenvolvedor'];
+                }
+            } else {
+                $result = ['status' => 'error', 'data' => 'Este projeto já tem um desenvolvedor'];
+            }
+        }
+
+        $this->set(compact('result'));
+        $this->set('_serialize', ['result']);
+    }
+
+    private function verifyFixedUser($user, $project)
+    {
+        $fixed = $this->ProjectUsersFixed->find()
+            ->where([
+                'user_id' => $user,
+                'project_id' => $project
+            ])
+            ->limit(1)
+            ->first();
+
+        return !empty($fixed) ? true : false;
     }
 }

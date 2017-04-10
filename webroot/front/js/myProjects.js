@@ -25,4 +25,32 @@ $(document).ready(function () {
                 );
         }
     });
+
+    $('.escolho-voce').on('click', function () {
+        const url = webroot + '/projects/fixUserProject';
+        const data = {
+            project: $(this).data('project'),
+            user: $(this).data('user'),
+            userName: $(this).data('user_name')
+        };
+
+        $.post(url, data, function (response) {
+            if (response.result.status === 'success') {
+                $('#collapse' + data.project).find('.user-' + data.user).addClass('fixed');
+                $(this).html('<i class="fa fa-check-circle"></i> ' + data.userName.toUpperCase() + ' FOI ESCOLHIDO').addClass('white');
+
+                Messenger().post({
+                    message: response.result.data,
+                    type: 'success',
+                    showCloseButton: true
+                });
+            } else {
+                Messenger().post({
+                    message: response.result.data,
+                    type: 'error',
+                    showCloseButton: true
+                });
+            }
+        }.bind(this), 'json');
+    })
 });

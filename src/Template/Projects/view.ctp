@@ -66,7 +66,7 @@
                                             <ul class="users-interested">
                                                 <?php if (!empty($project['project_users_intersted'])): ?>
                                                     <?php foreach ($project['project_users_intersted'] as $user): ?>
-                                                        <li>
+                                                        <li class="user-<?= $user->user->id ?> <?= $user->user->fixed ? ' fixed' : '' ?>">
                                                             <div>
                                                                 <?php
                                                                 $imgUser = empty($user->user->picture) ? '/front/img/user-default.png' : $user->user->picture;
@@ -79,7 +79,27 @@
                                                                         class="type"><?= empty($user->user->developer_type) ? 'Desenvolvedor' : $user->user->developer_type ?></span>
                                                                 </a>
                                                                 <?= $this->element('Profile/reputation', ['reputation' => $user->user->reputation, 'display' => false]); ?>
-                                                                <button class="btn-padrao red">QUERO ESTE DEV</button>
+                                                                <?php
+                                                                $firstName = explode(' ', $user->user->name);
+                                                                ?>
+                                                                <?php if (!$user->user->fixed) { ?>
+                                                                    <button
+                                                                        class="btn-padrao red escolho-voce"
+                                                                        data-user="<?= $user->user->id ?>"
+                                                                        data-user_name="<?= $firstName[0] ?>"
+                                                                        data-project="<?= $project['id'] ?>"
+                                                                        <?= $project['already_fixed'] !== '1' ? '' : 'disabled' ?>
+                                                                    >
+                                                                        QUERO ESTE DEV
+                                                                    </button>
+                                                                <?php } else { ?>
+                                                                    <button
+                                                                        class="btn-padrao white"
+                                                                    >
+                                                                        <i class="fa fa-check-circle"></i> <?= strtoupper($firstName[0]) ?>
+                                                                        FOI ESCOLHIDO
+                                                                    </button>
+                                                                <?php } ?>
                                                             </div>
                                                         </li>
                                                     <?php endforeach; ?>

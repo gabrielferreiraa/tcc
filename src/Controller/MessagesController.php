@@ -35,13 +35,12 @@ class MessagesController extends AppController
 
         $query = $this->request->query;
 
-        if(!empty($query)){
+        if (isset($query['search']) && !empty($query['search'])) {
             $participants = $this->Users->find()
                 ->contain(['Cities.States'])
                 ->where([
-                    'Users.name IS NOT NULL',
-                    "Users.name <> ''",
-                    "Users.name like '%" . $query['search'] . "%'"
+                    "Users.name like '%" . $query['search'] . "%'",
+                    'Users.id <>' => $this->request->session()->read('Auth.User.id')
                 ])
                 ->orWhere([
                     "email like '%" . $query['search'] . "%'"
@@ -50,17 +49,25 @@ class MessagesController extends AppController
                     "developer_type like '%" . $query['search'] . "%'"
                 ])
                 ->order('Users.name');
-
-            $participants = $this->paginate($participants);
+        } else {
+            $participants = $this->Users->find()
+                ->contain(['Cities.States'])
+                ->where([
+                    'Users.id <>' => $this->request->session()->read('Auth.User.id')
+                ])
+                ->order('Users.name');
         }
+
+        $participants = $this->paginate($participants);
 
         $this->set(compact('messages', 'participants'));
         $this->set('_serialize', ['messages', 'participants']);
     }
 
-    public function saveMessage () {
+    public function saveMessage()
+    {
         $result = ['status' => 'error'];
-        if($this->request->is('post')){
+        if ($this->request->is('post')) {
             $data = $this->request->data;
 
             $this->Messages->query()
@@ -79,7 +86,7 @@ class MessagesController extends AppController
             $newMessage->created = date('Y-m-d H:i:s');
             $newMessage->user_id = $this->request->session()->read('Auth.User.id');
 
-            if($this->MessageRecords->save($newMessage)){
+            if ($this->MessageRecords->save($newMessage)) {
                 $result = ['status' => 'success'];
             } else {
                 $result = ['status' => 'error'];
@@ -90,9 +97,10 @@ class MessagesController extends AppController
         $this->set('_serialize', ['result']);
     }
 
-    public function newMesseger () {
+    public function newMesseger()
+    {
         $result = ['status' => 'error'];
-        if($this->request->is('post')){
+        if ($this->request->is('post')) {
             $data = $this->request->data;
 
             $message = $this->Messages->newEntity();
@@ -102,14 +110,14 @@ class MessagesController extends AppController
 
             $sended = $this->Messages->save($message);
 
-            if($sended){
+            if ($sended) {
                 $messageRecord = $this->MessageRecords->newEntity();
                 $messageRecord->message_id = $sended->id;
                 $messageRecord->text = $data['message'];
                 $messageRecord->created = date('Y-m-d H:i:s');
                 $messageRecord->user_id = $this->request->session()->read('Auth.User.id');
 
-                if($this->MessageRecords->save($messageRecord)){
+                if ($this->MessageRecords->save($messageRecord)) {
                     $result = ['status' => 'success'];
                 } else {
                     $result = ['status' => 'error'];

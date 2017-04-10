@@ -113,11 +113,11 @@ class ProjectsTable extends Table
         $possibleStatus = [
             0 => [
                 'title' => 'Publicado',
-                'icon' => 'fa fa-sticky-note'
+                'icon' => 'fa fa-globe'
             ],
             1 => [
                 'title' => 'Andamento',
-                'icon' => 'fa fa-clock-o'
+                'icon' => 'fa fa-coffee'
             ],
             2 => [
                 'title' => 'Finalizado',
@@ -126,5 +126,23 @@ class ProjectsTable extends Table
         ];
 
         return $possibleStatus[$status];
+    }
+
+    public function changeStatusProject($status, $project)
+    {
+        $updated = $this->query()
+            ->update()
+            ->set([
+                'status' => $status
+            ])
+            ->where([
+                'id' => $project
+            ]);
+
+        if ($updated->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
