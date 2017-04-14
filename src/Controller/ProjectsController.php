@@ -73,21 +73,29 @@ class ProjectsController extends AppController
 
         if ($this->request->session()->read('Auth.User.type') == 'c') {
             $projects = $this->Projects->find()
-                ->contain(['ProjectSkills.Skills', 'ProjectUsersIntersted.Users'])
+                ->contain([
+                    'ProjectSkills.Skills',
+                    'ProjectUsersIntersted.Users',
+                    'ProjectUsersFixed.Users'
+                ])
                 ->select($this->Projects)
                 ->select([
                     'late' => $caseFinishedProjects
                 ])
+                ->innerJoin(['u' => 'users'], ['u.id = Projects.user_id'])
                 ->where([
                     'Projects.user_id' => $this->request->session()->read('Auth.User.id')
                 ]);
         } else {
             $projects = $this->Projects->find()
-                ->contain(['ProjectSkills.Skills'])
+                ->contain([
+                    'ProjectSkills.Skills'
+                ])
                 ->select($this->Projects)
                 ->select([
                     'late' => $caseFinishedProjects
                 ])
+                ->innerJoin(['u' => 'users'], ['u.id = Projects.user_id'])
                 ->innerJoin(['puf' => 'project_users_fixed'], ['puf.project_id = Projects.id'])
                 ->where([
                     'puf.user_id' => $this->request->session()->read('Auth.User.id')

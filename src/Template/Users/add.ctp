@@ -1,36 +1,38 @@
-<div class="row control-page-div">
-    <div>
-        <a href="<?= $this->Url->build('/', true); ?>" class="control-page">
-            página inicial
-        </a>
-        / <?= $type !== 'freelancer' ? 'contratante' : 'freelancer' ?> / cadastro
+<div class="container">
+    <div class="row control-page-div">
+        <div>
+            <a href="<?= $this->Url->build('/', true); ?>" class="control-page">
+                página inicial
+            </a>
+            / <?= $type !== 'f' ? 'contratante' : 'freelancer' ?> / cadastro
+        </div>
     </div>
-</div>
-<div class="row">
-    <section class="section-form">
-        <h1 class="welcome-text">Estamos quase lá...</h1>
-        <?= $this->Form->create(null, ['id' => 'formUsers', 'autocomplete' => 'off']) ?>
-        <input type="hidden" value="<?= $type ?>" name="type"/>
-        <div class="col-md-12">
-            <input type="text" value="<?= $email ?>" class="big-input-user" name="email" id="email" readonly/>
-        </div>
-        <div class="col-md-12">
-            <input type="text" class="big-input-user" placeholder="Nome completo" name="name" id="name"/>
-        </div>
-        <div class="col-md-6">
-            <input type="password" class="big-input-user" placeholder="Senha" name="password" id="password"/>
-        </div>
-        <div class="col-md-6">
-            <input type="password" class="big-input-user" placeholder="Repita a Senha" id="repeat-password"/>
-        </div>
-        <div class="col-md-12 create-account-div">
-            <a href="#" class="create-account">CRIAR CONTA COMO <?= strtoupper($typeText) ?></a>
-        </div>
-        <div class="col-md-12">
-            <p class="rule-inputs">preencha todos os campos</p>
-        </div>
-        <?= $this->Form->end(); ?>
-    </section>
+    <div class="row">
+        <section class="section-form">
+            <h1 class="welcome-text">Estamos quase lá...</h1>
+            <?= $this->Form->create(null, ['id' => 'formUsers', 'autocomplete' => 'off']) ?>
+            <input type="hidden" value="<?= $type ?>" name="type"/>
+            <div class="col-md-12">
+                <input type="text" value="<?= $email ?>" class="big-input-user" name="email" id="email" readonly/>
+            </div>
+            <div class="col-md-12">
+                <input type="text" class="big-input-user" placeholder="Nome completo" name="name" id="name"/>
+            </div>
+            <div class="col-md-6">
+                <input type="password" class="big-input-user" placeholder="Senha" name="password" id="password"/>
+            </div>
+            <div class="col-md-6">
+                <input type="password" class="big-input-user" placeholder="Repita a Senha" id="repeat-password"/>
+            </div>
+            <div class="col-md-12 create-account-div">
+                <a href="#" class="create-account">CRIAR CONTA COMO <?= strtoupper($typeText) ?></a>
+            </div>
+            <div class="col-md-12">
+                <p class="rule-inputs">preencha todos os campos</p>
+            </div>
+            <?= $this->Form->end(); ?>
+        </section>
+    </div>
 </div>
 <?= $this->element('footer'); ?>
 <?php

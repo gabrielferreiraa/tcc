@@ -28,8 +28,20 @@
                                 <div id="projeto-<?= $project['id'] ?>" class="tab-pane fade in active projeto">
                                     <div class="top-informations">
                                         <span>Orçamento: R$ <?= number_format($project['budget'], 2, '.', ',') ?></span>
-                                        <button class="btn btn-circle open-partner"><i class="fa fa-user"></i></button>
-                                        <button class="btn btn-circle open-anexo"><i class="fa fa-paperclip"></i>
+                                        <button
+                                            <?php
+                                            debug($project['ProjectUsersFixed']);
+                                            exit;
+                                            $devType = isset($project['ProjectUsersFixed']) ? $project['ProjectUsersFixed'][0]['id'] : '';
+                                            ?>
+                                            data-type_dev="<?= $devType ?>"
+                                            class="btn btn-circle open-partner">
+                                            <i class="fa fa-user"></i>
+                                        </button>
+
+                                        <button
+                                            class="btn btn-circle open-anexo">
+                                            <i class="fa fa-paperclip"></i>
                                         </button>
                                     </div>
                                     <div class="skills">
