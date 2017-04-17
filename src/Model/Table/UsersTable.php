@@ -4,6 +4,7 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -149,15 +150,17 @@ class UsersTable extends Table
         return $rules;
     }
 
-    public function getTypeUser($type, $ab = false){
-        if($ab){
+    public function getTypeUser($type, $ab = false)
+    {
+        if ($ab) {
             return $type == 'freelancer' ? 'f' : 'c';
         }
 
         return $type == 'f' ? 'freelancer' : 'contratante';
     }
 
-    public function isValidEmail ($email, $type){
+    public function isValidEmail($email, $type)
+    {
         $user = $this->find()
             ->hydrate(false)
             ->select([
@@ -170,10 +173,63 @@ class UsersTable extends Table
             ->limit(1)
             ->first();
 
-        if(count($user)){
+        if (count($user)) {
             return false;
         } else {
             return true;
+        }
+    }
+
+    public function getFinishedProjects($participant)
+    {
+        $ProjectUsersFixed = TableRegistry::get('ProjectUsersFixed');
+
+        $count = $ProjectUsersFixed->find()
+            ->select([
+                'count' => 'COUNT(*)'
+            ])
+            ->innerJoin(['p' => 'projects', ['p.id = ProjectUsersFixed.project_id']])
+            ->where([
+                'p.status' => 2,
+                'ProjectUsersFixed.user_id' => $participant
+            ])
+            ->first();
+
+        if (count($count)) {
+            $count = $count->toArray();
+            $count = $count['count'];
+        } else {
+            $count = 0;
+        }
+
+        return $count;
+    }
+
+    public function fixUserOnProject($user, $project)
+    {
+        $Projects = TableRegistry::get('Projects');
+        $ProjectUsersFixed = TableRegistry::get('ProjectUsersFixed');
+
+        $newRegister = $ProjectUsersFixed->newEntity();
+
+        $newRegister->user_id = $user;
+        $newRegister->project_id = $project;
+
+        if ($ProjectUsersFixed->save($newRegister)) {
+            $alreadyFixed = $Projects->query()->update()
+                ->set([
+                    'already_fixed' => 1
+                ])
+                ->where([
+                    'id' => $project
+                ]);
+            if ($alreadyFixed->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 }

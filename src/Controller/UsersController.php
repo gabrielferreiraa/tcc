@@ -73,7 +73,7 @@ class UsersController extends AppController
     public function view()
     {
         $user = $this->Users->find()
-            ->contain(['Cities.States'])
+            ->contain(['Cities.States', 'UserSkills.Skills'])
             ->leftJoin(['c' => 'cities'], ['c.id = Users.city_id'])
             ->leftJoin(['s' => 'states'], ['c.state_id = s.id'])
             ->where([
@@ -83,7 +83,7 @@ class UsersController extends AppController
 
         $reputation = $this->UserReputations->getReputation($user->id);
 
-        if(!empty($user)){
+        if (!empty($user)) {
             $user = $user->toArray();
             $null = 0;
             $complete = 0;
@@ -97,7 +97,7 @@ class UsersController extends AppController
 
             $projectsUser = [];
             $skillsUser = [];
-            $finishedProjects = $this->getFinishedProjects($user['id']);
+            $finishedProjects = $this->Users->getFinishedProjects($user['id']);
 
             $percentageProfile = round(($complete / $null) * 100);
         }
@@ -106,23 +106,22 @@ class UsersController extends AppController
         $this->set('finishedProjects', $finishedProjects);
         $this->set('percentageProfile', $percentageProfile);
         $this->set('user', $user);
-        $this->set('skills', $skillsUser);
         $this->set('projectsUser', $projectsUser);
         $this->render('profile');
     }
 
-    public function viewProfile ($id) {
-        $user = $this->Users->get($id, ['contain' => 'Cities.States']);
+    public function viewProfile($id)
+    {
+        $user = $this->Users->get($id, ['contain' => ['Cities.States', 'UserSkills.Skills']]);
 
         $reputation = $this->UserReputations->getReputation($user->id);
 
-        if($user) {
+        if ($user) {
             $user = $user->toArray();
         }
 
         $projectsUser = [];
-        $skills = [];
-        $finishedProjects = $this->getFinishedProjects($id);
+        $finishedProjects = $this->Users->getFinishedProjects($id);
 
         $this->set(compact('user', 'projectsUser', 'skills', 'finishedProjects', 'reputation'));
     }
@@ -136,16 +135,16 @@ class UsersController extends AppController
             ->first();
 
         $user = $this->Users->get($user->id, [
-            'contain' => ['Cities']
+            'contain' => ['Cities', 'Skills']
         ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
 
-            $project = $this->Users->patchEntity($user, $this->request->data);
+            $userUpdated = $this->Users->patchEntity($user, $this->request->data);
 
-            $name = explode(' ', $this->request->session()->read('Auth.User.name'));
+            $name = explode(' ', $userUpdated->name);
 
-            if ($this->Users->save($project)) {
+            if ($this->Users->save($userUpdated)) {
                 $this->Flash->success(__($name[0] . ', seu cadastro foi atualizado com sucesso'));
 
                 return $this->redirect(['action' => 'view']);
@@ -158,25 +157,5 @@ class UsersController extends AppController
 
         $this->set(compact('user', 'states', 'skills'));
         $this->set('_serialize', ['user', 'states', 'skills']);
-    }
-
-    private function getFinishedProjects ($participant) {
-        $count = $this->ProjectUsersFixed->find()
-            ->select([
-                'count' => 'COUNT(*)'
-            ])
-            ->innerJoin(['p' => 'projects', ['p.id = ProjectUsersFixed.project_id']])
-            ->where([
-                'p.status' => 1,
-                'ProjectUsersFixed.user_id' => $participant
-            ]);
-
-        if($count->count()){
-            $count = $count->toArray();
-        } else {
-            $count = 0;
-        }
-
-        return $count;
     }
 }

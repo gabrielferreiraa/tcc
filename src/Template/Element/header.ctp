@@ -8,17 +8,18 @@ $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
         <div class="container">
             <nav class="collapse navbar-collapse menu-top" id="menu">
                 <ul class="nav navbar-nav">
-                    <li class="li-item">
+                    <li class="li-item <?= (($controller == 'Projects') && ($action == 'view')) ? 'li-item-active' : '' ?>">
                         <a href="<?= $this->Url->build('/meus-projetos', true); ?>" class="projects">MEUS PROJETOS</a>
                     </li>
 
                     <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
                         <li class="li-item <?= (($controller == 'Projects') && ($action == 'add')) ? 'li-item-active' : '' ?>">
-                            <a href="<?= $this->Url->build('/criar-projeto', true); ?>" class="find-projects">PROJETOS</a>
+                            <a href="<?= $this->Url->build('/projetos', true); ?>"
+                               class="find-projects">PROJETOS</a>
                         </li>
                     <?php endif; ?>
                     <?php if ($this->request->session()->read('Auth.User.type') == 'f'): ?>
-                        <li class="li-item <?= (($controller == 'Projects') && ($action == 'index')) ? 'li-item-active' : '' ?>">
+                        <li class="li-item <?= (($controller == 'Projects') && (($action == 'index') || ($action == 'details'))) ? 'li-item-active' : '' ?>">
                             <a href="<?= $this->Url->build('/projetos', true); ?>" class="find-job">PROCURE TRABALHO</a>
                         </li>
                     <?php endif; ?>

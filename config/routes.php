@@ -61,9 +61,15 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/editar-perfil', ['controller' => 'Users', 'action' => 'edit']);
     $routes->connect('/meus-projetos', ['controller' => 'Projects', 'action' => 'view']);
     $routes->connect('/mensagens', ['controller' => 'Messages', 'action' => 'index']);
+    $routes->connect('/detalhe-projeto', ['controller' => 'Projects', 'action' => 'details']);
     $routes->connect(
         '/visualizar-perfil/:id',
         ['controller' => 'Users', 'action' => 'viewProfile'],
+        ['id' => '\d+', 'pass' => ['id']]
+    );
+    $routes->connect(
+        '/detalhe-projeto/:id',
+        ['controller' => 'Projects', 'action' => 'details'],
         ['id' => '\d+', 'pass' => ['id']]
     );
 

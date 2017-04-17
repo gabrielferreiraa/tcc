@@ -141,6 +141,10 @@
                                     <div class="developer">
                                         <?= $participant->developer_type ?>
                                     </div>
+                                <?php else: ?>
+                                    <div class="developer">
+                                        Desenvolvedor(a)
+                                    </div>
                                 <?php endif; ?>
                                 <?php
                                 $atualName = explode(' ', $participant->name);
@@ -150,7 +154,8 @@
                                         <?= $participant->city->name . ' / ' . $participant->city->state->state_cod ?>
                                     </div>
                                 <?php endif; ?>
-                                <a href="<?= $this->Url->build('/visualizar-perfil/' . $participant->id, true); ?>" class="btn-padrao profile"><i class="fa fa-user-circle"></i> PERFIL
+                                <a href="<?= $this->Url->build('/visualizar-perfil/' . $participant->id, true); ?>"
+                                   class="btn-padrao profile"><i class="fa fa-user-circle"></i> PERFIL
                                 </a>
                             </li>
                         <?php endforeach; ?>

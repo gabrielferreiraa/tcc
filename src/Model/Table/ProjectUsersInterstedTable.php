@@ -7,20 +7,20 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * UserReputations Model
+ * ProjectUsersIntersted Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Projects
  * @property \Cake\ORM\Association\BelongsTo $Users
  *
- * @method \App\Model\Entity\UserReputation get($primaryKey, $options = [])
- * @method \App\Model\Entity\UserReputation newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\UserReputation[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\UserReputation|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\UserReputation patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\UserReputation[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\UserReputation findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\ProjectUsersIntersted get($primaryKey, $options = [])
+ * @method \App\Model\Entity\ProjectUsersIntersted newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\ProjectUsersIntersted[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\ProjectUsersIntersted|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\ProjectUsersIntersted patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\ProjectUsersIntersted[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\ProjectUsersIntersted findOrCreate($search, callable $callback = null, $options = [])
  */
-class UserReputationsTable extends Table
+class ProjectUsersInterstedTable extends Table
 {
 
     /**
@@ -33,9 +33,9 @@ class UserReputationsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('user_reputations');
-        $this->displayField('id');
-        $this->primaryKey('id');
+        $this->setTable('project_users_intersted');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
 
         $this->belongsTo('Projects', [
             'foreignKey' => 'project_id'
@@ -57,10 +57,6 @@ class UserReputationsTable extends Table
             ->integer('id')
             ->allowEmpty('id', 'create');
 
-        $validator
-            ->numeric('grade')
-            ->allowEmpty('grade');
-
         return $validator;
     }
 
@@ -77,23 +73,5 @@ class UserReputationsTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 
         return $rules;
-    }
-    
-    public function getReputation ($user) {
-        $reputation = $this->find()
-            ->select([
-               'reputation' => 'ROUND(AVG(grade))' 
-            ])
-            ->where([ 
-                'user_id' => $user
-            ])
-            ->first();
-        if(empty($reputation)) {
-            $reputation = 0;
-        } else {
-            $reputation = $reputation->reputation;
-        }
-        
-        return $reputation;
     }
 }

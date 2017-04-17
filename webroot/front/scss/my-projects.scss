@@ -2,30 +2,30 @@
 
 $widthDefault: 70px;
 
-%style-aside-collapse{
+%style-aside-collapse {
   font-family: $icon;
   display: block;
   color: $red-dark;
   font-size: 1.5em;
 }
 
-@mixin generateRightItem ($icon){
+@mixin generateRightItem($icon) {
   text-decoration: none;
   color: $red-dark;
-  &:before{
+  &:before {
     content: '#{$icon}';
     @extend %style-aside-collapse;
   }
 }
 
-.panel-group{
+.panel-group {
   background-color: white;
   padding: 15px;
   min-height: 700px;
-  .panel{
+  .panel {
     border-radius: 0;
     border-color: #FFF;
-    .panel-heading{
+    .panel-heading {
       height: $widthDefault;
       display: flex;
       align-items: center;
@@ -35,7 +35,7 @@ $widthDefault: 70px;
       cursor: pointer;
       padding: 0;
       position: relative;
-      &:after{
+      &:after {
         content: '\f106';
         font-family: $icon;
         color: $red-dark;
@@ -44,35 +44,115 @@ $widthDefault: 70px;
         font-size: 1.5em;
         transition: transform 200ms ease;
       }
-      &.collapsed{
-        &:after{
+      &.collapsed {
+        &:after {
           transform: rotate(180deg);
         }
       }
-      h4{
+      .panel-title {
+        position: relative;
         font-size: 1.3em;
+        &.late {
+          &:after {
+            content: '\f017';
+            font-family: FontAwesome;
+            position: absolute;
+            right: -30px;
+            top: 2px;
+            color: #EC644B;
+          }
+        }
       }
-      .status{
+      .status {
         width: $widthDefault;
         background-color: $red-dark;
         height: 100%;
         margin-right: 15px;
+        color: #FFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        .fa {
+          display: block;
+          font-size: 1.5em;
+        }
+        span {
+          font-family: $font-light;
+          font-size: .6em;
+        }
       }
     }
-    .panel-collapse{
-      .content{
+    .panel-collapse {
+      .content {
         display: flex;
         justify-content: space-between;
-        .bar-right{
-          div{
-            width: $widthDefault + 15px;
-            height:auto;
+        .users-interested {
+          padding: 0;
+          margin-left: -15px;
+          display: flex;
+          li {
+            width: 150px;
+            min-height: 250px;
+            display: flex;
             background-color: $grey-double-light;
-            .collapse{ padding:0; }
-            .itens{
+            align-items: center;
+            justify-content: center;
+            margin: 3px;
+            padding: 5px;
+            text-align: center;
+            transition: background-color 200ms ease;
+            a {
+              text-decoration: none;
+            }
+            button {
+              font-size: 0.7em;
+            }
+            &:hover {
+              color: #FFF;
+              background-color: #1BBC9B;
+              a {
+                color: #FFF;
+              }
+              .name {
+                color: #FFF;
+              }
+            }
+            .stars {
+              display: flex;
+              justify-content: center;
+              .fa {
+                font-size: .9em;
+                margin: 1px;
+              }
+            }
+            img {
+              object-fit: cover;
+              width: 100%;
+            }
+            .name {
+              color: $red-dark;
+              font-size: 1em;
+              font-family: $font-bold;
+            }
+            .type {
+              font-size: .8em;
+              font-family: $font-light;
+            }
+          }
+        }
+        .bar-right {
+          div {
+            width: $widthDefault + 15px;
+            height: auto;
+            background-color: $grey-double-light;
+            .collapse {
+              padding: 0;
+            }
+            .itens {
               list-style-type: none;
               padding: 0;
-              li{
+              li {
                 height: $widthDefault;
                 display: flex;
                 align-items: center;
@@ -82,37 +162,50 @@ $widthDefault: 70px;
                 font-family: $font;
                 transition: all 150ms ease;
                 cursor: pointer;
-                &:hover, &.active{
-                  .item-set{
+                &:hover, &.active {
+                  .item-set {
                     color: $grey-double-light;
-                    &:before{
+                    &:before {
+                      transition: transform 250ms ease;
+                      transform: rotateX(360deg);
                       color: $grey-double-light;
                     }
                   }
                   background-color: $grey-light;
                 }
               }
-              .prazos{ @include generateRightItem('\f073'); }
-              .projeto{ @include generateRightItem('\f121'); }
-              .avaliacao{ @include generateRightItem('\f005'); }
-              .time-line{ @include generateRightItem('\f0ae'); }
+              .prazos {
+                @include generateRightItem('\f073');
+              }
+              .projeto {
+                @include generateRightItem('\f121');
+              }
+              .avaliacao {
+                @include generateRightItem('\f005');
+              }
+              .time-line {
+                @include generateRightItem('\f0ae');
+              }
+              .interested {
+                @include generateRightItem('\f2bd');
+              }
             }
           }
         }
       }
-      .tab-content{
+      .tab-content {
         position: relative;
-        .projeto{
-          .top-informations{
+        .projeto {
+          .top-informations {
             height: 70px;
             margin-top: -10px;
             display: flex;
             align-items: center;
             border-bottom: 1px solid $grey;
-            span{
+            span {
               font-family: $font;
             }
-            .btn-circle{
+            .btn-circle {
               background-color: $red-dark;
               border-radius: 50%;
               color: #FFF;
@@ -121,10 +214,10 @@ $widthDefault: 70px;
               transition: all 150ms ease;
               margin: 10px;
               display: flex;
-              .fa{
+              .fa {
                 font-size: 1.3em;
               }
-              &:hover{
+              &:hover {
                 border: 1px solid $red-dark;
                 color: $red-dark;
                 background-color: #fff;
@@ -132,14 +225,14 @@ $widthDefault: 70px;
             }
           }
         }
-        .skills{
+        .skills {
           margin-top: 20px;
-          .skills-list{
+          .skills-list {
             list-style-type: none;
             display: flex;
             margin-left: -10px;
             padding: 0;
-            li{
+            li {
               margin: 10px;
               height: 40px;
               width: auto;
@@ -150,12 +243,23 @@ $widthDefault: 70px;
             }
           }
         }
-        .description{
-          p{
+        .description {
+          p {
             margin-top: 15px;
           }
         }
       }
     }
+  }
+}
+
+.fixed {
+  color: #FFF !important;
+  background-color: #1BBC9B !important;
+  a {
+    color: #FFF !important;
+  }
+  .name {
+    color: #FFF !important;
   }
 }

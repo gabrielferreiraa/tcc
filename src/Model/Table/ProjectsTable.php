@@ -107,4 +107,42 @@ class ProjectsTable extends Table
 
         return $rules;
     }
+
+    public function getStatus($status)
+    {
+        $possibleStatus = [
+            0 => [
+                'title' => 'Publicado',
+                'icon' => 'fa fa-globe'
+            ],
+            1 => [
+                'title' => 'Andamento',
+                'icon' => 'fa fa-coffee'
+            ],
+            2 => [
+                'title' => 'Finalizado',
+                'icon' => 'fa fa-check'
+            ]
+        ];
+
+        return $possibleStatus[$status];
+    }
+
+    public function changeStatusProject($status, $project)
+    {
+        $updated = $this->query()
+            ->update()
+            ->set([
+                'status' => $status
+            ])
+            ->where([
+                'id' => $project
+            ]);
+
+        if ($updated->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
