@@ -261,4 +261,30 @@ class ProjectsController extends AppController
 
         return !empty($fixed) ? true : false;
     }
+
+    public function showPartner () {
+        $result = ['status' => 'error', 'data' => ''];
+        if ($this->request->is('post')) {
+            $data = $this->request->data;
+
+            $user = $this->Users->get($data['id']);
+
+            $informations = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'created' => $user->created_at->i18nFormat('dd/MM/yyyy'),
+                'picture' => $user->picture,
+                'finished' => $this->Users->getFinishedProjects($user->id)
+            ];
+
+            if($user) {
+                $result = ['status' => 'success', 'data' => $informations];
+            } else {
+                $result = ['status' => 'error', 'data' => 'y'];
+            }
+        }
+
+        $this->set(compact('result'));
+        $this->set('_serialize', ['result']);
+    }
 }

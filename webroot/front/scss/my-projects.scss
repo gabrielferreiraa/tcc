@@ -25,6 +25,54 @@ $widthDefault: 70px;
   .panel {
     border-radius: 0;
     border-color: #FFF;
+    .user-window {
+      position: absolute;
+      background-color: $grey;
+      color: #FFF;
+      width: 320px;
+      height: 170px;
+      display: none;
+      z-index: 9999;
+      left: 20px;
+      top: -170px;
+      &.open {
+        display: flex;
+      }
+      &:after {
+        content: '';
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        bottom: -5px;
+        background-color: $grey;
+        left: 50%;
+        transform: translateX(-15px) rotate(45deg);
+        z-index: 0;
+      }
+      .informations {
+        padding-right: 10px;
+        width: 100%;
+      }
+      .name, .created {
+        font-family: $font;
+      }
+      .finished {
+        span {
+          font-size: 1.2em;
+        }
+      }
+      img {
+        margin-right: 10px;
+        width: 35%;
+        height: 100%;
+        object-fit: cover;
+      }
+      button {
+        display: block;
+        margin: 20px auto;
+        width: 100%;
+      }
+    }
     .panel-heading {
       height: $widthDefault;
       display: flex;
