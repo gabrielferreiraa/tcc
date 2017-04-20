@@ -37,7 +37,7 @@
                                                     data-dev="<?= $dev['user_id'] ?>-freelancer"
                                                     data-project="<?= $project['id'] ?>"
                                                     class="btn btn-circle open-partner">
-                                                    <i class="fa fa-user"></i>
+                                                    Freelancer escolhido&nbsp;&nbsp;<i class="fa fa-user"></i>
                                                 </button>
                                             <?php endif; ?>
                                         <?php else: ?>
@@ -45,7 +45,7 @@
                                                 data-dev="<?= $project['user_id'] ?>-contractor"
                                                 data-project="<?= $project['id'] ?>"
                                                 class="btn btn-circle open-partner">
-                                                <i class="fa fa-user"></i>
+                                                Contratante deste projeto&nbsp;&nbsp;<i class="fa fa-user"></i>
                                             </button>
                                         <?php endif; ?>
 
