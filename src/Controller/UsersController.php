@@ -139,7 +139,6 @@ class UsersController extends AppController
         ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-
             $userUpdated = $this->Users->patchEntity($user, $this->request->data);
 
             $name = explode(' ', $userUpdated->name);

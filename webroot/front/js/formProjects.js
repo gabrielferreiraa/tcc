@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    const heightProjects = $('.content-wrapper').height();
+    $('.left-bar').css('height', heightProjects + 'px');
+
     $('.btn-more-skills').click(function () {
         $('#skills').modal('show');
     });

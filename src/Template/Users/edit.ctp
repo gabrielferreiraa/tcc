@@ -8,7 +8,8 @@
 </figure>
 
 <?= $this->Form->create($user, ['id' => 'formProfiles', 'type' => 'file']) ?>
-<input type="file" style="display: none" name="picture" id="picture" accept="image/x-png,image/gif,image/jpeg">
+<input type="file" style="display: none" name="picture-image" id="picture-image" accept="image/x-png,image/gif,image/jpeg">
+<input type="hidden" name="picture" id="picture" />
 <div class="container-fluid content-profile">
     <div class="row">
         <div class="col-md-12">

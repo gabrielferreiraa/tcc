@@ -73,21 +73,29 @@ class ProjectsController extends AppController
 
         if ($this->request->session()->read('Auth.User.type') == 'c') {
             $projects = $this->Projects->find()
-                ->contain(['ProjectSkills.Skills', 'ProjectUsersIntersted.Users'])
+                ->contain([
+                    'ProjectSkills.Skills',
+                    'ProjectUsersIntersted.Users',
+                    'ProjectUsersFixed.Users'
+                ])
                 ->select($this->Projects)
                 ->select([
                     'late' => $caseFinishedProjects
                 ])
+                ->innerJoin(['u' => 'users'], ['u.id = Projects.user_id'])
                 ->where([
                     'Projects.user_id' => $this->request->session()->read('Auth.User.id')
                 ]);
         } else {
             $projects = $this->Projects->find()
-                ->contain(['ProjectSkills.Skills'])
+                ->contain([
+                    'ProjectSkills.Skills'
+                ])
                 ->select($this->Projects)
                 ->select([
                     'late' => $caseFinishedProjects
                 ])
+                ->innerJoin(['u' => 'users'], ['u.id = Projects.user_id'])
                 ->innerJoin(['puf' => 'project_users_fixed'], ['puf.project_id = Projects.id'])
                 ->where([
                     'puf.user_id' => $this->request->session()->read('Auth.User.id')
@@ -256,5 +264,31 @@ class ProjectsController extends AppController
             ->first();
 
         return !empty($fixed) ? true : false;
+    }
+
+    public function showPartner () {
+        $result = ['status' => 'error', 'data' => ''];
+        if ($this->request->is('post')) {
+            $data = $this->request->data;
+
+            $user = $this->Users->get($data['id']);
+
+            $informations = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'created' => $user->created_at->i18nFormat('dd/MM/yyyy'),
+                'picture' => $user->picture,
+                'finished' => $this->Users->getFinishedProjects($user->id)
+            ];
+
+            if($user) {
+                $result = ['status' => 'success', 'data' => $informations];
+            } else {
+                $result = ['status' => 'error', 'data' => 'y'];
+            }
+        }
+
+        $this->set(compact('result'));
+        $this->set('_serialize', ['result']);
     }
 }

@@ -95,6 +95,15 @@ b {
       color: #fff;
       text-decoration: none;
     }
+    &.red {
+      font-size: 1em;
+      &:hover {
+        background-color: $red-dark !important;
+        color: #fff;
+        border: 1px solid $red-dark;
+        text-decoration: none;
+      }
+    }
   }
 }
 

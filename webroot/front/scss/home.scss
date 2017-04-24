@@ -1,3 +1,79 @@
-body{
-  color: red;
+@import 'default';
+
+*, *:before, *:after {
+  margin: 0;
+}
+
+.main-content {
+  display: flex;
+  transition: width 200ms ease;
+  &__login {
+    position: absolute;
+    right: 3%;
+    top: 3%;
+    text-transform: none;
+    color: #FFF;
+    &:before {
+      content: '\f178   login';
+      font-family: FontAwesome, $font;
+      font-weight: normal;
+      opacity: 0;
+      transition: all 200ms ease;
+      right: 10px;
+      position: absolute;
+    }
+    &:hover {
+      text-transform: none;
+      color: #FFF;
+      &:before {
+        opacity: 1;
+        top: 20px;
+        right: 0;
+      }
+    }
+  }
+
+  &__img {
+    width: 50%;
+    overflow: hidden;
+    min-height: 100%;
+    position: absolute;
+  }
+
+  .informations {
+    z-index: 9999;
+    width: 50%;
+    padding: 30px;
+    color: #FFF;
+    h1 {
+      margin-bottom: 30px;
+      font-size: 2.5em;
+    }
+    &-right {
+      text-align: left;
+      transform: translateY(calc(50% - 150px));
+      height: 400px;
+    }
+    &-left {
+      transform: translateY(calc(50% + 150px));
+      height: 400px;
+      text-align: right;
+    }
+  }
+
+  &--left {
+    background: url('../../front/img/background-contractor.png') no-repeat center center / cover;
+    border-right: 1px solid #FFF;
+  }
+  &--right {
+    left: 50%;
+    background: url('../../front/img/background-freelancer.png') no-repeat center center / cover;
+    border-left: 1px solid #FFF;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main-content {
+    font-size: 10px;
+  }
 }

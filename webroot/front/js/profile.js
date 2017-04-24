@@ -8,6 +8,9 @@ $(document).ready(function(){
     $(document).on('click', '.send-message', sendMessage);
     $(document).on('keyup', '.message', enableBtn);
 
+    var heightAside = $('.profile-informations').height();
+    $('.content-wrapper').css('minHeight', heightAside + 'px');
+
     function sendMessage () {
         $('#message').modal('hide');
 

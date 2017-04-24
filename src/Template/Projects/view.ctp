@@ -28,8 +28,42 @@
                                 <div id="projeto-<?= $project['id'] ?>" class="tab-pane fade in active projeto">
                                     <div class="top-informations">
                                         <span>Orçamento: R$ <?= number_format($project['budget'], 2, '.', ',') ?></span>
-                                        <button class="btn btn-circle open-partner"><i class="fa fa-user"></i></button>
-                                        <button class="btn btn-circle open-anexo"><i class="fa fa-paperclip"></i>
+                                        <?php
+                                        $dev = isset($project['project_users_fixed']) && !empty($project['project_users_fixed']) ? $project['project_users_fixed'][0] : '';
+                                        ?>
+                                        <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
+                                            <?php if (!empty($dev)): ?>
+                                                <button
+                                                    data-dev="<?= $dev['user_id'] ?>-freelancer"
+                                                    data-project="<?= $project['id'] ?>"
+                                                    class="btn btn-circle open-partner">
+                                                    Freelancer escolhido&nbsp;&nbsp;<i class="fa fa-user"></i>
+                                                </button>
+                                            <?php endif; ?>
+                                        <?php else: ?>
+                                            <button
+                                                data-dev="<?= $project['user_id'] ?>-contractor"
+                                                data-project="<?= $project['id'] ?>"
+                                                class="btn btn-circle open-partner">
+                                                Contratante deste projeto&nbsp;&nbsp;<i class="fa fa-user"></i>
+                                            </button>
+                                        <?php endif; ?>
+
+                                        <div class="user-window project-window-<?= $project['id'] ?>">
+                                            <img
+                                                src="<?= $this->Url->build('/front/img/user-default.png', true); ?>"
+                                                class="picture img-responsive"/>
+                                            <div class="informations">
+                                                <h4 class="name normal"></h4>
+                                                <h6 class="created normal"></h6>
+                                                <h5 class="finished normal"></h5>
+                                                <button class="btn-padrao white">VISUALIZAR PERFIL</button>
+                                            </div>
+                                        </div>
+
+                                        <button
+                                            class="btn btn-circle open-anexo">
+                                            <i class="fa fa-paperclip"></i>
                                         </button>
                                     </div>
                                     <div class="skills">

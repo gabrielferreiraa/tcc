@@ -26,9 +26,7 @@
 </head>
 <body>
 <?= $this->Flash->render() ?>
-<div class="container">
-    <?= $this->fetch('content') ?>
-</div>
+<?= $this->fetch('content') ?>
 
 <?php
 $this->Html->scriptStart(['block' => true]);

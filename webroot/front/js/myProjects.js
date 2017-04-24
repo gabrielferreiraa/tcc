@@ -52,5 +52,33 @@ $(document).ready(function () {
                 });
             }
         }.bind(this), 'json');
-    })
+    });
+
+    $('.open-partner').on('click', function () {
+        var url = webroot + 'projects/show-partner';
+        var windowDiv = $('.project-window-' + $(this).data('project'));
+
+        windowDiv.toggleClass('open');
+
+        var user = $(this).data('dev').split('-');
+
+        var data = {
+            id: user[0]
+        };
+
+        var typeUser = user[1] == 'contractor' ? 'Contratante' : 'Freelancer';
+
+        $.post(url, data, function (res) {
+            if (res.result.status === 'success') {
+                res.result.data.picture !== '' ? windowDiv.find('img').attr('src', res.result.data.picture) : false;
+                windowDiv.find('.name').text(res.result.data.name);
+                windowDiv.find('.created').text(typeUser + ' desde ' + res.result.data.created);
+                windowDiv.find('.finished').html('Projeto finalizados: ' + '<span>' + res.result.data.finished + '</span>');
+                var sendMessage = windowDiv.find('button');
+                sendMessage.on('click', function(){
+                    window.location.href = webroot + 'visualizar-perfil/' + res.result.data.id;
+                });
+            }
+        }, 'json');
+    });
 });
