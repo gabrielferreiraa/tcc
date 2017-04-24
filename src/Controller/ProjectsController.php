@@ -136,8 +136,12 @@ class ProjectsController extends AppController
             }
             $this->Flash->error(__('The project could not be saved. Please, try again.'));
         }
-        $this->set(compact('project'));
-        $this->set('_serialize', ['project']);
+        $Skills = TableRegistry::get('Skills');
+        $skills = $Skills->find('list');
+
+        $this->set(compact('project', 'skills'));
+        $this->set('_serialize', ['project','skills']);
+
     }
 
     public function edit($id = null)

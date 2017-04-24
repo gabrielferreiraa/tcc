@@ -1,6 +1,16 @@
 @import 'default';
 
-body {
-  background-color: $red-dark;
+.fale_projeto{
+  height: 200px;
 }
 
+.corpo{
+  height: auto;
+  background-color: white;
+}
+
+.btns{
+  width: 95%;
+  margin: 20px auto;
+  display: block;
+}
