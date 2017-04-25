@@ -8,7 +8,7 @@
                         <?php foreach ($messages as $indicators): ?>
                             <?php
                             $userType = $onlineUser == $indicators->users_to->id ? 'users_from' : 'users_to';
-                            $imageUserMessage = !empty($indicators->{$userType}->picture) ? $this->Url->build($indicators->{$userType}->picture, true) : $this->Url->build('/front/img/user-default.png', true);
+                            $imageUserMessage = !empty($indicators->{$userType}->picture) ? $indicators->{$userType}->picture : $this->Url->build('/front/img/user-default.png', true);
                             ?>
                             <a href="#<?= $indicators->id ?>">
                                 <li>
@@ -39,7 +39,7 @@
                 <?php foreach ($messages as $message): ?>
                     <?php
                     $userType = $onlineUser == $message->users_to->id ? 'users_from' : 'users_to';
-                    $imageUserMessage = !empty($message->{$userType}->picture) ? $this->Url->build($message->{$userType}->picture, true) : $this->Url->build('/front/img/user-default.png', true);
+                    $imageUserMessage = !empty($message->{$userType}->picture) ? $message->{$userType}->picture : $this->Url->build('/front/img/user-default.png', true);
                     ?>
                     <section id="<?= $message->id ?>" data-message="<?= $message->id ?>" class="messages-text">
                         <div class="user-informations">
@@ -120,53 +120,8 @@
             </form>
         </div>
     </div>
-    <?php if (isset($participants)): ?>
-        <?php if ($participants->count()): ?>
-            <div class="row">
-                <div class="col-md-12">
-                    <ul class="participants-list">
-                        <?php foreach ($participants as $participant): ?>
-                            <li class="participant-list participant-<?= $participant->id ?>"
-                                data-id="<?= $participant->id ?>">
-                                <img
-                                    src="<?= empty($participant->picture) ? $this->Url->build('/front/img/user-default.png', true) : $participant->picture ?>"
-                                    class="img-responsive">
-                                <div class="name">
-                                    <?= $participant->name ?>
-                                </div>
-                                <div class="email">
-                                    <?= $participant->email ?>
-                                </div>
-                                <?php if (!empty($participant->developer_type)): ?>
-                                    <div class="developer">
-                                        <?= $participant->developer_type ?>
-                                    </div>
-                                <?php else: ?>
-                                    <div class="developer">
-                                        Desenvolvedor(a)
-                                    </div>
-                                <?php endif; ?>
-                                <?php
-                                $atualName = explode(' ', $participant->name);
-                                ?>
-                                <?php if (!empty($participant->city)): ?>
-                                    <div class="address">
-                                        <?= $participant->city->name . ' / ' . $participant->city->state->state_cod ?>
-                                    </div>
-                                <?php endif; ?>
-                                <a href="<?= $this->Url->build('/visualizar-perfil/' . $participant->id, true); ?>"
-                                   class="btn-padrao profile"><i class="fa fa-user-circle"></i> PERFIL
-                                </a>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            </div>
-            <div class="row paginator">
-                <?= $this->element('paginator'); ?>
-            </div>
-        <?php endif; ?>
-    <?php endif; ?>
+
+    <?= $this->element('Messages/users-list', ['participants' => $participants]) ?>
 <?php endif; ?>
     <script>
         var userPicture = '<?= $userPicture ?>';

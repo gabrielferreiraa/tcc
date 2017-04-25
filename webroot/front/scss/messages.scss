@@ -327,6 +327,14 @@ $height-message: 50px;
     font-family: $font;
     font-size: 1.2em;
     transition: all 200ms ease;
+    border: 1px solid rgba(0, 0, 0, .2);
+    .user-type {
+      font-size: .5em;
+      background-color: $red-dark;
+      color: #FFF;
+      padding: 5px;
+      border-radius: 2px;
+    }
     &.hovered{
       background-color: $red-dark;
       color: #FFF;

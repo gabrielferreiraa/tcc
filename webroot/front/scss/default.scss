@@ -13,3 +13,85 @@ $facebook-color: #3B5998;
 $twitter-color: #1DA1F2;
 $linkedin-color: #0077B5;
 $yellow-light: #fbeccb;
+
+%style-default {
+  height: 18px;
+  width: 18px;
+  border: 1px solid $red-dark;
+  border-radius: 2px;
+  transition: all 250ms linear;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  will-change: transform, opacity;
+}
+
+%after-default {
+  will-change: transform, opacity;
+  font-family: $icon;
+  opacity: 0;
+  color: white;
+  transition: transform 250ms ease;
+  transform: rotate(180deg);
+}
+
+%check-default-style {
+  background: $red-dark;
+  border-radius: 2px;
+  border: 1px solid $red-dark;
+  &:after {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+}
+
+/* Mixins */
+
+@mixin check-default($a) {
+  display: none;
+  &:checked {
+    + .wrap-#{$a} {
+      @extend %check-default-style;
+    }
+  }
+}
+
+.check-type {
+  font-family: $font;
+  font-weight: normal;
+  display: flex;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 10px;
+  color: $red-dark;
+  .input-checkbox {
+    @include check-default('check');
+  }
+  .input-radio {
+    @include check-default('radio');
+  }
+}
+
+.wrap-check {
+  @extend %style-default;
+  &:hover {
+    border: 1px solid #ccc;
+  }
+  &:after {
+    content: '\f00c';
+    @extend %after-default;
+  }
+}
+
+.wrap-radio {
+  @extend %style-default;
+  border-radius: 50%;
+  &:hover {
+    border: 1px solid #ccc;
+  }
+  &:after {
+    content: '\f00c';
+    @extend %after-default;
+  }
+}

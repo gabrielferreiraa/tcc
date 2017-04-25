@@ -139,7 +139,14 @@ class UsersController extends AppController
         ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $userUpdated = $this->Users->patchEntity($user, $this->request->data);
+            $data = $this->request->data;
+
+            $data['public_address'] = isset($data['public_address']) && $data['public_address'] == 'on' ? 1 : 0;
+            if(empty($data['picture']) && !empty($user->picture)) {
+                $data['picture'] = $user->picture;
+            }
+
+            $userUpdated = $this->Users->patchEntity($user, $data);
 
             $name = explode(' ', $userUpdated->name);
 

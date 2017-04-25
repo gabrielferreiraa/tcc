@@ -27,7 +27,10 @@ class ProjectsController extends AppController
 
         if (!empty($data['project-name'])) {
             $projects->where([
-                "title LIKE '%" . $data['project-name'] . "%'",
+                "Projects.title LIKE '%" . $data['project-name'] . "%'",
+            ]);
+            $projects->orWhere([
+                "Projects.description LIKE '%" . $data['project-name'] . "%'",
             ]);
         }
 
@@ -69,7 +72,7 @@ class ProjectsController extends AppController
 
     public function view()
     {
-        $caseFinishedProjects = '(CASE WHEN date_end < NOW() THEN 1 ELSE 0 END)';
+        $caseFinishedProjects = "(CASE WHEN Projects.date_end < CURDATE() THEN '1' ELSE '0' END)";
 
         if ($this->request->session()->read('Auth.User.type') == 'c') {
             $projects = $this->Projects->find()
@@ -86,6 +89,7 @@ class ProjectsController extends AppController
                 ->where([
                     'Projects.user_id' => $this->request->session()->read('Auth.User.id')
                 ]);
+
         } else {
             $projects = $this->Projects->find()
                 ->contain([
@@ -235,7 +239,13 @@ class ProjectsController extends AppController
                 $statusChanged = $this->Projects->changeStatusProject(1, $data['project']);
                 $userFixed = $this->Users->fixUserOnProject($data['user'], $data['project']);
 
-                if ($statusChanged && $userFixed) {
+                $user = $this->Users->get($data['user']);
+
+                $fixTimeline = $this->Projects->fixTimelineDescription(
+                    $data['project'],
+                    $user->name . ', foi escolhido como freelancer para este projeto');
+
+                if ($statusChanged && $userFixed && $fixTimeline) {
                     $result = ['status' => 'success', 'data' => $data['userName'] . ' foi escolhido como desenvolvedor para seu projeto: ' . $project->title];
                 } else {
                     $result = ['status' => 'error', 'data' => 'Não foi possível escolher este desenvolvedor'];
@@ -262,7 +272,8 @@ class ProjectsController extends AppController
         return !empty($fixed) ? true : false;
     }
 
-    public function showPartner () {
+    public function showPartner()
+    {
         $result = ['status' => 'error', 'data' => ''];
         if ($this->request->is('post')) {
             $data = $this->request->data;
@@ -277,7 +288,7 @@ class ProjectsController extends AppController
                 'finished' => $this->Users->getFinishedProjects($user->id)
             ];
 
-            if($user) {
+            if ($user) {
                 $result = ['status' => 'success', 'data' => $informations];
             } else {
                 $result = ['status' => 'error', 'data' => 'y'];

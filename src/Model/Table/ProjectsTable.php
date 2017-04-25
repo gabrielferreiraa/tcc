@@ -4,6 +4,7 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -140,6 +141,46 @@ class ProjectsTable extends Table
             ]);
 
         if ($updated->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getStepProject($projectStatus)
+    {
+        $status = $this->getStatus($projectStatus['id']);
+
+        $step = 1;
+
+        switch (strtolower($status['title'])) {
+            case 'publicado':
+                $step = 1;
+                break;
+            case 'andamento':
+                $step = 2;
+                break;
+            case 'finalizado':
+                $step = 3;
+                break;
+            default:
+                $step = 1;
+                break;
+        }
+
+        return $step;
+    }
+
+    public function fixTimelineDescription($project, $description)
+    {
+        $ProjectSteps = TableRegistry::get('ProjectSteps');
+
+        $newRegister = $ProjectSteps->newEntity();
+        $newRegister->project_id = $project;
+        $newRegister->description = $description;
+        $newRegister->created = date('Y-m-d H:i:s');
+
+        if ($ProjectSteps->save($newRegister)) {
             return true;
         } else {
             return false;

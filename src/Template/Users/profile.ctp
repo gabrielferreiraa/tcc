@@ -25,9 +25,9 @@ $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
         <article class="projects">
             <?= $this->element('Profile/projects', ['projects' => $projectsUser, 'view' => false]); ?>
         </article>
-        <?php if (!empty($this->request->session()->read('Auth.User.public_address'))): ?>
+        <?php if ($user['public_address'] == 1): ?>
             <article class="address">
-                <?= $this->element('Profile/address'); ?>
+                <?= $this->element('Profile/address', ['user' => $user]); ?>
             </article>
         <?php endif; ?>
     </section>

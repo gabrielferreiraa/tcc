@@ -70,12 +70,14 @@ $(document).ready(function () {
 
         $.post(url, data, function (res) {
             if (res.result.status === 'success') {
-                res.result.data.picture !== '' ? windowDiv.find('img').attr('src', res.result.data.picture) : false;
+                if (res.result.data.picture !== null) {
+                    windowDiv.find('img').attr('src', res.result.data.picture)
+                }
                 windowDiv.find('.name').text(res.result.data.name);
                 windowDiv.find('.created').text(typeUser + ' desde ' + res.result.data.created);
                 windowDiv.find('.finished').html('Projeto finalizados: ' + '<span>' + res.result.data.finished + '</span>');
                 var sendMessage = windowDiv.find('button');
-                sendMessage.on('click', function(){
+                sendMessage.on('click', function () {
                     window.location.href = webroot + 'visualizar-perfil/' + res.result.data.id;
                 });
             }

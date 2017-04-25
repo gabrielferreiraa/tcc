@@ -20,7 +20,7 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Token');
         $this->loadComponent('Util');
-        
+
         Configure::write('App.jsBaseUrl', '/');
         Configure::write('App.cssBaseUrl', '/');
 
@@ -51,12 +51,17 @@ class AppController extends Controller
             'storage' => 'Session'
         ]);
         $this->Auth->sessionKey = 'Auth.User';
+        if ($this->request->session()->read('Auth.User')) {
+            $Users = TableRegistry::get('Users');
 
-        $userPicture = empty($this->request->session()->read('Auth.User.picture')) ? $this->request->webroot . 'front/img/user-default.png' : $this->request->session()->read('Auth.User.picture');
-        $userName = $this->request->session()->read('Auth.User.name');
-        $userType = $this->Users->getTypeUser($this->request->session()->read('Auth.User.type'));
-        $this->set(compact('userPicture', 'userName', 'userType'));
-        $this->set('_serialize', ['userPicture', 'userName', 'userType']);
+            $userBD = $Users->get($this->request->session()->read('Auth.User.id'));
+
+            $userPicture = empty($userBD->picture) ? $this->request->webroot . '/front/img/user-default.png' : $userBD->picture;
+            $userName = $this->request->session()->read('Auth.User.name');
+            $userType = $this->Users->getTypeUser($this->request->session()->read('Auth.User.type'));
+            $this->set(compact('userPicture', 'userName', 'userType'));
+            $this->set('_serialize', ['userPicture', 'userName', 'userType']);
+        }
     }
 
     /**

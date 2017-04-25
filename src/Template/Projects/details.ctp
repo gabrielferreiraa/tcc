@@ -23,8 +23,11 @@
 </section>
 <aside class="right-bar">
     <a href="<?= $this->Url->build('/visualizar-perfil/' . $project->user->id); ?>">
+        <?php
+            $imgUser = empty($project->user->picture) ? $this->Url->build('/front/img/user-default.png', true) : $project->user->picture;
+        ?>
         <img
-            src="<?= $this->Url->build(empty($project->user->picture) ? '/front/img/user-default.png' : $project->user->picture, true); ?>"
+            src="<?= $imgUser ?>"
             class="img-responsive center-block img-user">
     </a>
     <h4 class="normal color-red"><?= $project->user->name ?></h4>

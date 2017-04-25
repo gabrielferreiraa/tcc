@@ -3,13 +3,13 @@
 $width-image: 200px;
 $margin-image: 20px;
 
-figure{
+figure {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   width: 100%;
-  .img-user{
+  .img-user {
     width: $width-image;
     height: $width-image;
     object-fit: cover;
@@ -18,15 +18,15 @@ figure{
     border: 1px solid $grey;
     transition: opacity 200ms ease;
     cursor: pointer;
-    &:hover{
+    &:hover {
       filter: blur(3px);
-      + .fa{
+      + .fa {
         opacity: 1;
         transform: translateX(0);
       }
     }
   }
-  .fa{
+  .fa {
     transition: all 200ms ease;
     opacity: 0;
     transform: translateX(-100%);
@@ -34,7 +34,7 @@ figure{
     font-size: 2em;
     color: $red-dark;
     text-align: center;
-    &:after{
+    &:after {
       font-size: .6em;
       font-family: $font;
       display: block;
@@ -43,12 +43,12 @@ figure{
   }
 }
 
-.content-profile{
+.content-profile {
   margin-top: -(($width-image / 2) + $margin-image);
   padding-top: $width-image / 2;
   background-color: #FFF;
   min-height: 400px;
-  .name-input{
+  .name-input {
     border: none;
     margin: 0 auto;
     height: 50px;
@@ -59,30 +59,39 @@ figure{
     color: $red-dark;
     display: block;
   }
-  .btns, .border-top{
+  .btns, .border-top {
     width: 95%;
     margin: 20px auto;
     display: block;
+    .normal {
+      padding-left: 15px;
+    }
   }
-  .border-top{
+  .btns {
+    margin: 40px !important;
+  }
+  .border-top {
     border-top: 1px solid $grey;
   }
-  .section-form{
+  .section-form {
     margin-bottom: 60px;
+    .normal {
+      padding-left: 15px;
+    }
   }
-  .btn-buscar-cep{
+  .btn-buscar-cep {
     margin: 41px auto 0 auto;
     display: block;
   }
-  .description{
+  .description {
     height: 150px;
   }
-  .input-group-lg{
-    span{
+  .input-group-lg {
+    span {
       background: $grey;
       border: none;
       border-radius: 2px;
-      .fa{
+      .fa {
         line-height: 1.2;
         color: #FFF;
       }

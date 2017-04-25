@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#skill-ids').select2({
+    $('#skills-ids').select2({
         minimumInputLength: 1,
         escapeMarkup: function (markup) {
             switch (markup) {
