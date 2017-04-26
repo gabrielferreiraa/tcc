@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    window.rate = 0;
+
+    const widthContent = $('.panel-heading').width();
+    $('.panel-body').css('width', (widthContent - (70 + 25)));
+
     moment.locale('pt-br');
 
     $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
@@ -81,6 +86,37 @@ $(document).ready(function () {
                     window.location.href = webroot + 'visualizar-perfil/' + res.result.data.id;
                 });
             }
+        }, 'json');
+    });
+
+    $('.star-input').change(function () {
+        var me = $(this);
+
+        const rates = {
+            1: 'Péssimo :´(',
+            2: 'Ruim :(',
+            3: 'Regular :l',
+            4: 'Bom :)',
+            5: 'Ótimo :D'
+        };
+
+        window.rate = me.attr("value");
+        $('.rate').text(rates[me.attr("value")]);
+    });
+
+    $('.open-modal-reputation').on('click', function (e) {
+        $('#reputation-' + $(this).data('project')).modal('show');
+    });
+
+    $('.finishProject').on('click', function (e) {
+        const url = webroot + 'projects/finish-project';
+        const data = {
+            project: $(this).data('project'),
+            rate: window.rate
+        };
+
+        $.post(url, data, function (e) {
+
         }, 'json');
     });
 });

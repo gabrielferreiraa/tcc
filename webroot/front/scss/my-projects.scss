@@ -317,7 +317,6 @@ $widthDefault: 70px;
   padding: 10px 0;
 }
 
-
 // Timeline
 #timeline {
   width: 100%;
@@ -326,7 +325,7 @@ $widthDefault: 70px;
   padding: 0 10px;
 
   &:before {
-    content:"";
+    content: "";
     width: 3px;
     height: 100%;
     background: $red-dark;
@@ -356,11 +355,14 @@ $widthDefault: 70px;
       left: 50%;
       overflow: hidden;
       margin-left: -23px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      svg {
-        position: relative;
-        top: 14px;
-        left: 14px;
+      .fa {
+        color: #FFF;
+        font-size: 1.6em;
       }
     }
 
@@ -368,6 +370,8 @@ $widthDefault: 70px;
       width: 45%;
       background: #fff;
       padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
 
       h2 {
         padding: 15px;
@@ -375,6 +379,14 @@ $widthDefault: 70px;
         color: #fff;
         margin: -20px -20px 0 -20px;
         font-weight: 300;
+        border-radius: 3px 3px 0 0;
+        font-family: $font;
+      }
+
+      p {
+        color: $grey;
+        font-family: $font;
+        margin-top: 10px;
       }
 
       &:before {
@@ -386,7 +398,7 @@ $widthDefault: 70px;
         height: 0;
         border-top: 7px solid transparent;
         border-bottom: 7px solid transparent;
-        border-left:7px solid $red-dark;
+        border-left: 7px solid $red-dark;
       }
 
       &.right {

@@ -65,6 +65,15 @@
                                             class="btn btn-circle open-anexo">
                                             <i class="fa fa-paperclip"></i>
                                         </button>
+                                        <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
+                                            <?php if ($project['status']['id'] == '1'): ?>
+                                                <button
+                                                    data-project="<?= $project['id'] ?>"
+                                                    class="btn btn-circle open-modal-reputation">
+                                                    Finalizar Projeto&nbsp;&nbsp;<i class="fa fa-check"></i>
+                                                </button>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="skills">
                                         <span class="normal">Habilidades Necessárias:</span>
@@ -89,75 +98,29 @@
                                 <div id="avaliacao-<?= $project['id'] ?>" class="tab-pane fade">
                                     <?php if ($project['status']['id'] !== '2'): ?>
                                         <h4 class="italic">Você ainda não finalizou este projeto</h4>
+                                    <?php else: ?>
+
                                     <?php endif; ?>
                                 </div>
                                 <div id="time-line-<?= $project['id'] ?>" class="tab-pane fade">
-                                    <!-- TIMELINE -->
-                                    <div id="timeline">
-                                        <div class="timeline-item">
-                                            <div class="timeline-icon">
-                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                     width="21px" height="20px" viewBox="0 0 21 20" enable-background="new 0 0 21 20" xml:space="preserve">
-<path fill="#FFFFFF" d="M19.998,6.766l-5.759-0.544c-0.362-0.032-0.676-0.264-0.822-0.61l-2.064-4.999
-	c-0.329-0.825-1.5-0.825-1.83,0L7.476,5.611c-0.132,0.346-0.462,0.578-0.824,0.61L0.894,6.766C0.035,6.848-0.312,7.921,0.333,8.499
-	l4.338,3.811c0.279,0.246,0.395,0.609,0.314,0.975l-1.304,5.345c-0.199,0.842,0.708,1.534,1.468,1.089l4.801-2.822
-	c0.313-0.181,0.695-0.181,1.006,0l4.803,2.822c0.759,0.445,1.666-0.23,1.468-1.089l-1.288-5.345
-	c-0.081-0.365,0.035-0.729,0.313-0.975l4.34-3.811C21.219,7.921,20.855,6.848,19.998,6.766z"/>
-</svg>
-
-                                            </div>
-                                            <div class="timeline-content">
-                                                <h2>LOREM IPSUM DOLOR</h2>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                    Atque, facilis quo maiores magnam modi ab libero praesentium blanditiis.
-                                                </p>
-                                            </div>
+                                    <?php if ($project['project_steps']): ?>
+                                        <div id="timeline">
+                                            <?php foreach ($project['project_steps'] as $keyStep => $step): ?>
+                                                <div class="timeline-item">
+                                                    <div class="timeline-icon">
+                                                        <i class="<?= $step->icon ?>"></i>
+                                                    </div>
+                                                    <div
+                                                        class="timeline-content <?= $keyStep % 2 == 0 ? 'right' : 'left' ?>">
+                                                        <h2><?= strtoupper($step->title) ?></h2>
+                                                        <p>
+                                                            <?= $step->description ?>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
                                         </div>
-
-                                        <div class="timeline-item">
-                                            <div class="timeline-icon">
-                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                     width="21px" height="20px" viewBox="0 0 21 20" enable-background="new 0 0 21 20" xml:space="preserve">
-<g>
-    <path fill="#FFFFFF" d="M17.92,3.065l-1.669-2.302c-0.336-0.464-0.87-0.75-1.479-0.755C14.732,0.008,7.653,0,7.653,0v5.6
-		c0,0.096-0.047,0.185-0.127,0.237c-0.081,0.052-0.181,0.06-0.268,0.02l-1.413-0.64C5.773,5.183,5.69,5.183,5.617,5.215l-1.489,0.65
-		c-0.087,0.038-0.19,0.029-0.271-0.023c-0.079-0.052-0.13-0.141-0.13-0.235V0H2.191C1.655,0,1.233,0.434,1.233,0.97
-		c0,0,0.025,15.952,0.031,15.993c0.084,0.509,0.379,0.962,0.811,1.242l2.334,1.528C4.671,19.905,4.974,20,5.286,20h10.307
-		c1.452,0,2.634-1.189,2.634-2.64V4.007C18.227,3.666,18.12,3.339,17.92,3.065z M16.42,17.36c0,0.464-0.361,0.833-0.827,0.833H5.341
-		l-1.675-1.089h10.341c0.537,0,0.953-0.44,0.953-0.979V2.039l1.459,2.027V17.36L16.42,17.36z"/>
-</g>
-</svg>
-
-                                            </div>
-                                            <div class="timeline-content right">
-                                                <h2>LOREM IPSUM DOLOR</h2>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, facilis quo. Maiores magnam modi ab libero praesentium blanditiis consequatur aspernatur accusantium maxime molestiae sunt ipsa.
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="timeline-item">
-                                            <div class="timeline-icon">
-                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                     width="21px" height="20px" viewBox="0 0 21 20" enable-background="new 0 0 21 20" xml:space="preserve">
-<path fill="#FFFFFF" d="M19.998,6.766l-5.759-0.544c-0.362-0.032-0.676-0.264-0.822-0.61l-2.064-4.999
-	c-0.329-0.825-1.5-0.825-1.83,0L7.476,5.611c-0.132,0.346-0.462,0.578-0.824,0.61L0.894,6.766C0.035,6.848-0.312,7.921,0.333,8.499
-	l4.338,3.811c0.279,0.246,0.395,0.609,0.314,0.975l-1.304,5.345c-0.199,0.842,0.708,1.534,1.468,1.089l4.801-2.822
-	c0.313-0.181,0.695-0.181,1.006,0l4.803,2.822c0.759,0.445,1.666-0.23,1.468-1.089l-1.288-5.345
-	c-0.081-0.365,0.035-0.729,0.313-0.975l4.34-3.811C21.219,7.921,20.855,6.848,19.998,6.766z"/>
-</svg>
-
-                                            </div>
-                                            <div class="timeline-content">
-                                                <h2>LOREM IPSUM DOLOR</h2>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, facilis quo. Maiores magnam modi ab libero praesentium blanditiis consequatur aspernatur accusantium maxime molestiae sunt ipsa.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <?php endif; ?>
                                 </div>
                                 <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
                                     <div id="interested-<?= $project['id'] ?>" class="tab-pane fade">
@@ -247,6 +210,23 @@
                     </section>
                 </div>
             </div>
+            <?php if (($project['status']['id'] == '1') && (!empty($dev))): ?>
+                <?php
+                $content = '<h3 class="normal text-center">Antes de finalizarmos...</h3><br/>';
+                ?>
+                <?=
+                $this->element('modal-default', [
+                    'content' => $content . $this->element('stars-interaction') . '</br> <h3 class="rate text-center bold"></h3>',
+                    'id' => 'reputation-' . $project['id'],
+                    'textBtn' => 'AVALIAR USUÁRIO',
+                    'titleHead' => $this->request->session()->read('Auth.User.name') . ', qual nota você daria para <a href="' . $this->Url->build('/visualizar-perfil/' . $dev->user->id, true) . '" class="bold">' . $dev->user->name . '</a> ?',
+                    'btnClass' => 'finishProject',
+                    'attrs' => [
+                        'data-project' => $project['id']
+                    ]
+                ]);
+                ?>
+            <?php endif; ?>
         <?php endforeach; ?>
     </div>
 <?php endif; ?>

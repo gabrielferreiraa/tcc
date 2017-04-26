@@ -79,7 +79,8 @@ class ProjectsController extends AppController
                 ->contain([
                     'ProjectSkills.Skills',
                     'ProjectUsersIntersted.Users',
-                    'ProjectUsersFixed.Users'
+                    'ProjectUsersFixed.Users',
+                    'ProjectSteps'
                 ])
                 ->select($this->Projects)
                 ->select([
@@ -93,7 +94,8 @@ class ProjectsController extends AppController
         } else {
             $projects = $this->Projects->find()
                 ->contain([
-                    'ProjectSkills.Skills'
+                    'ProjectSkills.Skills',
+                    'ProjectSteps'
                 ])
                 ->select($this->Projects)
                 ->select([
@@ -142,9 +144,16 @@ class ProjectsController extends AppController
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->data);
             if ($this->Projects->save($project)) {
-                $this->Flash->success(__('The project has been saved.'));
+                $fixTimeline = $this->Projects->fixTimelineDescription(
+                    $project->id,
+                    'Projeto publicado no dia ' . date('d/m/Y') . ' às ' . date('H:i:s') . '.',
+                    'fa fa-globe',
+                    'Publicado');
 
-                return $this->redirect(['action' => 'index']);
+                if ($fixTimeline) {
+                    $this->Flash->success(__('The project has been saved.'));
+                    return $this->redirect(['action' => 'index']);
+                }
             }
             $this->Flash->error(__('The project could not be saved. Please, try again.'));
         }
@@ -152,7 +161,7 @@ class ProjectsController extends AppController
         $skills = $Skills->find('list');
 
         $this->set(compact('project', 'skills'));
-        $this->set('_serialize', ['project','skills']);
+        $this->set('_serialize', ['project', 'skills']);
 
     }
 
@@ -247,7 +256,9 @@ class ProjectsController extends AppController
 
                 $fixTimeline = $this->Projects->fixTimelineDescription(
                     $data['project'],
-                    $user->name . ', foi escolhido como freelancer para este projeto');
+                    $user->name . ', foi o freelancer escolhido para o projeto "' . $project->title . '" no dia ' . date('d/m/Y') . ' às ' . date('H:i:s') . '.',
+                    'fa fa-coffee',
+                    'Andamento');
 
                 if ($statusChanged && $userFixed && $fixTimeline) {
                     $result = ['status' => 'success', 'data' => $data['userName'] . ' foi escolhido como desenvolvedor para seu projeto: ' . $project->title];
@@ -296,6 +307,52 @@ class ProjectsController extends AppController
                 $result = ['status' => 'success', 'data' => $informations];
             } else {
                 $result = ['status' => 'error', 'data' => 'y'];
+            }
+        }
+
+        $this->set(compact('result'));
+        $this->set('_serialize', ['result']);
+    }
+
+    public function finishProject()
+    {
+        $result = ['status' => 'error', 'data' => ''];
+        if ($this->request->is('post')) {
+            $data = $this->request->data;
+            $statusChanged = $this->Projects->changeStatusProject(2, $data['project']);
+            $fixStep = $this->Projects->fixTimelineDescription(
+                $data['project'],
+                'Projeto finalizado no dia ' . date('d/m/Y') . ' às ' . date('H:i:s') . '.',
+                'fa fa-check',
+                'Finalizado');
+
+            $userIdReputation = $this->ProjectUsersFixed->find()
+                ->hydrate(false)
+                ->where([
+                    'project_id' => $data['project']
+                ])
+                ->limit(1)
+                ->first();
+
+            if ($this->request->session()->read('Auth.User.type') == 'c') {
+                $userIdReputation = $userIdReputation['user_id'];
+            } else {
+                $project = $this->Projects->get($data['project']);
+
+                $userIdReputation = $project->user_id;
+            }
+
+            $newRate = $this->UserReputations->newEntity();
+            $newRate->project_id = $data['project'];
+            $newRate->user_id = $userIdReputation;
+            $newRate->grade = (float) $data['rate'];
+
+            $rate = $this->UserReputations->save($newRate);
+
+            if ($statusChanged && $fixStep && $rate) {
+                $result = ['status' => 'success', 'data' => ''];
+            } else {
+                $result = ['status' => 'error', 'data' => ''];
             }
         }
 

@@ -1,0 +1,1 @@
+$(document).ready(function(){$("#skill-ids").select2({minimumInputLength:1,escapeMarkup:function(e){switch(e){case"Please enter 1 or more characters":return"Informe 1 ou mais caracteres";case"Searching…":return"Procurando...";case"No results found":return"Nada encontrado";default:return e}},language:{noResults:function(){return"Habilidade não encontrada"}}})});

@@ -1,0 +1,1 @@
+$(document).ready(function(){$(".star-input").change(function(){var n=$(this);console.log(n.attr("value"))})});

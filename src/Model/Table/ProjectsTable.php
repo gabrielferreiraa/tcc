@@ -60,6 +60,9 @@ class ProjectsTable extends Table
         $this->hasMany('UserReputations', [
             'foreignKey' => 'project_id'
         ]);
+        $this->hasMany('ProjectSteps', [
+            'foreignKey' => 'project_id'
+        ]);
     }
 
     /**
@@ -171,7 +174,7 @@ class ProjectsTable extends Table
         return $step;
     }
 
-    public function fixTimelineDescription($project, $description)
+    public function fixTimelineDescription($project, $description, $icon, $title)
     {
         $ProjectSteps = TableRegistry::get('ProjectSteps');
 
@@ -179,6 +182,8 @@ class ProjectsTable extends Table
         $newRegister->project_id = $project;
         $newRegister->description = $description;
         $newRegister->created = date('Y-m-d H:i:s');
+        $newRegister->icon = $icon;
+        $newRegister->title = $title;
 
         if ($ProjectSteps->save($newRegister)) {
             return true;

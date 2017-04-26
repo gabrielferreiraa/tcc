@@ -9,7 +9,9 @@ class CreateTableProjectSteps extends AbstractMigration
                   `id` INT NOT NULL AUTO_INCREMENT,
                   `project_id` INT NULL,
                   `description` VARCHAR(255) NULL,
-                  `created` DATETIME NULL
+                  `created` DATETIME NULL,
+                  `icon` VARCHAR(45) NULL,
+                  `title` VARCHAR(45) NULL
                   PRIMARY KEY (`id`),
                   INDEX `project_steps_fk_1_idx` (`project_id` ASC),
                   CONSTRAINT `project_steps_fk_1`
