@@ -72,7 +72,7 @@ class AppController extends Controller
             $userName = $this->request->session()->read('Auth.User.name');
             $userType = $this->Users->getTypeUser($this->request->session()->read('Auth.User.type'));
 
-            $this->set('lastMessageId', $lastMessageId->id);
+            $this->set('lastMessageId', empty($lastMessageId) ? '' : $lastMessageId->id);
             $this->set(compact('userPicture', 'userName', 'userType'));
             $this->set('_serialize', ['userPicture', 'userName', 'userType']);
         }
