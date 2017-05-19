@@ -51,6 +51,14 @@ b {
   }
 }
 
+.stars-reputation {
+  display: flex;
+  justify-content: center;
+  .fa {
+    margin: 1px;
+  }
+}
+
 .form-input {
   width: 100%;
   padding-left: 10px;
@@ -124,6 +132,103 @@ b {
         font-family: $font-bold, $icon;
         position: absolute;
         left: 0;
+      }
+    }
+  }
+}
+
+.circle-btn-project {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: $red-dark;
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  right: 20px;
+  top: 80px;
+  text-decoration: none;
+  z-index: 9999;
+  font-family: $font;
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, .4));
+  transition: width 200ms, border-radius 100ms ease-in-out;
+  span {
+    transform: translateX(20px);
+    transition: opacity 500ms ease;
+    opacity: 0;
+  }
+  .fa {
+    position: absolute;
+    left: -25px;
+    transform: translateX(41px);
+    font-size: 1.4em;
+    transition: transform 500ms ease;
+  }
+  &:hover {
+    text-decoration: none;
+    color: #FFF;
+    width: 240px;
+    border-radius: 30px;
+    span {
+      transform: translate(10px, 0);
+      opacity: 1;
+    }
+    .fa {
+      transform: rotateY(180deg);
+      left: 20px;
+    }
+    .hidden {
+      display: block !important;
+    }
+  }
+}
+
+.file-list {
+  padding: 0;
+  list-style-type: none;
+  .type {
+    border-radius: 50%;
+    height: 43px;
+    width: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $red-dark;
+    margin-left: -6px;
+    color: #FFF;
+  }
+  &.full {
+    li {
+      width: 100%;
+    }
+  }
+  li {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    border-radius: 30px;
+    background-color: $grey-double-light;
+    color: $red-dark;
+    margin: 5px;
+    border: 1px solid rgba(0, 0, 0, .1);
+    padding: 10px;
+    p {
+      margin: 0;
+      padding: 0;
+    }
+    a {
+      color: $red-dark;
+      .fa {
+        transition: transform 200ms ease;
+      }
+      &:hover {
+        .fa {
+          transform: translateY(3px);
+        }
       }
     }
   }

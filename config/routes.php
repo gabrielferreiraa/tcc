@@ -62,6 +62,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/meus-projetos', ['controller' => 'Projects', 'action' => 'view']);
     $routes->connect('/mensagens', ['controller' => 'Messages', 'action' => 'index']);
     $routes->connect('/detalhe-projeto', ['controller' => 'Projects', 'action' => 'details']);
+    $routes->connect('/adicionar-projeto', ['controller' => 'Projects', 'action' => 'add']);
     $routes->connect(
         '/visualizar-perfil/:id',
         ['controller' => 'Users', 'action' => 'viewProfile'],

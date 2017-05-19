@@ -1,6 +1,11 @@
 <?php if (count($projects)): ?>
     <div class="panel-group" id="accordion">
+        <?= $this->element('Projects/btn-cadastrar-projeto'); ?>
+
         <?php foreach ($projects as $project): ?>
+            <?php
+            $dev = isset($project['project_users_fixed']) && !empty($project['project_users_fixed']) ? $project['project_users_fixed'][0] : '';
+            ?>
             <div class="panel panel-default">
                 <div class="panel-heading" data-toggle="collapse" data-parent="#accordion"
                      href="#collapse<?= $project['id'] ?>">
@@ -28,16 +33,14 @@
                                 <div id="projeto-<?= $project['id'] ?>" class="tab-pane fade in active projeto">
                                     <div class="top-informations">
                                         <span>Orçamento: R$ <?= number_format($project['budget'], 2, '.', ',') ?></span>
-                                        <?php
-                                        $dev = isset($project['project_users_fixed']) && !empty($project['project_users_fixed']) ? $project['project_users_fixed'][0] : '';
-                                        ?>
                                         <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
                                             <?php if (!empty($dev)): ?>
                                                 <button
                                                     data-dev="<?= $dev['user_id'] ?>-freelancer"
                                                     data-project="<?= $project['id'] ?>"
                                                     class="btn btn-circle open-partner">
-                                                    Freelancer escolhido&nbsp;&nbsp;<i class="fa fa-user"></i>
+                                                    Freelancer escolhido&nbsp;&nbsp;
+                                                    <i class="fa fa-user"></i>
                                                 </button>
                                             <?php endif; ?>
                                         <?php else: ?>
@@ -45,7 +48,8 @@
                                                 data-dev="<?= $project['user_id'] ?>-contractor"
                                                 data-project="<?= $project['id'] ?>"
                                                 class="btn btn-circle open-partner">
-                                                Contratante deste projeto&nbsp;&nbsp;<i class="fa fa-user"></i>
+                                                Contratante deste projeto&nbsp;&nbsp;
+                                                <i class="fa fa-user"></i>
                                             </button>
                                         <?php endif; ?>
 
@@ -57,20 +61,26 @@
                                                 <h4 class="name normal"></h4>
                                                 <h6 class="created normal"></h6>
                                                 <h5 class="finished normal"></h5>
-                                                <button class="btn-padrao white">VISUALIZAR PERFIL</button>
+                                                <button class="btn-padrao white">
+                                                    VISUALIZAR PERFIL
+                                                </button>
                                             </div>
                                         </div>
 
-                                        <button
-                                            class="btn btn-circle open-anexo">
-                                            <i class="fa fa-paperclip"></i>
-                                        </button>
+                                        <?php if (count($project['project_files'])): ?>
+                                            <button
+                                                data-project="<?= $project['id'] ?>"
+                                                class="btn btn-circle open-anexo">
+                                                <i class="fa fa-paperclip"></i>
+                                            </button>
+                                        <?php endif; ?>
                                         <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
                                             <?php if ($project['status']['id'] == '1'): ?>
                                                 <button
                                                     data-project="<?= $project['id'] ?>"
                                                     class="btn btn-circle open-modal-reputation">
-                                                    Finalizar Projeto&nbsp;&nbsp;<i class="fa fa-check"></i>
+                                                    Finalizar Projeto&nbsp;&nbsp;
+                                                    <i class="fa fa-check"></i>
                                                 </button>
                                             <?php endif; ?>
                                         <?php endif; ?>
@@ -80,7 +90,9 @@
                                         <?php if (count($project['project_skills'])): ?>
                                             <ul class="skills-list light">
                                                 <?php foreach ($project['project_skills'] as $skill): ?>
-                                                    <li><?= $skill->skill->name ?></li>
+                                                    <li>
+                                                        <?= $skill->skill->name ?>
+                                                    </li>
                                                 <?php endforeach; ?>
                                             </ul>
                                         <?php else: ?>
@@ -99,7 +111,23 @@
                                     <?php if ($project['status']['id'] !== '2'): ?>
                                         <h4 class="italic">Você ainda não finalizou este projeto</h4>
                                     <?php else: ?>
-
+                                        <?php if (count($project['user_reputations'])): ?>
+                                            <div class="text-center">
+                                                <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
+                                                    <?php if (!empty($dev)): ?>
+                                                        <span class="normal">
+                                                            Você avaliou <b><?= $dev['user']['name'] ?></b> com <br/>
+                                                        </span>
+                                                        <?= $this->element('Profile/reputation', ['reputation' => $project['user_reputations'][0], 'display' => false]) ?>
+                                                    <?php endif; ?>
+                                                <?php else: ?>
+                                                    <span class="normal">
+                                                            Você foi avaliado por <b><?= $project['contractor'] ?></b> com <br/>
+                                                        </span>
+                                                    <?= $this->element('Profile/reputation', ['reputation' => $project['user_reputations'][0], 'display' => false]) ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 </div>
                                 <div id="time-line-<?= $project['id'] ?>" class="tab-pane fade">
@@ -138,7 +166,9 @@
                                                                          class="img-responsive">
                                                                     <span class="name"><?= $user->user->name ?></span>
                                                                     <span
-                                                                        class="type"><?= empty($user->user->developer_type) ? 'Desenvolvedor' : $user->user->developer_type ?></span>
+                                                                        class="type">
+                                                                        <?= empty($user->user->developer_type) ? 'Desenvolvedor' : $user->user->developer_type ?>
+                                                                    </span>
                                                                 </a>
                                                                 <?= $this->element('Profile/reputation', ['reputation' => $user->user->reputation, 'display' => false]); ?>
                                                                 <?php
@@ -209,6 +239,18 @@
                         </aside>
                     </section>
                 </div>
+                <?php if (count($project['project_files'])): ?>
+                    <?=
+                    $this->element('modal-default', [
+                        'content' => '<ul class="file-list full">' . $this->element('Projects/list-file', ['files' => $project['project_files'], 'showAll' => true]) . ' </ul>',
+                        'id' => 'project-file-' . $project['id'],
+                        'textBtn' => 'FECHAR',
+                        'btnClose' => true,
+                        'titleHead' => 'ARQUIVOS ANEXADOS NESTE PROJETO',
+                        'btnClass' => ''
+                    ]);
+                    ?>
+                <?php endif; ?>
             </div>
             <?php if (($project['status']['id'] == '1') && (!empty($dev))): ?>
                 <?php

@@ -119,4 +119,8 @@ $(document).ready(function () {
 
         }, 'json');
     });
+
+    $('.open-anexo').click(function () {
+        $('#project-file-' + $(this).data('project')).modal('show');
+    });
 });

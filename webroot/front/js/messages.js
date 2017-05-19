@@ -37,7 +37,7 @@ $(document).ready(function () {
             }, 'json');
         }
 
-        function createNewMessage(messageNew) {
+        function createNewMessage(messageNew, side) {
             save(message.value, moment().format('YYYY-MM-DD HH:MM:SS'));
 
             window.counter++;
@@ -52,8 +52,8 @@ $(document).ready(function () {
             var img = document.createElement('img');
             var messagesContent = $('.messages-text:visible');
             check.className = 'fa fa-clock-o';
-            check.style = 'margin-right: 5px;';
-            div.className = 'bubble-right number-' + window.counter;
+            check.style = 'margin-' + side + ': 5px;';
+            div.className = 'bubble-' + side + ' number-' + window.counter;
             hour.className = 'italic';
             text.innerHTML = messageNew;
             row.className = 'row';
@@ -75,7 +75,7 @@ $(document).ready(function () {
             bsend.addEventListener('click', function (e) {
                 var message = document.querySelector('#message');
                 if (message.value) {
-                    createNewMessage(message.value);
+                    createNewMessage(message.value, 'right');
                 }
             });
         }
@@ -84,7 +84,7 @@ $(document).ready(function () {
             message.addEventListener('keydown', function (e) {
                 if (e.which == 13) {
                     if (message.value) {
-                        createNewMessage(message.value);
+                        createNewMessage(message.value, 'right');
                     }
                 }
             });

@@ -13,10 +13,13 @@
             <div class="modal-footer">
                 <button
                     type="button"
+                    <?= isset($btnClose) ? "data-dismiss='modal'" : false ?>
                     class="btn btn-padrao <?= isset($btnClass) ? $btnClass : '' ?>"
-                    <?php foreach ($attrs as $k => $v): ?>
-                        <?= $k . "='" . $v . "'" ?>
-                    <?php endforeach; ?>
+                    <?php if (!empty($attrs)): ?>
+                        <?php foreach ($attrs as $k => $v): ?>
+                            <?= $k . "='" . $v . "'" ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 >
                     <?= isset($textBtn) ? $textBtn : 'OK' ?>
                 </button>

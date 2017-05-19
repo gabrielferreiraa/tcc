@@ -23,15 +23,32 @@ class ProjectsController extends AppController
     {
         $data = $this->request->query;
 
-        $projects = $this->Projects->find()->contain(['Users'])->where(['status' => 0]);
+        $projects = $this->Projects->find()
+            ->contain(['Users'])
+            ->where([
+                'status' => 0
+            ]);
 
         if (!empty($data['project-name'])) {
             $projects->where([
                 "Projects.title LIKE '%" . $data['project-name'] . "%'",
+                'OR' => [
+                    "Projects.description LIKE '%" . $data['project-name'] . "%'"
+                ]
             ]);
-            $projects->orWhere([
-                "Projects.description LIKE '%" . $data['project-name'] . "%'",
-            ]);
+        }
+
+        if (!empty($data['skills'])) {
+            $projects
+                ->leftJoin(['ps' => 'project_skills'], ['ps.project_id = Projects.id'])
+                ->leftJoin(['s' => 'skills'], ['s.id = ps.skill_id'])
+                ->where([
+                    's.name IN' => $data['skills']
+                ]);
+        }
+
+        if (!empty($data['budget'])) {
+            $projects->where([$data['budget']]);
         }
 
         if ($projects->count()) {
@@ -78,9 +95,11 @@ class ProjectsController extends AppController
             $projects = $this->Projects->find()
                 ->contain([
                     'ProjectSkills.Skills',
+                    'ProjectFiles',
                     'ProjectUsersIntersted.Users',
                     'ProjectUsersFixed.Users',
-                    'ProjectSteps'
+                    'ProjectSteps',
+                    'UserReputations'
                 ])
                 ->select($this->Projects)
                 ->select([
@@ -95,10 +114,12 @@ class ProjectsController extends AppController
             $projects = $this->Projects->find()
                 ->contain([
                     'ProjectSkills.Skills',
-                    'ProjectSteps'
+                    'ProjectSteps',
+                    'UserReputations'
                 ])
                 ->select($this->Projects)
                 ->select([
+                    'contractor' => 'u.name',
                     'late' => $caseFinishedProjects
                 ])
                 ->innerJoin(['u' => 'users'], ['u.id = Projects.user_id'])
@@ -127,7 +148,10 @@ class ProjectsController extends AppController
             foreach ($projects as $key => $project):
                 if (count($project['project_users_intersted'])) {
                     foreach ($project['project_users_intersted'] as $keyUser => $user) {
-                        $projects[$key]->project_users_intersted[$keyUser]->user->reputation = $this->UserReputations->getReputation($user->user->id);
+                        $projects[$key]->project_users_intersted[$keyUser]->user->reputation = [
+                            'grade' => $this->UserReputations->getReputation($user->user->id),
+                            'qtd' => $this->UserReputations->getCountReputation($user->user->id)
+                        ];
                         $projects[$key]->project_users_intersted[$keyUser]->user->fixed = $this->verifyFixedUser($user->user->id, $project['id']);
                     }
                 }
@@ -142,7 +166,21 @@ class ProjectsController extends AppController
     {
         $project = $this->Projects->newEntity();
         if ($this->request->is('post')) {
-            $project = $this->Projects->patchEntity($project, $this->request->data);
+
+            $data = $this->request->data;
+
+            if (!empty($data['project_files'][0]['name'])) {
+                foreach ($data['project_files'] as $key => $item) {
+                    $file = $this->upload($item, 'project_files', $key);
+                    $data['project_files'][$key]['file'] = $file;
+                    $data['project_files'][$key]['ext'] = pathinfo($file, PATHINFO_EXTENSION);
+                }
+            } else {
+                unset($data['project_files'][0]);
+            }
+
+            $project = $this->Projects->patchEntity($project, $data);
+
             if ($this->Projects->save($project)) {
                 $fixTimeline = $this->Projects->fixTimelineDescription(
                     $project->id,
@@ -151,11 +189,11 @@ class ProjectsController extends AppController
                     'Publicado');
 
                 if ($fixTimeline) {
-                    $this->Flash->success(__('The project has been saved.'));
+                    $this->Flash->success(__('Projeto criado com sucesso.'));
                     return $this->redirect(['action' => 'index']);
                 }
             }
-            $this->Flash->error(__('The project could not be saved. Please, try again.'));
+            $this->Flash->error(__('Não foi possível criar seu projeto, tente novamente por favor.'));
         }
         $Skills = TableRegistry::get('Skills');
         $skills = $Skills->find('list');
@@ -345,7 +383,7 @@ class ProjectsController extends AppController
             $newRate = $this->UserReputations->newEntity();
             $newRate->project_id = $data['project'];
             $newRate->user_id = $userIdReputation;
-            $newRate->grade = (float) $data['rate'];
+            $newRate->grade = (float)$data['rate'];
 
             $rate = $this->UserReputations->save($newRate);
 
@@ -358,5 +396,19 @@ class ProjectsController extends AppController
 
         $this->set(compact('result'));
         $this->set('_serialize', ['result']);
+    }
+
+    private function upload($data, $nome_pasta, $key)
+    {
+        $file = false;
+
+        if (!empty($data['name'])) {
+            $partes = explode('.', $data['name']);
+            $ext = array_pop($partes);
+            $file = 'files/' . $nome_pasta . '/' . $data['name'];
+            move_uploaded_file($data['tmp_name'], WWW_ROOT . $file);
+        }
+
+        return $file;
     }
 }

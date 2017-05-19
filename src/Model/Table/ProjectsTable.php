@@ -45,12 +45,6 @@ class ProjectsTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id'
         ]);
-        $this->hasMany('ProjectFiles', [
-            'foreignKey' => 'project_id'
-        ]);
-        $this->hasMany('ProjectSkills', [
-            'foreignKey' => 'project_id'
-        ]);
         $this->hasMany('ProjectUsersFixed', [
             'foreignKey' => 'project_id'
         ]);
@@ -62,6 +56,23 @@ class ProjectsTable extends Table
         ]);
         $this->hasMany('ProjectSteps', [
             'foreignKey' => 'project_id'
+        ]);
+        $this->belongsToMany('Files', [
+            'foreignKey' => 'project_id',
+            'joinTable' => 'project_files'
+        ]);
+        $this->hasMany('ProjectFiles', [
+            'foreignKey' => 'project_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true
+        ]);
+        $this->hasMany('ProjectSkills', [
+            'foreignKey' => 'project_id'
+        ]);
+        $this->belongsToMany('Skills', [
+            'foreignKey' => 'project_id',
+            'targetForeignKey' => 'skill_id',
+            'joinTable' => 'project_skills'
         ]);
     }
 

@@ -29,7 +29,10 @@
                                         <?php
                                     }
                                     ?>
-                                    <i class="fa fa-circle online"></i>
+                                    <?php
+                                    $isOnline = $indicators->{$userType}->is_online === 1 ? 'online' : 'offline';
+                                    ?>
+                                    <i class="fa fa-circle <?= $isOnline ?>"></i>
                                 </li>
                             </a>
                         <?php endforeach; ?>
@@ -45,7 +48,11 @@
                         <div class="user-informations">
                             <img src="<?= $imageUserMessage ?>"
                                  class="img-responsive img-user-message hidden-md hidden-lg hidden-sm">
-                            <h1><?= $message->{$userType}->name ?></h1>
+                            <h1>
+                                <a href="<?= $this->Url->build('/visualizar-perfil/' . $message->{$userType}->id,true); ?>" title="Visualizar perfil de <?= $message->{$userType}->name ?>">
+                                    <?= $message->{$userType}->name ?>
+                                </a>
+                            </h1>
                         </div>
                         <?php foreach ($message->message_records as $record) { ?>
                             <?php if ($record->user_id == $onlineUser): ?>

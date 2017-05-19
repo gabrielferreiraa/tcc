@@ -1,16 +1,38 @@
 @import 'default';
 
-.fale_projeto{
-  height: 200px;
+.total-wrapper {
+  background-color: #FFF;
+  padding: 20px;
+  .actions {
+    margin-top: 20px;
+  }
+
+  .files-list {
+    list-style-type: none;
+    position: absolute;
+    right: 10px;
+    top: 30px;
+    li {
+      height: 40px;
+      border-radius: 30px;
+      padding: 10px;
+      background-color: $grey-double-light;
+      margin: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: $font-bold;
+      color: $red-dark;
+      .fa {
+        color: $grey;
+        margin: 5px;
+      }
+    }
+  }
 }
 
-.corpo{
-  height: auto;
-  background-color: white;
-}
-
-.btns{
-  width: 95%;
-  margin: 20px auto;
-  display: block;
+.description {
+  &.form-input {
+    height: auto !important;
+  }
 }

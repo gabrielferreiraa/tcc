@@ -24,7 +24,10 @@ $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
                         </li>
                     <?php endif; ?>
                     <li class="li-item <?= (($controller == 'Messages') && ($action == 'index')) ? 'li-item-active' : '' ?>">
-                        <a href="<?= $this->Url->build('/mensagens', true); ?>" class="messages">MENSAGENS</a>
+                        <?php
+                            $lastMessage = !empty($lastMessageId) ? '#' . $lastMessageId : '';
+                        ?>
+                        <a href="<?= $this->Url->build('/mensagens' . $lastMessage, true); ?>" class="messages">MENSAGENS</a>
                     </li>
                     <li class="li-item <?= (($controller == 'Users') && (($action == 'view') || ($action == 'edit'))) ? 'li-item-active' : '' ?>">
                         <a href="<?= $this->Url->build('/perfil', true); ?>" class="my-profile">MEU PERFIL</a>

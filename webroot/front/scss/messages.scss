@@ -223,6 +223,10 @@ $height-message: 50px;
       overflow-y: auto;
       .user-informations {
         margin-bottom: 30px;
+        a {
+          text-decoration: none;
+          color: $grey;
+        }
       }
       .row {
         width: 100%;

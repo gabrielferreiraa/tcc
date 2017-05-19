@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 class HomeController extends AppController
 {
@@ -44,11 +45,17 @@ class HomeController extends AppController
             }
         }
 
+        $User = TableRegistry::get('Users');
+        $User->changeStatusUser($this->request->session()->read('Auth.User.id'), 1);
+
         $this->set(compact('result'));
         $this->set('_serialize', ['result']);
     }
 
     public function signOut() {
+        $User = TableRegistry::get('Users');
+        $User->changeStatusUser($this->request->session()->read('Auth.User.id'), 0);
+
         return $this->redirect($this->Auth->logout());
     }
 }

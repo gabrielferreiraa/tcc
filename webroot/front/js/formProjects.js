@@ -1,6 +1,7 @@
 $(document).ready(function () {
-    const heightProjects = $('.content-wrapper').height();
+    const heightProjects = $('.scroll-div').height();
     $('.left-bar').css('height', heightProjects + 'px');
+    $('.content-wrapper').css('height', heightProjects + 'px');
 
     $('.btn-more-skills').click(function () {
         $('#skills').modal('show');

@@ -180,27 +180,47 @@ class UsersTable extends Table
         }
     }
 
-    public function getFinishedProjects($participant)
+    public function getFinishedProjects($user)
     {
+        $Projects = TableRegistry::get('Projects');
         $ProjectUsersFixed = TableRegistry::get('ProjectUsersFixed');
+        $person = $this->get($user);
 
-        $count = $ProjectUsersFixed->find()
-            ->select([
-                'count' => 'COUNT(*)'
-            ])
-            ->innerJoin(['p' => 'projects', ['p.id = ProjectUsersFixed.project_id']])
-            ->where([
-                'p.status' => 2,
-                'ProjectUsersFixed.user_id' => $participant
-            ])
-            ->first();
+        if ($person->type == 'f') {
+            $count = $ProjectUsersFixed->find()
+                ->select([
+                    'count' => 'COUNT(*)'
+                ])
+                ->innerJoin(['p' => 'projects'], ['p.id = ProjectUsersFixed.project_id'])
+                ->where([
+                    'p.status' => 2,
+                    'ProjectUsersFixed.user_id' => $user
+                ])
+                ->first();
 
-        if (count($count)) {
-            $count = $count->toArray();
-            $count = $count['count'];
+            if (count($count)) {
+                $count = $count->toArray();
+                $count = $count['count'];
+            } else {
+                $count = 0;
+            }
         } else {
-            $count = 0;
-        }
+            $count = $Projects->find()
+                ->select([
+                    'count' => 'COUNT(*)'
+                ])
+                ->where([
+                    'status' => 2,
+                    'user_id' => $user
+                ])
+                ->first();
+
+            if(!empty($count)) {
+                $count = $count->count;
+            } else {
+                $count = 0;
+            }
+         }
 
         return $count;
     }
@@ -231,5 +251,41 @@ class UsersTable extends Table
         } else {
             return false;
         }
+    }
+
+    public function getProjectsUser($userId, $type)
+    {
+        if ($type == 'f') {
+            $projects = $this->Projects->find()
+                ->innerJoin(['puf' => 'project_users_fixed'], ['puf.project_id = Projects.id'])
+                ->where([
+                    'puf.user_id' => $userId
+                ]);
+        } else {
+            $projects = $this->Projects->find()
+                ->where([
+                    'Projects.user_id' => $userId
+                ]);
+        }
+
+        if ($projects->count()) {
+            $projects = $projects->toArray();
+        } else {
+            $projects = [];
+        }
+
+        return $projects;
+    }
+
+    public function changeStatusUser($userId, $isOnline)
+    {
+        $this->query()->update()
+            ->set([
+                'is_online' => $isOnline,
+            ])
+            ->where([
+                'id' => $userId
+            ])
+            ->execute();
     }
 }

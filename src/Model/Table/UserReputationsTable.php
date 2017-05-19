@@ -96,4 +96,23 @@ class UserReputationsTable extends Table
         
         return $reputation;
     }
+
+    public function getCountReputation ($user) {
+        $reputationCount = $this->find()
+            ->select([
+                'qtd' => 'COUNT(*)'
+            ])
+            ->where([
+                'user_id' => $user
+            ])
+            ->first();
+
+        if(empty($reputationCount)) {
+            $reputationCount = 0;
+        } else {
+            $reputationCount = $reputationCount->qtd;
+        }
+
+        return $reputationCount;
+    }
 }

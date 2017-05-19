@@ -2,8 +2,12 @@
 <div class="content-wrapper">
     <section class="content">
         <article class="top-informations">
-            <div class="col-md-4">
-                <?= $this->element('Profile/reputation', ['reputation' => $reputation]); ?>
+            <div class="col-md-4 normal">
+                <?php if ($user['type'] == 'c'): ?>
+                    <?= $user['name'] . ' já pagou R$<b>' . number_format($totalBudget->total, 2, ',', '.') . '</b>' ?>
+                <?php else: ?>
+                    <?= $this->element('Profile/reputation', ['reputation' => $reputation]); ?>
+                <?php endif; ?>
             </div>
             <div class="col-md-4">
                 <h3>Projetos Finalizados <span><?= $finishedProjects ?></span></h3>

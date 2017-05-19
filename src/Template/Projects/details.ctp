@@ -16,7 +16,9 @@
     <?php if (empty($project->project_files)): ?>
         <span class="italic">Este projeto não possui anexos</span>
     <?php else: ?>
-        <span>anexo</span>
+        <ul class="file-list">
+            <?= $this->element('Projects/list-file', ['files' => $project->project_files]) ?>
+        </ul>
     <?php endif; ?>
     <h4 class="color-grey normal subtitle">Entrega Final</h4>
     <h3 class="color-red normal"><?= $project->date_end->i18nFormat('dd/MM/yyyy'); ?></h3>
@@ -24,16 +26,17 @@
 <aside class="right-bar">
     <a href="<?= $this->Url->build('/visualizar-perfil/' . $project->user->id); ?>">
         <?php
-            $imgUser = empty($project->user->picture) ? $this->Url->build('/front/img/user-default.png', true) : $project->user->picture;
+        $imgUser = empty($project->user->picture) ? $this->Url->build('/front/img/user-default.png', true) : $project->user->picture;
         ?>
         <img
             src="<?= $imgUser ?>"
             class="img-responsive center-block img-user">
     </a>
     <h4 class="normal color-red"><?= $project->user->name ?></h4>
+
     <h5 class="normal color-red">Cadastrado desde <?= $project->user->created_at->i18nFormat('dd/MM/yyyy') ?></h5>
     <?php if ($finishedProjects): ?>
-        <h5 class="normal color-red">Já finalizou <?= $finishedProjects ?> projetos </h5>
+        <h5 class="normal color-red">Já finalizou <b><?= $finishedProjects ?></b> projetos </h5>
     <?php endif; ?>
 
     <?php

@@ -81,7 +81,10 @@ class UsersController extends AppController
             ])
             ->first();
 
-        $reputation = $this->UserReputations->getReputation($user->id);
+        $reputation = [
+            'grade' => $this->UserReputations->getReputation($user->id),
+            'qtd' => $this->UserReputations->getCountReputation($user->id)
+        ];
 
         if (!empty($user)) {
             $user = $user->toArray();
@@ -95,13 +98,27 @@ class UsersController extends AppController
                 }
             }
 
-            $projectsUser = [];
-            $skillsUser = [];
+            $projectsUser = $this->Users->getProjectsUser($user['id'], $user['type']);
             $finishedProjects = $this->Users->getFinishedProjects($user['id']);
 
             $percentageProfile = round(($complete / $null) * 100);
         }
 
+        $Projects = TableRegistry::get('Projects');
+
+        $totalBudget = $Projects
+            ->find()
+            ->select([
+                'total' => 'SUM(budget)'
+            ])
+            ->where([
+                'user_id' => $this->request->session()->read('Auth.User.id'),
+                'status' => 2
+            ])
+            ->order('user_id')
+            ->first();
+
+        $this->set('totalBudget', $totalBudget);
         $this->set('reputation', $reputation);
         $this->set('finishedProjects', $finishedProjects);
         $this->set('percentageProfile', $percentageProfile);
@@ -114,7 +131,10 @@ class UsersController extends AppController
     {
         $user = $this->Users->get($id, ['contain' => ['Cities.States', 'UserSkills.Skills']]);
 
-        $reputation = $this->UserReputations->getReputation($user->id);
+        $reputation = [
+            'grade' => $this->UserReputations->getReputation($user->id),
+            'qtd' => $this->UserReputations->getCountReputation($user->id)
+        ];
 
         if ($user) {
             $user = $user->toArray();
@@ -123,7 +143,21 @@ class UsersController extends AppController
         $projectsUser = [];
         $finishedProjects = $this->Users->getFinishedProjects($id);
 
-        $this->set(compact('user', 'projectsUser', 'skills', 'finishedProjects', 'reputation'));
+        $Projects = TableRegistry::get('Projects');
+
+        $totalBudget = $Projects
+            ->find()
+            ->select([
+                'total' => 'SUM(budget)'
+            ])
+            ->where([
+                'user_id' => $user['id'],
+                'status' => 2
+            ])
+            ->order('user_id')
+            ->first();
+
+        $this->set(compact('user', 'projectsUser', 'skills', 'finishedProjects', 'reputation', 'totalBudget'));
     }
 
     public function edit()
@@ -142,7 +176,7 @@ class UsersController extends AppController
             $data = $this->request->data;
 
             $data['public_address'] = isset($data['public_address']) && $data['public_address'] == 'on' ? 1 : 0;
-            if(empty($data['picture']) && !empty($user->picture)) {
+            if (empty($data['picture']) && !empty($user->picture)) {
                 $data['picture'] = $user->picture;
             }
 
