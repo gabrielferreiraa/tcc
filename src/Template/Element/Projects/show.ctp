@@ -4,7 +4,7 @@
         <p class="normal description">
             <?= $project->description; ?>
         </p>
-        <h5 class="normal">Orçamento: R$ <?= number_format($project->budget, 2, ',', '.'); ?></h5>
+        <h5 class="normal">Orçamento: R$ <?= $project->budget; ?></h5>
 
         <div class="footer">
             <a href="<?= $this->Url->build('/detalhe-projeto/' . $project->id, true); ?>" class="btn-padrao">ver

@@ -42,7 +42,7 @@ $(document).ready(function () {
     }
 
     function populateAddress() {
-        const cep = $('#cep').val();
+        const cep = $('#cep').val().replace('-', '');
 
         $.get('http://api.postmon.com.br/v1/cep/' + cep, function (e) {
             var elState = $('#state-id');
@@ -89,6 +89,18 @@ $(document).ready(function () {
             reader.readAsDataURL(input[0]);
         }
     }
+
+    var maskBehavior = function (val) {
+            return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+        },
+        optionsMask = {
+            onKeyPress: function(val, e, field, options) {
+                field.mask(maskBehavior.apply({}, arguments), options);
+            }
+        };
+
+    $('#cel-phone').mask(maskBehavior, optionsMask);
+    $('#cep').mask('00000-000');
 
     $('#state-id').change(populateCities);
     $('.btn-buscar-cep').click(populateAddress);

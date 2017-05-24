@@ -95,11 +95,11 @@ class ProjectsTable extends Table
             ->allowEmpty('description');
 
         $validator
-            ->date('date_end')
+//            ->date('date_end')
             ->allowEmpty('date_end');
 
         $validator
-            ->numeric('budget')
+//            ->numeric('budget')
             ->allowEmpty('budget');
 
         $validator

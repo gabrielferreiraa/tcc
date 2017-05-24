@@ -1,6 +1,6 @@
 <?php foreach ($files as $file): ?>
     <li>
-        <div class="type"><?= \App\Lib\Utils::getIconFile($file->ext) ?></div>
+        <div class="type" title="<?= 'Arquivo .' . $file->ext ?>"><?= \App\Lib\Utils::getIconFile($file->ext) ?></div>
         <?php
         list($path, $path2, $fileName) = explode('/', $file->file);
         ?>

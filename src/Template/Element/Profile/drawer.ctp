@@ -14,9 +14,9 @@
                 <h3 class="name-user"><?= $user['name'] ?></h3>
             <?php endif; ?>
             <?php if (!$view): ?>
-                <p class="description">
+                <p class="description" title="<?= empty($user['description']) ? '' : $user['description'] ?>">
                     <?php if (!empty($user['description'])): ?>
-                        <?= $user['description'] ?>
+                        <?= strlen($user['description']) > 150 ? substr($user['description'], 0, 150) . '...' : $user['description'] ?>
                     <?php else: ?>
                         Breve descrição sobre seu perfil profissional e áreas de atuação
                     <?php endif; ?>

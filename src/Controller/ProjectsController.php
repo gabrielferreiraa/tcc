@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Lib\Utils;
 use Cake\ORM\TableRegistry;
 
 
@@ -180,6 +181,8 @@ class ProjectsController extends AppController
             }
 
             $project = $this->Projects->patchEntity($project, $data);
+
+            $project['date_end'] = Utils::brToDate($data['date_end']);
 
             if ($this->Projects->save($project)) {
                 $fixTimeline = $this->Projects->fixTimelineDescription(

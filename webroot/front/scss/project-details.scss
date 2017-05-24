@@ -62,9 +62,12 @@
       cursor: auto;
     }
   }
-  .budget div {
-    font-family: $font-bold;
-    margin-top: 5px;
-    font-size: 1.3em;
+  .budget {
+    margin-top: 40px;
+    div {
+      font-family: $font-bold;
+      margin-top: 5px;
+      font-size: 1.3em;
+    }
   }
 }

@@ -103,29 +103,54 @@ class MessagesController extends AppController
         if ($this->request->is('post')) {
             $data = $this->request->data;
 
-            $message = $this->Messages->newEntity();
-            $message->to_user = $this->request->session()->read('Auth.User.id');
-            $message->from_user = $data['id'];
-            $message->date = date('Y-m-d H:i:s');
+            $participantOnlineId = $this->request->session()->read('Auth.User.id');
+            $hasOpenTalk = $this->hasOpenTalk($participantOnlineId, $data['id']);
 
-            $sended = $this->Messages->save($message);
-
-            if ($sended) {
-                $messageRecord = $this->MessageRecords->newEntity();
-                $messageRecord->message_id = $sended->id;
-                $messageRecord->text = $data['message'];
-                $messageRecord->created = date('Y-m-d H:i:s');
-                $messageRecord->user_id = $this->request->session()->read('Auth.User.id');
-
-                if ($this->MessageRecords->save($messageRecord)) {
+            if ($hasOpenTalk) {
+                if ($this->MessageRecords->newRecord($hasOpenTalk, $data['message'], $participantOnlineId)) {
                     $result = ['status' => 'success'];
                 } else {
                     $result = ['status' => 'error'];
+                }
+            } else {
+                $message = $this->Messages->newEntity();
+                $message->to_user = $participantOnlineId;
+                $message->from_user = $data['id'];
+                $message->date = date('Y-m-d H:i:s');
+
+                $sended = $this->Messages->save($message);
+
+                if ($sended) {
+                    if ($this->MessageRecords->newRecord($sended->id, $data['message'], $participantOnlineId)) {
+                        $result = ['status' => 'success'];
+                    } else {
+                        $result = ['status' => 'error'];
+                    }
                 }
             }
         }
 
         $this->set(compact('result'));
         $this->set('_serialize', ['result']);
+    }
+
+    private function hasOpenTalk($user1, $user2)
+    {
+        $talk = $this->Messages->find()
+            ->where([
+                'to_user' => $user1,
+                'from_user' => $user2
+            ])
+            ->orWhere([
+                'from_user' => $user1,
+                'to_user' => $user2
+            ])
+            ->first();
+
+        if (!empty($talk)) {
+            return $talk->id;
+        }
+
+        return;
     }
 }

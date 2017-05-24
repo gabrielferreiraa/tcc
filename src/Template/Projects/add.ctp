@@ -1,6 +1,10 @@
 <?= $this->Form->create($project, ['id' => 'formProjects', 'type' => 'file']) ?>
 
-<div class="row">
+<a href="<?= $this->Url->build('/meus-projetos', true); ?>" class="btn-padrao">
+    VOLTAR
+</a>
+
+<div class="row" style="margin-top: 20px;">
     <div class="col-md-12">
         <?= $this->Form->hidden('status', ['value' => 0]); ?>
         <?= $this->Form->hidden('already_fixed', ['value' => 0]); ?>
@@ -32,10 +36,10 @@
 </div>
 <div class="row">
     <div class="col-md-3">
-        <?= $this->Form->input('date_end', ['label' => 'Data final de entrega', 'placeholder' => 'ex: 01/01/2017', 'class' => 'form-input']) ?>
+        <?= $this->Form->input('date_end', ['label' => 'Data final de entrega', 'placeholder' => 'ex: 01/01/2017', 'class' => 'form-input', 'type' => 'text']) ?>
     </div>
     <div class="col-md-3">
-        <?= $this->Form->input('budget', ['label' => 'Orçamento', 'class' => 'form-input']) ?>
+        <?= $this->Form->input('budget', ['label' => 'Orçamento', 'class' => 'form-input', 'type' => 'text']) ?>
     </div>
 </div>
 <div class="row actions">
@@ -65,6 +69,8 @@ echo $this->append('css', $this->Html->css([
     'front/css/addProjects'
 ]));
 echo $this->append('script', $this->Html->script([
+    'dist/js/mask',
+    'dist/js/moment',
     'dist/js/select2.min',
     'front/js-min/addProjects'
 ]));

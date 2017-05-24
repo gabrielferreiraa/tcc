@@ -139,6 +139,7 @@ echo $this->append('css', $this->Html->css([
     'front/css/form-profile'
 ]));
 echo $this->append('script', $this->Html->script([
+    'dist/js/mask',
     'dist/js/select2.min',
     'front/js-min/formProfile'
 ]));

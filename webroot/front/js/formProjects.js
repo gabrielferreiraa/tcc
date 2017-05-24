@@ -1,7 +1,13 @@
 $(document).ready(function () {
     const heightProjects = $('.scroll-div').height();
-    $('.left-bar').css('height', heightProjects + 'px');
-    $('.content-wrapper').css('height', heightProjects + 'px');
+    const heightWrapper = $('.content-wrapper').height();
+
+    if(heightWrapper > heightProjects) {
+        $('.left-bar').css('min-height', heightWrapper + 'px');
+    } else {
+        $('.left-bar').css('min-height', heightProjects + 'px');
+        $('.content-wrapper').css('min-height', (heightProjects + 20) + 'px');
+    }
 
     $('.btn-more-skills').click(function () {
         $('#skills').modal('show');

@@ -1,7 +1,8 @@
 <?php if (count($projects)): ?>
-    <div class="panel-group" id="accordion">
+    <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
         <?= $this->element('Projects/btn-cadastrar-projeto'); ?>
-
+    <?php endif; ?>
+    <div class="panel-group" id="accordion">
         <?php foreach ($projects as $project): ?>
             <?php
             $dev = isset($project['project_users_fixed']) && !empty($project['project_users_fixed']) ? $project['project_users_fixed'][0] : '';
@@ -32,7 +33,7 @@
                                 </div>
                                 <div id="projeto-<?= $project['id'] ?>" class="tab-pane fade in active projeto">
                                     <div class="top-informations">
-                                        <span>Orçamento: R$ <?= number_format($project['budget'], 2, '.', ',') ?></span>
+                                        <span>Orçamento: R$ <?= $project['budget'] ?></span>
                                         <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
                                             <?php if (!empty($dev)): ?>
                                                 <button
@@ -270,6 +271,14 @@
                 ?>
             <?php endif; ?>
         <?php endforeach; ?>
+    </div>
+<?php else: ?>
+    <div class="noProjects text-center">
+        <h3 class="normal"><b><?= $userName ?></b>,<br/><span class="italic">Você ainda não criou nenhum projeto</span>
+        </h3>
+        <a href="<?= $this->Url->build('/adicionar-projeto', true); ?>" class="btn-padrao">
+            <i class="fa fa-plus-circle"></i> CRIAR PROJETO
+        </a>
     </div>
 <?php endif; ?>
 <?php

@@ -79,4 +79,18 @@ class MessageRecordsTable extends Table
 
         return $rules;
     }
+
+    public function newRecord($messageId, $body, $user) {
+        $messageRecord = $this->newEntity();
+        $messageRecord->message_id = $messageId;
+        $messageRecord->text = $body;
+        $messageRecord->created = date('Y-m-d H:i:s');
+        $messageRecord->user_id = $user;
+
+        if ($this->save($messageRecord)) {
+            return true;
+        }
+
+        return false;
+    }
 }

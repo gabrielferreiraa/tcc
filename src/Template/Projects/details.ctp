@@ -50,7 +50,7 @@
         </button>
     <?php endif; ?>
     <h5 class="normal color-red budget"><?= $name[0] ?> orçou este projeto em <br/>
-        <div>R$ <?= number_format($project->budget, 2, '.', ',') ?></div>
+        <div>R$ <?= $project->budget; ?></div>
     </h5>
 </aside>
 <?php
