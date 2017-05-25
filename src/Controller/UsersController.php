@@ -109,7 +109,7 @@ class UsersController extends AppController
         $totalBudget = $Projects
             ->find()
             ->select([
-                'total' => 'SUM(budget)'
+                'total' => 'SUM(CAST(budget TO FLOAT))'
             ])
             ->where([
                 'user_id' => $this->request->session()->read('Auth.User.id'),

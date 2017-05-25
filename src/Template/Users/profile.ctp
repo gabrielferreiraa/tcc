@@ -7,7 +7,7 @@ $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
         <article class="top-informations">
             <div class="col-md-4 normal">
                 <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
-                    <?= $userName[0] . ' já pagou R$<b>' . number_format($totalBudget->total, 2, ',', '.') . '</b>' ?>
+                    <?= $userName[0] . ' já pagou R$<b>' . $totalBudget->total . '</b>' ?>
                 <?php else: ?>
                     <?= $this->element('Profile/reputation', ['reputation' => $reputation]); ?>
                 <?php endif; ?>

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     window.rate = 0;
 
     const widthContent = $('.panel-heading').width();
@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     moment.locale('pt-br');
 
-    $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
+    $('a[data-toggle="pill"]').on('shown.bs.tab', function(e) {
         const textDateEnd = '.date-end';
         const globalFormat = 'DD/MM/YYYY';
         const $target = $($(e.target).attr('href'));
@@ -31,15 +31,15 @@ $(document).ready(function () {
         }
     });
 
-    $('.escolho-voce').on('click', function () {
-        const url = webroot + '/projects/fixUserProject';
+    $('.escolho-voce').on('click', function() {
+        const url = webroot + 'projects/fix-user-project';
         const data = {
             project: $(this).data('project'),
             user: $(this).data('user'),
             userName: $(this).data('user_name')
         };
 
-        $.post(url, data, function (response) {
+        $.post(url, data, function(response) {
             if (response.result.status === 'success') {
                 $('#collapse' + data.project).find('.user-' + data.user).addClass('fixed');
                 $(this).html('<i class="fa fa-check-circle"></i> ' + data.userName.toUpperCase() + ' FOI ESCOLHIDO').addClass('white');
@@ -49,7 +49,8 @@ $(document).ready(function () {
                     type: 'success',
                     showCloseButton: true
                 });
-            } else {
+            }
+            else {
                 Messenger().post({
                     message: response.result.data,
                     type: 'error',
@@ -59,7 +60,7 @@ $(document).ready(function () {
         }.bind(this), 'json');
     });
 
-    $('.open-partner').on('click', function () {
+    $('.open-partner').on('click', function() {
         var url = webroot + 'projects/show-partner';
         var windowDiv = $('.project-window-' + $(this).data('project'));
 
@@ -73,7 +74,7 @@ $(document).ready(function () {
 
         var typeUser = user[1] == 'contractor' ? 'Contratante' : 'Freelancer';
 
-        $.post(url, data, function (res) {
+        $.post(url, data, function(res) {
             if (res.result.status === 'success') {
                 if (res.result.data.picture !== null) {
                     windowDiv.find('img').attr('src', res.result.data.picture)
@@ -82,14 +83,14 @@ $(document).ready(function () {
                 windowDiv.find('.created').text(typeUser + ' desde ' + res.result.data.created);
                 windowDiv.find('.finished').html('Projeto finalizados: ' + '<span>' + res.result.data.finished + '</span>');
                 var sendMessage = windowDiv.find('button');
-                sendMessage.on('click', function () {
+                sendMessage.on('click', function() {
                     window.location.href = webroot + 'visualizar-perfil/' + res.result.data.id;
                 });
             }
         }, 'json');
     });
 
-    $('.star-input').change(function () {
+    $('.star-input').change(function() {
         var me = $(this);
 
         const rates = {
@@ -104,23 +105,23 @@ $(document).ready(function () {
         $('.rate').text(rates[me.attr("value")]);
     });
 
-    $('.open-modal-reputation').on('click', function (e) {
+    $('.open-modal-reputation').on('click', function(e) {
         $('#reputation-' + $(this).data('project')).modal('show');
     });
 
-    $('.finishProject').on('click', function (e) {
+    $('.finishProject').on('click', function(e) {
         const url = webroot + 'projects/finish-project';
         const data = {
             project: $(this).data('project'),
             rate: window.rate
         };
 
-        $.post(url, data, function (e) {
+        $.post(url, data, function(e) {
 
         }, 'json');
     });
 
-    $('.open-anexo').click(function () {
+    $('.open-anexo').click(function() {
         $('#project-file-' + $(this).data('project')).modal('show');
     });
 });
