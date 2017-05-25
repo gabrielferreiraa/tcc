@@ -109,11 +109,11 @@ class UsersController extends AppController
         $totalBudget = $Projects
             ->find()
             ->select([
-                'total' => 'SUM(CAST(budget TO FLOAT))'
+                'total' => "(CASE WHEN SUM(CAST(REPLACE(REPLACE(budget, '.', ''), ',', '.') AS DECIMAL)) IS NULL THEN 0.00 ELSE SUM(CAST(REPLACE(REPLACE(budget, '.', ''), ',', '.') AS DECIMAL)) END)"
             ])
             ->where([
-                'user_id' => $this->request->session()->read('Auth.User.id'),
-                'status' => 2
+                'user_id = ' . $this->request->session()->read('Auth.User.id') ,
+                'status = ' . 2
             ])
             ->order('user_id')
             ->first();
@@ -148,7 +148,7 @@ class UsersController extends AppController
         $totalBudget = $Projects
             ->find()
             ->select([
-                'total' => 'SUM(budget)'
+                'total' => "(CASE WHEN SUM(CAST(REPLACE(REPLACE(budget, '.', ''), ',', '.') AS DECIMAL)) IS NULL THEN 0.00 ELSE SUM(CAST(REPLACE(REPLACE(budget, '.', ''), ',', '.') AS DECIMAL)) END)"
             ])
             ->where([
                 'user_id' => $user['id'],
