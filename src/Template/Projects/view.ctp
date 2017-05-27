@@ -233,6 +233,7 @@
                                                                     <img src="<?= $imgUser; ?>"
                                                                          class="img-responsive">
                                                                     <span class="name"><?= $user->user->name ?></span>
+                                                                    <br/>
                                                                     <span
                                                                         class="type">
                                                                         <?= empty($user->user->developer_type) ? 'Desenvolvedor' : $user->user->developer_type ?>

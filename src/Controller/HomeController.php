@@ -38,7 +38,7 @@ class HomeController extends AppController
                 ];
                  
                 $User = TableRegistry::get('Users');
-                $User->changeStatusUser($this->request->session()->read('Auth.User.id'), 1);
+                $User->changeStatusUser($user['id'], 1);
 
                 $this->Auth->setUser($user);
             } else {
