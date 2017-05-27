@@ -27,7 +27,12 @@ $userName = explode(' ', $this->request->session()->read('Auth.User.name'));
 
         <?= $this->element('Profile/skills', ['skills' => $user['user_skills']]); ?>
         <article class="projects">
-            <?= $this->element('Profile/projects', ['projects' => $projectsUser, 'view' => false]); ?>
+            <?= $this->element('Profile/projects', [
+                'projects' => $projectsUser,
+                'view' => false,
+                'type' => $this->request->session()->read('Auth.User.type'),
+                'user' => $user
+            ]); ?>
         </article>
         <?php if ($user['public_address'] == 1): ?>
             <article class="address">

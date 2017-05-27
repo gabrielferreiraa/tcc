@@ -257,15 +257,31 @@ class UsersTable extends Table
     {
         if ($type == 'f') {
             $projects = $this->Projects->find()
+                ->contain([
+                    'Users',
+                    'UserReputations'
+                ])
                 ->innerJoin(['puf' => 'project_users_fixed'], ['puf.project_id = Projects.id'])
                 ->where([
-                    'puf.user_id' => $userId
-                ]);
+                    'puf.user_id' => $userId,
+                    'status' => 2
+                ])
+                ->order('Projects.id DESC')
+                ->limit(3);
+
         } else {
             $projects = $this->Projects->find()
+                ->contain([
+                    'UserReputations',
+                    'ProjectUsersFixed.Users'
+                ])
                 ->where([
-                    'Projects.user_id' => $userId
-                ]);
+                    'Projects.user_id' => $userId,
+                    'status' => 2
+                ])
+                ->order('Projects.id DESC')
+                ->limit(3);
+
         }
 
         if ($projects->count()) {

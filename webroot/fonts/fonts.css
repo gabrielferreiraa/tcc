@@ -87,13 +87,13 @@
 }
 
 @font-face {
-	font-family: 'Lato-Bold-Italict';
+	font-family: 'Lato-Bold-Italic';
 	src: url('hinted-Lato-BoldItalic.eot');
 	src: local('Lato Bold Italic'), local('Lato-BoldItalic'),
 		url('hinted-Lato-BoldItalic.eot?#iefix') format('embedded-opentype'),
 		url('hinted-Lato-BoldItalic.woff') format('woff'),
 		url('hinted-Lato-BoldItalic.ttf') format('truetype');
-	font-weight: bold;
+	font-weight: 300;
 	font-style: italic;
 }
 

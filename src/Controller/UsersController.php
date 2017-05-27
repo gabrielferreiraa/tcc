@@ -112,7 +112,7 @@ class UsersController extends AppController
                 'total' => "(CASE WHEN SUM(CAST(REPLACE(REPLACE(budget, '.', ''), ',', '.') AS DECIMAL)) IS NULL THEN 0.00 ELSE SUM(CAST(REPLACE(REPLACE(budget, '.', ''), ',', '.') AS DECIMAL)) END)"
             ])
             ->where([
-                'user_id = ' . $this->request->session()->read('Auth.User.id') ,
+                'user_id = ' . $this->request->session()->read('Auth.User.id'),
                 'status = ' . 2
             ])
             ->order('user_id')
@@ -129,6 +129,10 @@ class UsersController extends AppController
 
     public function viewProfile($id)
     {
+        if ($id == $this->request->session()->read('Auth.User.id')) {
+            return $this->redirect('/perfil');
+        }
+
         $user = $this->Users->get($id, ['contain' => ['Cities.States', 'UserSkills.Skills']]);
 
         $reputation = [
@@ -140,8 +144,8 @@ class UsersController extends AppController
             $user = $user->toArray();
         }
 
-        $projectsUser = [];
         $finishedProjects = $this->Users->getFinishedProjects($id);
+        $projectsUser = $this->Users->getProjectsUser($id, $user['type']);
 
         $Projects = TableRegistry::get('Projects');
 

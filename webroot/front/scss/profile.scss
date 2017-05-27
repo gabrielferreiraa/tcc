@@ -46,6 +46,7 @@
   .div-scrollTop{
     position: relative;
     text-align: center;
+    padding: 5px;
     .img-user{
       width: 100%;
       min-height: 250px;
@@ -163,6 +164,36 @@
     }
     .projects{
       @extend %style-default-section;
+      .box-projects {
+        color: $grey;
+        margin-top: 30px;
+        .project {
+          margin-top: 15px;
+          font-family: $font;
+          border-bottom: 1px dashed rgba(0,0, 0, .2);
+          a {
+            color: $grey;
+            text-decoration: none;
+          }
+        }
+        .project-reputation {
+          display: flex;
+          justify-content: space-between;
+          .img-user {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+          .avaliation {
+            margin-left: 35px;
+            margin-top: 10px;
+          }
+        }
+        .verMais {
+          margin-top: 30px;
+        }
+      }
     }
     .address{
       @extend %style-default-section;

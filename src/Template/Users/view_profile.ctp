@@ -21,7 +21,12 @@
 
         <?= $this->element('Profile/skills', ['skills' => $user['user_skills']]); ?>
         <article class="projects">
-            <?= $this->element('Profile/projects', ['projects', $projectsUser, 'view' => $user['name']]); ?>
+            <?= $this->element('Profile/projects', [
+                'projects', $projectsUser,
+                'view' => $user['name'],
+                'type' => $user['type'],
+                'user' => $user
+            ]); ?>
         </article>
         <?php if (!empty($this->request->session()->read('Auth.User.public_address'))): ?>
             <article class="address">

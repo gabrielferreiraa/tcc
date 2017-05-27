@@ -109,7 +109,8 @@ class ProjectsController extends AppController
                 ->innerJoin(['u' => 'users'], ['u.id = Projects.user_id'])
                 ->where([
                     'Projects.user_id' => $this->request->session()->read('Auth.User.id')
-                ]);
+                ])
+                ->order('Projects.id DESC');
 
         } else {
             $projects = $this->Projects->find()
@@ -127,7 +128,8 @@ class ProjectsController extends AppController
                 ->innerJoin(['puf' => 'project_users_fixed'], ['puf.project_id = Projects.id'])
                 ->where([
                     'puf.user_id' => $this->request->session()->read('Auth.User.id')
-                ]);
+                ])
+                ->order('Projects.id DESC');
         }
 
         if ($projects->count()) {
@@ -387,6 +389,7 @@ class ProjectsController extends AppController
             $newRate->project_id = $data['project'];
             $newRate->user_id = $userIdReputation;
             $newRate->grade = (float)$data['rate'];
+            $newRate->avaliation = $data['avaliation'];
 
             $rate = $this->UserReputations->save($newRate);
 
@@ -413,5 +416,33 @@ class ProjectsController extends AppController
         }
 
         return $file;
+    }
+
+    public function avaliateContractor()
+    {
+        $result = ['status' => 'error', 'data' => ''];
+        if ($this->request->is('post')) {
+
+            $data = $this->request->data;
+
+            $newRate = $this->UserReputations->newEntity();
+            $newRate->project_id = $data['project_id'];
+            $newRate->user_id = $data['user_id'];
+            $newRate->grade = 0;
+            $newRate->avaliation = $data['avaliation'];
+
+            $rate = $this->UserReputations->save($newRate);
+
+            if ($rate) {
+                $result = ['status' => 'success', 'data' => ''];
+
+            } else {
+                $result = ['status' => 'error', 'data' => ''];
+
+            }
+        }
+
+        $this->set(compact('result'));
+        $this->set('_serialize', ['result']);
     }
 }

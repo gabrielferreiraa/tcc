@@ -29,7 +29,7 @@ $(document).ready(function () {
         if (!$(this).hasClass('interested')) {
             $(this).addClass('interested').html('<i class="fa fa-check-circle"></i> Você mostrou interesse');
 
-            const url = webroot + 'projects/registerInterested';
+            const url = webroot + 'projects/register-interested';
             const data = {
                 id: $(this).data('id')
             };

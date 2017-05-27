@@ -24,6 +24,15 @@ $widthDefault: 70px;
   }
 }
 
+.avaliation {
+  width: 100%;
+  outline: none;
+  height: 100px;
+  font-family: $font;
+  padding: 5px;
+  color: $red-dark;
+}
+
 .panel-group {
   background-color: white;
   padding: 15px;

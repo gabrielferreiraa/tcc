@@ -6,8 +6,19 @@ b {
   font-family: $font-bold;
 }
 
+.flex {
+  display: flex;
+}
+
 .normal {
   font-family: $font;
+}
+.bold-italic {
+  font-family: $font-bold-italic;
+}
+
+.black-italic {
+  font-family: $font-black-italic;
 }
 
 .light {

@@ -116,16 +116,83 @@
                                             <div class="text-center">
                                                 <?php if ($this->request->session()->read('Auth.User.type') == 'c'): ?>
                                                     <?php if (!empty($dev)): ?>
-                                                        <span class="normal">
-                                                            Você avaliou <b><?= $dev['user']['name'] ?></b> com <br/>
-                                                        </span>
-                                                        <?= $this->element('Profile/reputation', ['reputation' => $project['user_reputations'][0], 'display' => false]) ?>
+                                                        <?php $avaliation = ''; ?>
+                                                        <?php foreach ($project['user_reputations'] as $rep): ?>
+                                                            <?php if ($rep->user_id == $project->user_id): ?>
+                                                                <?php $avaliation = $rep->avaliation; ?>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
+
+                                                        <?php if (!empty($avaliation)): ?>
+                                                            <span class="normal">
+                                                                Veja o que <?= $dev['user']['name'] ?> falou sobre você:
+                                                            </span>
+                                                            <p class="italic">
+                                                                "<?= $avaliation ?>"
+                                                            </p>
+                                                        <?php else: ?>
+                                                            <p class="normal"><?= $dev['user']['name'] ?>, ainda não te
+                                                                avaliou !</p>
+
+                                                            <p class="italic">
+                                                                Mande uma mensagem para
+                                                                <?= $dev['user']['name'] ?>,
+                                                                e pessa para ele avaliar como é trabalhar em parceria
+                                                                com você :)
+                                                            </p>
+                                                        <?php endif; ?>
                                                     <?php endif; ?>
                                                 <?php else: ?>
-                                                    <span class="normal">
+                                                    <?php
+                                                    $isAvaliable = false;
+                                                    $avaliation = '';
+                                                    ?>
+                                                    <?php foreach ($project['user_reputations'] as $rep): ?>
+                                                        <?php if ($rep->user_id == $project->user_id): ?>
+                                                            <?php $isAvaliable = true; ?>
+                                                        <?php endif; ?>
+
+                                                        <?php if ($rep->user_id == $this->request->session()->read('Auth.User.id')): ?>
+                                                            <?php $avaliation = $rep->avaliation; ?>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+
+                                                    <?php if (!empty($avaliation)): ?>
+                                                        <span class="normal">
                                                             Você foi avaliado por <b><?= $project['contractor'] ?></b> com <br/>
                                                         </span>
-                                                    <?= $this->element('Profile/reputation', ['reputation' => $project['user_reputations'][0], 'display' => false]) ?>
+                                                        <?= $this->element('Profile/reputation', ['reputation' => $project['user_reputations'][0], 'display' => false]) ?>
+
+                                                        <p class="italic">
+                                                            "<?= $avaliation ?>"
+                                                        </p>
+                                                    <?php else: ?>
+                                                        <p class="normal"><?= $project['contractor'] ?>, ainda não te
+                                                            avaliou !</p>
+
+                                                        <p class="italic">
+                                                            Mande uma mensagem para
+                                                            <?= $project['contractor'] ?>,
+                                                            e pessa para ele avaliar como é trabalhar em parceria
+                                                            com você :)
+                                                        </p>
+                                                    <?php endif; ?>
+
+                                                    <?php if (!$isAvaliable): ?>
+                                                        <div class="text-right">
+                                                                <textarea
+                                                                    style="margin-top:30px;"
+                                                                    class="avaliation avaliation-freelancer-<?= $project->id ?>"
+                                                                    placeholder="Aproveite e conte-nos como foi trabalhar com <?= $project->contractor ?>"></textarea>
+                                                            <button
+                                                                data-project="<?= $project->id ?>"
+                                                                data-contractor="<?= $project->user_id ?>"
+                                                                type="button"
+                                                                class="btn-padrao avaliarContratante">
+                                                                AVALIAR CONTRATANTE
+                                                            </button>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 <?php endif; ?>
                                             </div>
                                         <?php endif; ?>
@@ -259,7 +326,11 @@
                 ?>
                 <?=
                 $this->element('modal-default', [
-                    'content' => $content . $this->element('stars-interaction') . '</br> <h3 class="rate text-center bold"></h3>',
+                    'content' =>
+                        $content .
+                        $this->element('stars-interaction') .
+                        '</br> <h3 class="rate text-center bold"></h3>' .
+                        "<textarea class='avaliation avaliation-{$project['id']}' placeholder='Conte-nos um pouco de como foi trabalhar com {$dev->user->name}'></textarea>",
                     'id' => 'reputation-' . $project['id'],
                     'textBtn' => 'AVALIAR USUÁRIO',
                     'titleHead' => $this->request->session()->read('Auth.User.name') . ', qual nota você daria para <a href="' . $this->Url->build('/visualizar-perfil/' . $dev->user->id, true) . '" class="bold">' . $dev->user->name . '</a> ?',

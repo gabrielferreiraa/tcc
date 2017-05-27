@@ -8,9 +8,9 @@
         if ($reputation['qtd'] == 0) {
             $textTooltip = 'Nenhuma avaliação';
         } else if ($reputation['qtd'] == 1) {
-            $textTooltip = 'Avaliado por 1 pessoa';
+            $textTooltip = 'Avaliado 1 vez';
         } else {
-            $textTooltip = 'Avaliado por ' . $reputation['qtd'] . ' pessoas';
+            $textTooltip = 'Avaliado ' . $reputation['qtd'] . ' vezes';
         }
     } else {
         $textTooltip = '';
