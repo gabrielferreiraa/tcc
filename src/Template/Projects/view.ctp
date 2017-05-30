@@ -44,6 +44,13 @@
                                                     <i class="fa fa-user"></i>
                                                 </button>
                                             <?php endif; ?>
+
+                                            <button
+                                                title="Excluir projeto"
+                                                data-project="<?= $project['id'] ?>"
+                                                class="btn btn-circle delete-project">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
                                         <?php else: ?>
                                             <button
                                                 data-dev="<?= $project['user_id'] ?>-contractor"
@@ -71,6 +78,7 @@
                                         <?php if (count($project['project_files'])): ?>
                                             <button
                                                 data-project="<?= $project['id'] ?>"
+                                                title="Anexos"
                                                 class="btn btn-circle open-anexo">
                                                 <i class="fa fa-paperclip"></i>
                                             </button>
@@ -342,6 +350,21 @@
                 ]);
                 ?>
             <?php endif; ?>
+
+            <?=
+            $this->element('modal-default', [
+                'content' => '<h5 class="normal text-center">Esta ação não pode ser desfeita, irá deletar permanentemente este projeto.</h5><br/><input type="text" class="text-delete-project" placeholder="Escreva: Eu entendo as consequências, deletar este projeto" data-project="' . $project['id'] . '" />',
+                'id' => 'deleteProject-' . $project['id'],
+                'textBtn' => 'Eu entendo as consequências, deletar este projeto',
+                'titleHead' => 'Você tem certeza absoluta?',
+                'btnClass' => 'deleteProject center-block',
+                'attrs' => [
+                    'id' => 'deleteProjectBtn-' . $project['id'],
+                    'disabled' => 'true',
+                    'data-project' => $project['id']
+                ]
+            ]);
+            ?>
         <?php endforeach; ?>
     </div>
 <?php else: ?>

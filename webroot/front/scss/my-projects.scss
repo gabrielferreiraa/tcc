@@ -24,6 +24,17 @@ $widthDefault: 70px;
   }
 }
 
+.text-delete-project {
+  outline: none;
+  margin: 10px auto;
+  display: block;
+  height: 50px;
+  padding: 5px;
+  font-family: $font;
+  width: 100%;
+  text-align: center;
+}
+
 .avaliation {
   width: 100%;
   outline: none;

@@ -46,20 +46,30 @@ class ProjectsTable extends Table
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('ProjectUsersFixed', [
-            'foreignKey' => 'project_id'
+            'foreignKey' => 'project_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true
         ]);
         $this->hasMany('ProjectUsersIntersted', [
-            'foreignKey' => 'project_id'
+            'foreignKey' => 'project_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true
         ]);
         $this->hasMany('UserReputations', [
-            'foreignKey' => 'project_id'
+            'foreignKey' => 'project_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true
         ]);
         $this->hasMany('ProjectSteps', [
-            'foreignKey' => 'project_id'
+            'foreignKey' => 'project_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true
         ]);
         $this->belongsToMany('Files', [
             'foreignKey' => 'project_id',
-            'joinTable' => 'project_files'
+            'joinTable' => 'project_files',
+            'dependent' => true,
+            'cascadeCallbacks' => true
         ]);
         $this->hasMany('ProjectFiles', [
             'foreignKey' => 'project_id',
@@ -67,12 +77,16 @@ class ProjectsTable extends Table
             'cascadeCallbacks' => true
         ]);
         $this->hasMany('ProjectSkills', [
-            'foreignKey' => 'project_id'
+            'foreignKey' => 'project_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true
         ]);
         $this->belongsToMany('Skills', [
             'foreignKey' => 'project_id',
             'targetForeignKey' => 'skill_id',
-            'joinTable' => 'project_skills'
+            'joinTable' => 'project_skills',
+            'dependent' => true,
+            'cascadeCallbacks' => true
         ]);
     }
 

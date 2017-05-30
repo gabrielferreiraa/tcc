@@ -115,6 +115,7 @@ class ProjectsController extends AppController
         } else {
             $projects = $this->Projects->find()
                 ->contain([
+                    'ProjectFiles',
                     'ProjectSkills.Skills',
                     'ProjectSteps',
                     'UserReputations'
@@ -439,6 +440,25 @@ class ProjectsController extends AppController
             } else {
                 $result = ['status' => 'error', 'data' => ''];
 
+            }
+        }
+
+        $this->set(compact('result'));
+        $this->set('_serialize', ['result']);
+    }
+
+    public function deleteProject()
+    {
+        $result = ['status' => 'error', 'data' => ''];
+
+        if ($this->request->is('post')) {
+            $data = $this->request->data;
+
+            $project = $this->Projects->get($data['project_id']);
+            if ($this->Projects->delete($project)) {
+                $result = ['status' => 'success', 'data' => ''];
+            } else {
+                $result = ['status' => 'error', 'data' => ''];
             }
         }
 
