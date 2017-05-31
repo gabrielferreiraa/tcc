@@ -45,7 +45,6 @@
 <div class="row actions">
     <div class="col-md-12">
         <button class="btn btn-padrao"><i class="fa fa-check-circle-o"></i> SALVAR</button>
-        <a href="<?= $this->Url->build('/perfil', true); ?>" class="btn btn-padrao">VOLTAR</a>
     </div>
 </div>
 

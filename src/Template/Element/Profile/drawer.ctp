@@ -42,13 +42,26 @@
                     <li><i class="fa fa-clock-o"></i>Cadastrado
                         desde <?= $user['created_at']->i18nFormat('dd/MM/yyyy'); ?></li>
                     <?php if (!empty($user['facebook'])) { ?>
-                        <li><i class="fa fa-facebook-square"></i> <?= $user['facebook'] ?></li>
+                        <li><i class="fa fa-facebook-square"></i>
+                            <a href="http://facebook.com/<?= $user['facebook'] ?>" target="_blank">
+                                <?= $user['facebook'] ?>
+                            </a>
+                        </li>
                     <?php } ?>
                     <?php if (!empty($user['linkedin'])) { ?>
-                        <li><i class="fa fa-linkedin-square"></i> <?= $user['linkedin'] ?></li>
+                        <li><i class="fa fa-linkedin-square"></i>
+                            <a href="http://www.linkedin.com/in/<?= $user['linkedin'] ?>" target="_blank">
+                                <?= $user['linkedin'] ?>
+                            </a>
+                        </li>
                     <?php } ?>
                     <?php if (!empty($user['github'])) { ?>
-                        <li><i class="fa fa-github-square"></i> <?= $user['github'] ?></li>
+                        <li>
+                            <i class="fa fa-github-square"></i>
+                            <a href="http://github.com/<?= $user['github'] ?>" target="_blank">
+                                <?= $user['github'] ?>
+                            </a>
+                        </li>
                     <?php } ?>
                 </ul>
             </div>

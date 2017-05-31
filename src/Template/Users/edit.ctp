@@ -81,7 +81,7 @@
         </div>
         <div class="col-md-3">
             <div class="input">
-                <label>Facebook</label>
+                <label>Facebook <small class="pull-right">Ex: projetotcc</small></label>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon"><i class="fa fa-facebook"></i></span>
                     <input type="text" id="facebook" name="facebook" class="form-input"
@@ -91,7 +91,7 @@
         </div>
         <div class="col-md-3">
             <div class="input">
-                <label>LinkedIn</label>
+                <label>LinkedIn <small class="pull-right">Ex: projetotcc</small></label>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon"><i class="fa fa-linkedin"></i></span>
                     <input type="text" id="linkedin" name="linkedin" class="form-input"
@@ -101,7 +101,7 @@
         </div>
         <div class="col-md-3 ">
             <div class="input">
-                <label>GitHub</label>
+                <label>GitHub <small class="pull-right">Ex: projetotcc</small></label>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon"><i class="fa fa-github"></i></span>
                     <input type="text" id="github" name="github" class="form-input" placeholder="Usuário do Github"

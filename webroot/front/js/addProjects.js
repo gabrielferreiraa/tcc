@@ -83,7 +83,14 @@ $(document).ready(function () {
 
         for (var i in files) {
             if (typeof files[i].name !== 'undefined' && files[i].name !== 'item') {
-                list += '<li>' + files[i].name + '<a href="#" class="delete-file" onclick="deleteFile(' + i + ')"><i class="fa fa-trash-o"></i></a></li>';
+
+                var fileName = files[i].name;
+
+                if(fileName.length > 30) {
+                    fileName = fileName.substr(0, 30) + '...';
+                }
+
+                list += '<li>' + fileName + '<a href="#" class="delete-file" onclick="deleteFile(' + i + ')"><i class="fa fa-trash-o"></i></a></li>';
             }
         }
 

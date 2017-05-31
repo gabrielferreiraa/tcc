@@ -41,6 +41,8 @@
             <?php endforeach; ?>
             <button type="button" class="btn-padrao verMais">VER MAIS</button>
         </div>
+    <?php else: ?>
+        <h4 class="italic">Ainda não finalizou nenhum projeto</h4>
     <?php endif; ?>
 <?php else: ?>
     <?php if (count($projectsUser)): ?>
@@ -80,5 +82,7 @@
             <?php endforeach; ?>
             <button type="button" class="btn-padrao verMais">VER MAIS</button>
         </div>
+    <?php else: ?>
+        <h4 class="italic">Ainda não finalizou nenhum projeto</h4>
     <?php endif; ?>
 <?php endif; ?>

@@ -1,0 +1,39 @@
+@import "default";
+
+body { overflow: auto }
+
+.bar-tasks {
+  height: 60px;
+  margin-bottom: 10px;
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button {
+    margin: 5px;
+  }
+}
+
+.table-container {
+  background-color: rgba(0, 0, 0, .1);
+}
+
+.input-search-skills {
+  margin: 10px auto;
+  height: 40px;
+  font-family: $font-bold;
+  padding: 10px;
+  outline: none;
+  width: 98%;
+  display: block;
+}
+
+.filterType {
+  margin: 10px;
+  height: 40px;
+  width: 200px;
+  text-align: center;
+  font-family: $font-bold;
+  color: $red-dark;
+  outline: none;
+}
