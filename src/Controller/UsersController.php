@@ -17,6 +17,7 @@ class UsersController extends AppController
 
         $this->UserReputations = TableRegistry::get('UserReputations');
         $this->States = TableRegistry::get('States');
+        $this->Cities = TableRegistry::get('Cities');
         $this->Skills = TableRegistry::get('Skills');
         $this->ProjectUsersFixed = TableRegistry::get('ProjectUsersFixed');
     }
@@ -197,9 +198,10 @@ class UsersController extends AppController
         }
 
         $states = $this->States->find('list');
+        $cities = $this->Cities->find('list');
         $skills = $this->Skills->find('list');
 
-        $this->set(compact('user', 'states', 'skills'));
-        $this->set('_serialize', ['user', 'states', 'skills']);
+        $this->set(compact('user', 'states', 'skills', 'cities'));
+        $this->set('_serialize', ['user', 'states', 'skills', 'cities']);
     }
 }
